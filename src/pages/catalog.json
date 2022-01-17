@@ -1,0 +1,32 @@
+[
+    {
+        "image": "http://petmediagroup.com/wp-content/uploads/2016/11/pets_big.png",
+        "name": "Doggy",
+        "race": "Golden"
+    },
+    {
+        "image": "http://thecatandthedog.com/wp-content/uploads/2020/11/5200.jpg",
+        "name": "Catty",
+        "race": "Golden"
+    },
+    {
+        "image": "https://www.rukita.co/stories/wp-content/uploads/2019/12/petcare-large.jpg",
+        "name": "Gordon",
+        "race": "Golden"
+    },
+    {
+        "image": "https://image.cnbcfm.com/api/v1/image/106686172-1598966433320-gettyimages-1152439648-istockalypse-home-office-00062.jpeg?v=1599013160",
+        "name": "Olaf",
+        "race": "Golden"
+    },
+    {
+        "image": "http://petmediagroup.com/wp-content/uploads/2016/11/pets_big.png",
+        "name": "Chessy",
+        "race": "Golden"
+    },
+    {
+        "image": "https://www.burgesspetcare.com/wp-content/uploads/2019/11/pets.jpg",
+        "name": "Honey",
+        "race": "Golden"
+    }
+]
