@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./config/firebase";
-import Catalog from "./pages/Catalog";
+import ProductsCatalog from "./pages/ProductsCatalog";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -28,7 +28,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/catalog" element={<ProductsCatalog />} />
         <Route path="/adopt" element={<AdoptCatalog />} />
         <Route path="/settings" element={<Settings handleLogout={handleLogout} />} />
       </Routes>

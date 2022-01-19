@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const FooterLayout = ()=>{
     return(
         <div>
-            <div className="bg-orange-100 py-3 border-b-[1.5px]">
+            <div className="bg-orange-100 py-3 border-b-[1.5px]  text-sm md:text-base">
                 <div className="md:container h-max shrink-0">
                     <div className="grid md:grid-cols-4 grid-cols-2 mx-auto">
                         <div className="grid grid-flow-row auto-rows-max px-5 py-2 md:mx-auto">
