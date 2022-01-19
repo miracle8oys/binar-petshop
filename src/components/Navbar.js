@@ -59,26 +59,26 @@ const NavbarLayout = () =>{
                 </button>
             </div>
 
-            <div className={(navbarToggle ? "flex" : "hidden")}>
-                <ul className='mx-8 my-2 text-sm text-stone-900 md:hidden'>
-                    <li className='py-1'>
-                        <NavLink to="/" className='hover:font-bold font-sans'>Product</NavLink>
+            <div className={(navbarToggle ? "absolute flex bg-orange-50 border-b-[1.4px] w-full" : "hidden")}>
+                <ul className='ml-8 my-2 text-stone-900 md:hidden font-medium'>
+                    <li className='py-1  hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2'>
+                        <NavLink to="/" className='hover:font-bold '>Product</NavLink>
                     </li>
-                    <li className='py-1'>
+                    <li className='py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2'>
                         <NavLink to="/" className='hover:font-bold'>Pet Adoption</NavLink>
                     </li>
-                    <li className='py-1'>
+                    <li className='py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2'>
                         <NavLink to="/" className='hover:font-bold'>Helps</NavLink>
                     </li>
-                    <li className='pt-1 mb-3'>
+                    <li className='hover:bg-gray-200 rounded-md  font-sans hover:py-2 pt-1 mb-5 px-2'>
                         <NavLink to="/" className='hover:font-bold'>About</NavLink>
                     </li >
-                    <li className='flex justify-center mx-6 p-2 hover:bg-gray-100 bg-gray-200  rounded-full'>
-                        <button to="/" className='font-bold w-48'>Login</button>
+                    <li className='flex justify-center mx-6 p-2 bg-gray-200 mb-4 rounded-full'>
+                        <button className='font-bold w-48'>Login</button>
                     </li>
-                    {/* <li className='flex justify-center mx-6 p-2 bg-slate-200 rounded-full'>
-                        <button to="/" className='font-bold'>Register</button>
-                    </li> */}
+                    <li className='flex justify-center mx-6 p-2 bg-gray-200 rounded-full'>
+                        <button className='font-bold w-48'>Register</button>
+                    </li>
                 </ul>
                 
             </div>

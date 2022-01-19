@@ -1,6 +1,7 @@
 import food1 from '../assets/food1.jpg'
 import { Link } from 'react-router-dom';
 import product from '../pages/product.json';
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 const ListProducts = () => {
     const[productData, setProduct] = useState([]);
@@ -8,12 +9,12 @@ const ListProducts = () => {
         setProduct(product)
     },);
     return ( 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {productData.map((item, i)=>(
+        <div className="flex md:inline grid grid-cols-2 gap-4">
             <Link to={'/'}>
-                <div className="md:w-56 w-36 shadow border-solid border rounded bg-orange-50">
+            {productData.map((item, i)=>(
+                <div key={i} className="md:w-56 w-36 shadow border-solid border rounded bg-orange-50">
                         <div>
-                            <img src={`${item.image}`} alt="Dog" className='w-full  rounded'/>
+                            <img src={`${item.image}`} alt="Food" className='w-full  rounded'/>
                         </div>
                     <div className='font-sans p-2'>
                         <p className='pt-2 text-xs md:text-base font-semibold'>{item.name}</p>
@@ -21,10 +22,9 @@ const ListProducts = () => {
                         <p className='text-xs pb-2 md:text-base font-bold'>{item.price}</p>
                     </div>
                 </div>
-
+                ))};
             </Link>
 
-            ))};
         </div>
      );
 }
