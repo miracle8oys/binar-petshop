@@ -35,15 +35,15 @@ const AdoptCatalog = () => {
                     <button key={item.id} onClick={() => setCurrentCategory(item.name)} className={`w-16 md:w-20 font-bold bg-slate-500 text-center py-2 rounded-md ${currentCategory === item.name ? 'bg-orange-500' : 'bg-slate-500'}`}>{item.name}</button>
                 ))}
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-5 mx-3 md:mx-12 gap-5">
+            <div className="grid grid-cols-2 md:grid-cols-5 mx-3 pb-3 md:mx-12 gap-5">
                 {adoptData.map((item, i) => (
-                    <div key={i} className="text-lg border-2 py-3 px-2">
-                        <img className="w-52" src={`${item.image}`} alt="item-preview" />
-                        <div className="flex gap-3 justify-center">
-                            <h1 className="font-semibold">{item.name}</h1>
-                            <h1 className="font-semibold">{3} Bulan</h1>
+                    <div key={i} className="text-lg border-2 py-3 px-2 bg-slate-200 rounded-md">
+                        <img className="h-[75%]" src={`${item.image}`} alt="item-preview" />
+                        <div className="flex gap-3 justify-between">
+                            <h1 className="font-bold">{item.name}</h1>
+                            <h1 className="font-medium mt-1 text-base">{3} Bulan</h1>
                         </div>
-                        <h3 className="text-center font-semibold">{item.race}</h3>
+                        <h3 className="font-semibold text-center">{item.race}</h3>
                     </div>
                 ))}
             </div>

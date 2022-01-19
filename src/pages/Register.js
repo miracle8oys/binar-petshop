@@ -6,14 +6,13 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [phone, setPhone] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
             if (password !== confirmPassword) {
-                setErrMsg("Password and Confirmation do not match");
+                setErrMsg("Password and Confirmation does not match");
                 return false;
             }
 
@@ -25,8 +24,7 @@ const Register = () => {
             createUserWithEmailAndPassword(
                 auth,
                 email,
-                password,
-                phone
+                password
             ).then(() => {
                 setErrMsg("Register Success");
             })
@@ -42,7 +40,7 @@ const Register = () => {
         <div className="grid justify-center h-[100vh] py-10 bg-orange-50">
             <div className="h-fit w-[70vw] md:w-[30vw]">
                 <h1 className="text-center text-2xl font-bold">Register</h1>
-                {errMsg && <h1>{errMsg}</h1>}
+                {errMsg && <h1 className="bg-slate-200 mt-3 -mb-5 py-2 px-2 text-center rounded-md font-medium">{errMsg}</h1>}
                 <form onSubmit={handleSubmit} className="grid my-12 gap-14 md:gap-10">
                     <input onChange={(e) => setEmail(e.target.value)} className="border-2 h-12 rounded-md" type="email" placeholder="Email..." />
                     <input onChange={(e) => setPassword(e.target.value)} className="border-2 h-12 rounded-md" type="password" placeholder="Password..." />
