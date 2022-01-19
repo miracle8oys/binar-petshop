@@ -2,12 +2,44 @@ import NavbarLayout from "../components/Navbar";
 import FooterLayout from "../components/Footer";
 import ListPet from "../components/ListPet";
 import HomePet from "../assets/woof-delivery.png"
-// import PetFood from "../assets/pet-food.png"
-import ListCategories from "../components/ListCategories";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+
+    const [petList, setPetList] = useState([])
+    const [tags, setTags] = useState([])
+    const navigate = useNavigate()
+    
+
+    useEffect(() => {
+        fetch(`http://localhost:8000/adopt`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "Application/JSON"
+            }})
+        .then(res => res.json())
+        .then(result => {
+            setPetList(result.data)
+        }, [])
+        fetch(`http://localhost:8000/admin/v1/tags`, 
+        {
+            method: "GET",
+            headers: {
+                'Content-Type': 'Application/JSON'
+            }
+        })
+        .then(res => res.json())
+        .then(result => {
+            setTags(result.data)
+        }, []);
+    }, []);
+
+    const handleClickCategory = (name)=>{
+        navigate(`/products/tags=${name}`)
+    }
+
     return ( 
-        // <h1>HomePage</h1>
         <div className="h-screen w-full mx-auto">
             <NavbarLayout/>
             <div className="bg-orange-50 md:container">
@@ -16,7 +48,7 @@ const Home = () => {
                         <h1 className="md:text-4xl font-display">Love your pet</h1>
                         <h1 className="md:text-4xl font-display">Make them healthy</h1>
                         <div className="md:mt-14 mt-8">
-                            <button className="rounded-full bg-orange-400 p-2 md:p-3 text-sm font-medium text-white shadow-lg hover:bg-orange-300 active:bg-orange-600 focus:outline-none focus:ring focus:ring-orange-200 w-52 md:w-max md:text-base" type="submit" name="submit">Browse products</button>
+                            <Link to={'/catalog'} className="rounded-full bg-orange-400 p-2 md:p-3 text-sm font-medium text-white shadow-lg hover:bg-orange-300 active:bg-orange-600 focus:outline-none focus:ring focus:ring-orange-200 w-52 md:w-max md:text-base" type="submit" name="submit">Browse products</Link>
                         </div>
                         
                     </div>
@@ -24,13 +56,25 @@ const Home = () => {
                 </div>
             </div>
             <div className="mx-auto md:mx-5 px-3 mt-6 p-2">
-                 <h5 className="font-bold md:text-lg font-display">Products Category</h5>
-                 <ListCategories/>
+                 <h5 className="font-bold md:text-lg font-display">Category Products</h5>
+                    <div className="flex inline font-sans my-5 md:gap-6 gap-2 overflow-x-auto scrollbar">
+                    {tags.map(tag => (
+                        <button key={tag.id} onClick={() => handleClickCategory(tag.name)}  className="text-sm md:text-base flex justify-center py-2  px-3 min-w-max hover:bg-amber-100 active:bg-amber-100 focus:bg-amber-100 rounded-full border-amber-200 border-solid border bg-amber-50 mb-3">
+                            {tag.name}
+                        </button>
+                    ))}
+                    </div>
             </div>
             <div>
-                <div className="px-3 mb-10 md:mx-5 mx-auto mt-6">
+                <div className="px-3 mb-10 md:mx-5 mx-auto">
                     <h4 className="font-bold md:text-lg font-display mb-4">Pet Adoption</h4>
-                    <ListPet/>
+                    <div className='grid md:grid-cols-6 grid-cols-2 gap-4 md:gap- mx-auto'>
+                    {petList.slice(0,5).map(item => (
+                        <div key={item.id} className="shadow-lg border-solid border rounded bg-slate-200">
+                            <ListPet pet ={item}/>
+                        </div>
+                    ))}
+                    </div>
                 </div>         
             </div>
             <FooterLayout/>

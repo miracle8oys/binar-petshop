@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route, useParams} from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./config/firebase";
 import ProductsCatalog from "./pages/ProductsCatalog";
@@ -11,6 +11,7 @@ import AdoptCatalog from "./pages/AdoptCatalog";
 import FormAdopt from "./pages/admin/FromAdopt";
 import FormUpdateAdopt from "./pages/admin/FormUpdateAdopt";
 import AdminAdoption from "./pages/admin/AdminAdoption";
+import CategoryProduct from "./pages/CategoryProduct";
 function App() {
 
   const [user, setUser] = useState({});
@@ -23,7 +24,7 @@ function App() {
     signOut(auth);
   }
 
-  console.log(user?.accessToken);
+  // console.log(user?.accessToken);
 
   return (
     <BrowserRouter>
@@ -31,7 +32,8 @@ function App() {
         <Route path="/" element={<Home user={user} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/catalog" element={<ProductsCatalog />} />
+        <Route path="/catalog" element={<ProductsCatalog />}/>
+        <Route path="/products/tags=:name" element={<CategoryProduct/>}/>
         <Route path="/adopt" element={<AdoptCatalog />} />
         <Route path="/settings" element={<Settings handleLogout={handleLogout} />} />
         <Route path="/admin/adopt/add" element={<FormAdopt />} />

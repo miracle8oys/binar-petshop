@@ -1,50 +1,37 @@
-import food1 from '../assets/food1.jpg'
-import { Link } from 'react-router-dom';
-import product from '../pages/product.json';
-import { useState, useEffect } from 'react';
-const ListProducts = () => {
-    const[productData, setProduct] = useState([]);
-    useEffect(() => {
-        setProduct(product)
-    },);
+const ListProducts = ({prod}) => {
     return ( 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {productData.map((item, i)=>(
-            <Link to={'/'}>
-                <div className="md:w-56 w-36 shadow border-solid border rounded bg-orange-50">
-                        <div>
-                            <img src={`${item.image}`} alt="Dog" className='w-full  rounded'/>
-                        </div>
-                    <div className='font-sans p-2'>
-                        <p className='pt-2 text-xs md:text-base font-semibold'>{item.name}</p>
-                        <p className='text-xs pb-2 md:text-sm text-slate-600'>{item.description}</p>
-                        <p className='text-xs pb-2 md:text-base font-bold'>{item.price}</p>
-                    </div>
-                </div>
+        <>
+            <div>
+                <img src={`${prod.product_id.image}`} alt={prod.product_id.name} className='w-full  rounded'/>
+            </div>
+            <div className='font-sans p-2'>
 
-            </Link>
+                <p className='pt-2 text-xs md:text-base font-semibold'>{prod.product_id.name}</p>
+                <p className='text-xs pb-2 md:text-sm text-slate-600'>{prod.product_id.description}</p>
+                <p className='text-xs pb-2 md:text-base font-bold'>{prod.product_id.price}</p>
+            </div>
+           
 
-            ))};
-        </div>
+
+        </>
      );
 }
-const BestSellerProducts = () => {
+const BestSellerProducts = ({bp}) => {
     return ( 
-        <div className="md:flex md:inline-block grid grid-cols-2 gap-4">
-            <Link to={'/'}>
-                <div className="md:w-56 w-36 shadow border-solid border rounded bg-rose-50">
-                        <div>
-                            <img src={food1} alt="Dog" className='w-full  rounded'/>
-                        </div>
-                    <div className='font-sans p-2'>
-                        <p className='pt-2 text-xs md:text-base font-semibold'>The food dog</p>
-                        <p className='text-xs pb-2 md:text-sm text-slate-600'>Food dog is good and high quality food, you can give this to your dog with vitamin A, B, C, D</p>
-                        <p className='text-xs pb-2 md:text-base font-bold'>Rp. 20.000</p>
-                    </div>
-                </div>
-            </Link>
+       
+            <>          
+            <div>
+                <img src={`${bp.product_id.img}`} alt={bp.product_id.name} className='w-full  rounded'/>
+            </div>
+            <div className='font-sans p-2'>
+                <p className='pt-2 text-xs text-slate-400'>Stok {bp.product_id.qty}</p>
+                <p className='text-xs md:text-base font-semibold'>{bp.product_id.name}</p>
+                <p className='text-xs pb-2 md:text-sm text-slate-600'>{bp.product_id.description}</p>
+                <p className='text-xs pb-2 md:text-base font-bold'>{bp.product_id.price}</p>
+            </div>
+            </> 
+         
 
-        </div>
      );
 }
  
