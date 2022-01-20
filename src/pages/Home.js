@@ -23,12 +23,12 @@ const Home = () => {
                         <img src={HomePet} alt="Pet" className="hidden md:block"/> 
                 </div>
             </div>
-            <div className="ml-5 px-3 mt-6">
+            <div className="mx-auto md:mx-5 px-3 mt-6 p-2">
                  <h5 className="font-bold md:text-lg font-display">Products Category</h5>
                  <ListCategories/>
             </div>
             <div>
-                <div className="px-3 mb-10 ml-5 mt-2">
+                <div className="px-3 mb-10 md:mx-5 mx-auto mt-6">
                     <h4 className="font-bold md:text-lg font-display mb-4">Pet Adoption</h4>
                     <ListPet/>
                 </div>         
