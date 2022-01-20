@@ -26,13 +26,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home user={user} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/catalog" element={<ProductsCatalog />} />
         <Route path="/adopt" element={<AdoptCatalog />} />
         <Route path="/settings" element={<Settings handleLogout={handleLogout} />} />
         <Route path="/admin/adopt/add" element={<FormAdopt />} />
+        <Route path="/product" element={<ProductsCatalog />} />
       </Routes>
     </BrowserRouter>
   );
