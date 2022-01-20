@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
 import { auth, signInWithGoogle } from "../config/firebase";
 
 const Register = () => {
@@ -7,6 +7,7 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
+    const auth = getAuth();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,13 +21,20 @@ const Register = () => {
                 setErrMsg("Password length atleast 6 character");
                 return false;
             }
+            const displayName = email.split('@')[0];
 
             createUserWithEmailAndPassword(
                 auth,
                 email,
-                password
+                password,
             ).then(() => {
                 setErrMsg("Register Success");
+                updateProfile(auth.currentUser, {
+                    photoURL: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
+                    displayName
+                })
+            }).catch(err => {
+                console.log(err);
             })
         } catch (err) {
             setErrMsg(err?.message);

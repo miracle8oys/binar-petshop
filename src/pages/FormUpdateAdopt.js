@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import categories from "./categories.json";
 import {storage} from "../config/firebase";
 import { uploadBytesResumable, ref, getDownloadURL } from "firebase/storage";
+import { useParams } from "react-router-dom";
 
-const FormAdopt = () => {
+const FormUpdateAdopt = () => {
     const [errMsg, setErrMsg] = useState({});
     const [previewImage, setPreviewImage] = useState('');
     const [name, setName] = useState('');
@@ -11,6 +12,21 @@ const FormAdopt = () => {
     const [race, setRace] = useState('');
     const [category, setCategory] = useState('');
     const [progres, setProgres] = useState(0);
+    const [photo, setPhoto] = useState('');
+
+    const {adoption_id} = useParams();
+
+    useEffect(() => {
+        fetch(`http://localhost:8000/adopt/:${adoption_id}`)
+        .then(res => res.json())
+        .then(result => {
+            setName(result.name);
+            setAge(result.age);
+            setRace(result.animal_race);
+            setCategory(result.categoryId);
+            setPhoto(result.img)
+        });
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -101,4 +117,4 @@ const FormAdopt = () => {
      );
 }
  
-export default FormAdopt;
+export default FormUpdateAdopt;
