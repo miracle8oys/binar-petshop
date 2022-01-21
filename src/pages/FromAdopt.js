@@ -14,11 +14,6 @@ const FormAdopt = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(name);
-        console.log(age);
-        console.log(race);
-        console.log(category);
-        console.log(e.target[4].files[0]);
         uploadImage(e.target[4].files[0]);
         
     }
@@ -58,6 +53,7 @@ const FormAdopt = () => {
             setErrMsg({message: "Catalog uploaded"})
         }).catch(err => {
             console.log(err);
+            setErrMsg(err);
         })
     }
 

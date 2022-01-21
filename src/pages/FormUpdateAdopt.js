@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import categories from "./categories.json";
 import {storage} from "../config/firebase";
-import { uploadBytesResumable, ref, getDownloadURL } from "firebase/storage";
+import { uploadBytesResumable, ref, getDownloadURL, deleteObject } from "firebase/storage";
 import { useParams } from "react-router-dom";
 
 const FormUpdateAdopt = () => {
@@ -12,31 +12,38 @@ const FormUpdateAdopt = () => {
     const [race, setRace] = useState('');
     const [category, setCategory] = useState('');
     const [progres, setProgres] = useState(0);
-    const [photo, setPhoto] = useState('');
+    const [currentImage, setCurrentImage] = useState('')
 
     const {adoption_id} = useParams();
 
     useEffect(() => {
-        fetch(`http://localhost:8000/adopt/:${adoption_id}`)
+        fetch(`http://localhost:8000/adopt/${adoption_id}`)
         .then(res => res.json())
         .then(result => {
-            setName(result.name);
-            setAge(result.age);
-            setRace(result.animal_race);
-            setCategory(result.categoryId);
-            setPhoto(result.img)
+            setName(result.data.name);
+            setAge(result.data.age);
+            setRace(result.data.animal_race);
+            setCategory(result.data.categoryId);
+            setPreviewImage(result.data.img);
+            setCurrentImage(result.data.img);
         });
     }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(name);
-        console.log(age);
-        console.log(race);
-        console.log(category);
-        console.log(e.target[4].files[0]);
-        uploadImage(e.target[4].files[0]);
-        
+        const image = e.target[4].files[0];
+        const imageName = currentImage.split('/')[7].split('?')[0];
+        console.log(imageName);
+        if (image) {
+            const imageRef = ref(storage, imageName);
+            deleteObject(imageRef).then(() => {
+                uploadImage(image);
+            }).catch(err => {
+                console.log(err);
+            })
+        } else {
+            storeAdopionCatalog(previewImage)
+        }
     }
 
     const uploadImage = (image) => {
@@ -58,8 +65,8 @@ const FormUpdateAdopt = () => {
     }
 
     const storeAdopionCatalog = (imageUrl) => {
-        fetch('http://localhost:8000/admin/v1/adopt', {
-            method: "POST",
+        fetch(`http://localhost:8000/admin/v1/adopt/${adoption_id}`, {
+            method: "PUT",
             headers: {
                     'Content-Type': 'Application/JSON'
                 },
@@ -86,9 +93,9 @@ const FormUpdateAdopt = () => {
                 <h1 className="text-center text-2xl font-bold">Adoption</h1>
                 {Object.keys(errMsg).length !== 0 && <h1 className="bg-slate-200 mt-3 -mb-5 py-2 px-2 text-center rounded-md font-medium">{errMsg.message}</h1>}
                 <form onSubmit={handleSubmit} encType="multipart/form-data" className="grid my-12 gap-12 md:gap-10">
-                    <input onChange={(e) => setName(e.target.value)} className="border-2 h-12 rounded-md" type="text" placeholder="Name..." />
-                    <input onChange={(e) => setAge(e.target.value)} className="border-2 h-12 rounded-md" type="number" placeholder="Age" />
-                    <input onChange={(e) => setRace(e.target.value)} className="border-2 h-12 rounded-md" type="text" placeholder="Race..." />
+                    <input onChange={(e) => setName(e.target.value)} value={name} className="border-2 h-12 rounded-md" type="text" placeholder="Name..." />
+                    <input onChange={(e) => setAge(e.target.value)} value={age} className="border-2 h-12 rounded-md" type="number" placeholder="Age" />
+                    <input onChange={(e) => setRace(e.target.value)} value={race} className="border-2 h-12 rounded-md" type="text" placeholder="Race..." />
                     <select onChange={(e) => setCategory(e.target.value)} className="border-2 h-12 rounded-md">
                         {categories.map(item => (
                                 <option key={item.id} value={item.id}>{item.name}</option>
