@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import categories from "./categories.json";
-import {storage} from "../config/firebase";
+import {storage} from "../../config/firebase";
 import { uploadBytesResumable, ref, getDownloadURL, deleteObject } from "firebase/storage";
 import { useParams } from "react-router-dom";
 
@@ -10,7 +10,7 @@ const FormUpdateAdopt = () => {
     const [name, setName] = useState('');
     const [age, setAge] = useState(0);
     const [race, setRace] = useState('');
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState(1);
     const [progres, setProgres] = useState(0);
     const [currentImage, setCurrentImage] = useState('')
 
@@ -31,6 +31,7 @@ const FormUpdateAdopt = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(category);
         const image = e.target[4].files[0];
         const imageName = currentImage.split('/')[7].split('?')[0];
         console.log(imageName);

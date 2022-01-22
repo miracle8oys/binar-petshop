@@ -8,8 +8,9 @@ import Register from "./pages/Register";
 import { useState } from "react";
 import Settings from "./pages/Settings";
 import AdoptCatalog from "./pages/AdoptCatalog";
-import FormAdopt from "./pages/FromAdopt";
-import FormUpdateAdopt from "./pages/FormUpdateAdopt";
+import FormAdopt from "./pages/admin/FromAdopt";
+import FormUpdateAdopt from "./pages/admin/FormUpdateAdopt";
+import AdminAdoption from "./pages/admin/AdminAdoption";
 function App() {
 
   const [user, setUser] = useState({});
@@ -35,6 +36,7 @@ function App() {
         <Route path="/settings" element={<Settings handleLogout={handleLogout} />} />
         <Route path="/admin/adopt/add" element={<FormAdopt />} />
         <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt />} />
+        <Route path="/admin/adopt" element={<AdminAdoption />} />
         <Route path="/product" element={<ProductsCatalog />} />
       </Routes>
     </BrowserRouter>

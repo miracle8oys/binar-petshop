@@ -1,6 +1,6 @@
 import { useState } from "react";
 import categories from "./categories.json";
-import {storage} from "../config/firebase";
+import {storage} from "../../config/firebase";
 import { uploadBytesResumable, ref, getDownloadURL } from "firebase/storage";
 
 const FormAdopt = () => {
@@ -9,7 +9,7 @@ const FormAdopt = () => {
     const [name, setName] = useState('');
     const [age, setAge] = useState(0);
     const [race, setRace] = useState('');
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState(1);
     const [progres, setProgres] = useState(0);
 
     const handleSubmit = (e) => {

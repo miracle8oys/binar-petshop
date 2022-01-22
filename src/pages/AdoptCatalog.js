@@ -1,4 +1,4 @@
-import categories from "./categories.json";
+import categories from "./admin/categories.json";
 import { useEffect, useState } from "react";
 import NavbarLayout from "../components/Navbar";
 import FooterLayout from "../components/Footer";
