@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 const AdoptionCatalog = ({setAnimalCategories, animalCategories, currentCategory, handleCategoryClick}) => {
    
+    const base_url = process.env.REACT_APP_BASE_URL;
     useEffect(() => {
-        fetch('http://localhost:8000/categories')
+        fetch(`${base_url}/categories`)
             .then(res => res.json())
             .then(result => {
                 setAnimalCategories(result.data)

@@ -1,10 +1,10 @@
-import categories from "./admin/categories.json";
 import { useEffect, useState } from "react";
 import NavbarLayout from "../components/Navbar";
 import FooterLayout from "../components/Footer";
 import AdoptionCatalog from "../components/AdoptionCatalog";
+const base_url = process.env.REACT_APP_BASE_URL;
 
-const AdoptCatalog = () => {
+const AdoptCatalog = ({user}) => {
 
     const [adoptData, setAdoptData] = useState([]);
     const [animalCategories, setAnimalCategories] = useState([]);
@@ -12,7 +12,7 @@ const AdoptCatalog = () => {
     const [keyword, setKeyword] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:8000/adopt?title=${keyword}&category=${currentCategory}`, 
+        fetch(`${base_url}/adopt?title=${keyword}&category=${currentCategory}`, 
         {
             method: "GET",
             headers: {
@@ -39,7 +39,7 @@ const AdoptCatalog = () => {
 
     return (
         <> 
-            <NavbarLayout />
+            <NavbarLayout user={user} />
             <div className="bg-orange-50 h-max min-h-screen">
                 <h1 className="text-center py-3 text-2xl font-bold">Adoption</h1>
                 <div className="flex justify-center my-3 gap-1 mb-7">

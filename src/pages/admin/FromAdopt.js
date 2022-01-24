@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import {storage} from "../../config/firebase";
 import { uploadBytesResumable, ref, getDownloadURL } from "firebase/storage";
+import { useNavigate } from "react-router-dom";
 
 const FormAdopt = () => {
     const [errMsg, setErrMsg] = useState({});
@@ -10,7 +11,8 @@ const FormAdopt = () => {
     const [race, setRace] = useState('');
     const [category, setCategory] = useState(1);
     const [progres, setProgres] = useState(0);
-    const [categoryChoice, setCategoryChoice] = useState([])
+    const [categoryChoice, setCategoryChoice] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('http://localhost:8000/categories')
@@ -58,7 +60,8 @@ const FormAdopt = () => {
                 categoryId: category
             })
         }).then(() => {
-            setErrMsg({message: "Catalog uploaded"})
+            // setErrMsg({message: "Catalog uploaded"});
+            navigate("/admin/adopt")
         }).catch(err => {
             console.log(err);
             setErrMsg(err);
@@ -68,6 +71,7 @@ const FormAdopt = () => {
     const imagePreview = (image) => {
         setPreviewImage(URL.createObjectURL(image));
     }
+    console.log("test");
     return ( 
         <div className="grid justify-center h-max min-h-screen py-10 bg-orange-50">
             <div className="h-fit w-[70vw] md:w-[30vw]">

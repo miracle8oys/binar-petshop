@@ -16,11 +16,11 @@ const ProductsCatalog = () =>{
     const [currentTags, setCurrentTags] = useState([]);
     const [keyword, setKeyword] = useState('');
     const {name} = useParams();
-    console.log(name)
     
+    const base_url = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
-        fetch(`http://localhost:8000/products?title=${keyword}&tags=${currentTags}`, 
+        fetch(`${base_url}/products?title=${keyword}&tags=${currentTags}`, 
         {
             method: "GET",
             headers: {
