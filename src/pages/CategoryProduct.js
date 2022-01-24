@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Transition } from '@tailwindui/react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-const CategoryProduct = () =>{
+const CategoryProduct = ({user}) =>{
 
     const [DropdownToggle, setDropDown] = useState(false);
     const [products, setProduct] = useState([]);
@@ -56,7 +56,7 @@ const CategoryProduct = () =>{
   
     return (
         <div className='h-screen w-full mx-auto'>
-            <NavbarLayout/>
+            <NavbarLayout user={user}/>
                 <div className='md:mx-8 mx-4 mt-8 grid md:grid-cols-12 items-center'>
                     <div>
                         <button type='button' onClick={()=> setDropDown(!DropdownToggle)} className=' py-2 px-6 hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 hover:text-orange-800 focus:text-orange-800 active:text-orange-800 rounded-md md:text-base text-sm border'>Kategori</button>
