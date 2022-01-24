@@ -1,5 +1,4 @@
-import { useState } from "react";
-import categories from "./categories.json";
+import { useState, useEffect } from "react";
 import {storage} from "../../config/firebase";
 import { uploadBytesResumable, ref, getDownloadURL } from "firebase/storage";
 
@@ -11,6 +10,15 @@ const FormAdopt = () => {
     const [race, setRace] = useState('');
     const [category, setCategory] = useState(1);
     const [progres, setProgres] = useState(0);
+    const [categoryChoice, setCategoryChoice] = useState([])
+
+    useEffect(() => {
+        fetch('http://localhost:8000/categories')
+            .then(res => res.json())
+            .then(result => {
+                setCategoryChoice(result.data)
+            });
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -70,7 +78,7 @@ const FormAdopt = () => {
                     <input onChange={(e) => setAge(e.target.value)} className="border-2 h-12 rounded-md" type="number" placeholder="Age" />
                     <input onChange={(e) => setRace(e.target.value)} className="border-2 h-12 rounded-md" type="text" placeholder="Race..." />
                     <select onChange={(e) => setCategory(e.target.value)} className="border-2 h-12 rounded-md">
-                        {categories.map(item => (
+                        {categoryChoice.map(item => (
                                 <option key={item.id} value={item.id}>{item.name}</option>
                         ))}
                     </select>

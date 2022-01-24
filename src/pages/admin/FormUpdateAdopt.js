@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import categories from "./categories.json";
 import {storage} from "../../config/firebase";
 import { uploadBytesResumable, ref, getDownloadURL, deleteObject } from "firebase/storage";
 import { useParams } from "react-router-dom";
@@ -12,12 +11,13 @@ const FormUpdateAdopt = () => {
     const [race, setRace] = useState('');
     const [category, setCategory] = useState(1);
     const [progres, setProgres] = useState(0);
-    const [currentImage, setCurrentImage] = useState('')
+    const [currentImage, setCurrentImage] = useState('');
+    const [categoryChoice, setCategoryChoice] = useState([]);
 
     const {adoption_id} = useParams();
 
     useEffect(() => {
-        fetch(`http://localhost:8000/adopt/${adoption_id}`)
+        fetch(`http://localhost:8000/admin/v1/adopt/${adoption_id}`)
         .then(res => res.json())
         .then(result => {
             setName(result.data.name);
@@ -27,6 +27,15 @@ const FormUpdateAdopt = () => {
             setPreviewImage(result.data.img);
             setCurrentImage(result.data.img);
         });
+    }, [setName, setAge, setRace, setCategory, setPreviewImage, setCurrentImage]);
+
+   
+    useEffect(() => {
+        fetch('http://localhost:8000/categories')
+            .then(res => res.json())
+            .then(result => {
+                setCategoryChoice(result.data)
+            });
     }, []);
 
     const handleSubmit = (e) => {
@@ -88,6 +97,8 @@ const FormUpdateAdopt = () => {
     const imagePreview = (image) => {
         setPreviewImage(URL.createObjectURL(image));
     }
+
+    console.log("test");
     return ( 
         <div className="grid justify-center h-max min-h-screen py-10 bg-orange-50">
             <div className="h-fit w-[70vw] md:w-[30vw]">
@@ -98,7 +109,7 @@ const FormUpdateAdopt = () => {
                     <input onChange={(e) => setAge(e.target.value)} value={age} className="border-2 h-12 rounded-md" type="number" placeholder="Age" />
                     <input onChange={(e) => setRace(e.target.value)} value={race} className="border-2 h-12 rounded-md" type="text" placeholder="Race..." />
                     <select onChange={(e) => setCategory(e.target.value)} className="border-2 h-12 rounded-md">
-                        {categories.map(item => (
+                        {categoryChoice.map(item => (
                                 <option key={item.id} value={item.id}>{item.name}</option>
                         ))}
                     </select>
