@@ -16,9 +16,10 @@ const FormUpdateAdopt = () => {
 
     const {adoption_id} = useParams();
     const navigate = useNavigate();
+    const base_url = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
-        fetch(`http://localhost:8000/admin/v1/adopt/${adoption_id}`)
+        fetch(`${base_url}/admin/v1/adopt/${adoption_id}`)
         .then(res => res.json())
         .then(result => {
             setName(result.data.name);
@@ -32,7 +33,7 @@ const FormUpdateAdopt = () => {
 
    
     useEffect(() => {
-        fetch('http://localhost:8000/categories')
+        fetch(`${base_url}/categories`)
             .then(res => res.json())
             .then(result => {
                 setCategoryChoice(result.data)

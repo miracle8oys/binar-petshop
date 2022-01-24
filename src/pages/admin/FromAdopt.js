@@ -13,9 +13,10 @@ const FormAdopt = () => {
     const [progres, setProgres] = useState(0);
     const [categoryChoice, setCategoryChoice] = useState([]);
     const navigate = useNavigate();
+    const base_url = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
-        fetch('http://localhost:8000/categories')
+        fetch(`${base_url}/categories`)
             .then(res => res.json())
             .then(result => {
                 setCategoryChoice(result.data)
@@ -47,7 +48,7 @@ const FormAdopt = () => {
     }
 
     const storeAdopionCatalog = (imageUrl) => {
-        fetch('http://localhost:8000/admin/v1/adopt', {
+        fetch(`${base_url}/admin/v1/adopt`, {
             method: "POST",
             headers: {
                     'Content-Type': 'Application/JSON'
