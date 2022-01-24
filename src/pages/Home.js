@@ -5,15 +5,16 @@ import HomePet from "../assets/woof-delivery.png"
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const Home = () => {
+const Home = ({user}) => {
 
     const [petList, setPetList] = useState([])
     const [tags, setTags] = useState([])
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const base_url = process.env.REACT_APP_BASE_URL;
     
 
     useEffect(() => {
-        fetch(`http://localhost:8000/adopt`, {
+        fetch(`${base_url}/adopt`, {
             method: "GET",
             headers: {
                 "Content-Type": "Application/JSON"
@@ -22,7 +23,7 @@ const Home = () => {
         .then(result => {
             setPetList(result.data)
         }, [])
-        fetch(`http://localhost:8000/admin/v1/tags`, 
+        fetch(`${base_url}/admin/v1/tags`, 
         {
             method: "GET",
             headers: {
@@ -41,7 +42,7 @@ const Home = () => {
 
     return ( 
         <div className="h-screen w-full mx-auto">
-            <NavbarLayout/>
+            <NavbarLayout user={user}/>
             <div className="bg-orange-50 md:container">
                 <div className="py-5 flex items-center grid md:grid-cols-2 md:auto-cols-max ">
                     <div className="mx-auto font-bold text-center my-5 tracking-wide md:tracking-normal">

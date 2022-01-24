@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {storage} from "../../config/firebase";
 import { uploadBytesResumable, ref, getDownloadURL, deleteObject } from "firebase/storage";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const FormUpdateAdopt = () => {
     const [errMsg, setErrMsg] = useState({});
@@ -15,6 +15,7 @@ const FormUpdateAdopt = () => {
     const [categoryChoice, setCategoryChoice] = useState([]);
 
     const {adoption_id} = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`http://localhost:8000/admin/v1/adopt/${adoption_id}`)
@@ -88,7 +89,8 @@ const FormUpdateAdopt = () => {
                 categoryId: category
             })
         }).then(() => {
-            setErrMsg({message: "Catalog uploaded"})
+            // setErrMsg({message: "Catalog uploaded"})
+            navigate("/admin/adopt");
         }).catch(err => {
             console.log(err);
         })

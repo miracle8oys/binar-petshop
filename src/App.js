@@ -24,7 +24,6 @@ function App() {
     signOut(auth);
   }
 
-  // console.log(user?.accessToken);
 
   return (
     <BrowserRouter>
@@ -34,7 +33,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/catalog" element={<ProductsCatalog />}/>
         <Route path="/products/tags=:name" element={<CategoryProduct/>}/>
-        <Route path="/adopt" element={<AdoptCatalog />} />
+        <Route path="/adopt" element={<AdoptCatalog user={user} />} />
         <Route path="/settings" element={<Settings handleLogout={handleLogout} />} />
         <Route path="/admin/adopt/add" element={<FormAdopt />} />
         <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt />} />

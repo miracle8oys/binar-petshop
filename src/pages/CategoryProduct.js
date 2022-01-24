@@ -14,9 +14,10 @@ const CategoryProduct = () =>{
     const [keyword, setKeyword] = useState('');
     const {name} = useParams();    
     const navigate = useNavigate();
+    const base_url = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
-        fetch(`http://localhost:8000/products?title=${keyword}&tags=${name}`, 
+        fetch(`${base_url}/products?title=${keyword}&tags=${name}`, 
         {
             method: "GET",
             headers: {

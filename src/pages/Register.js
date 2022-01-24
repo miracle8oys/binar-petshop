@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
-import { auth, signInWithGoogle } from "../config/firebase";
+import { signInWithGoogle } from "../config/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -8,6 +9,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const auth = getAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -30,8 +32,10 @@ const Register = () => {
             ).then(() => {
                 setErrMsg("Register Success");
                 updateProfile(auth.currentUser, {
-                    photoURL: "https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg",
+                    photoURL: "https://firebasestorage.googleapis.com/v0/b/binar-petshop.appspot.com/o/profile%2Fblank-profil.png?alt=media&token=12c0feb0-13cd-4db5-bdc4-faef678c7603",
                     displayName
+                }).then(() => {
+                    navigate('/');
                 })
             }).catch(err => {
                 console.log(err);
@@ -43,6 +47,7 @@ const Register = () => {
 
     const handleLoginGoogle = () => {
         signInWithGoogle();
+        navigate("/");
     }
     return ( 
         <div className="grid justify-center h-[100vh] py-10 bg-orange-50">

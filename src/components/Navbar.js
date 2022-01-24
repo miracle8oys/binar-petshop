@@ -31,20 +31,21 @@ const NavbarLayout = ({user}) =>{
                         </div>
                     </div>
 
-                    <div className='flex px-10 gap-8'>
+                    <div className='flex px-10 gap-8 items-center'>
                         <div className={user ? 'hidden' : 'flex justify-center py-5 gap-8'}>
-                        
-                            <NavLink to="/" className='font-medium hover:font-bold'>Login</NavLink>
-                            <NavLink to="/" className='font-medium hover:font-bold'>Register</NavLink>
+                            <NavLink to="/login" className='font-medium hover:font-bold'>Login</NavLink>
                         </div>
+                        {
+                            user && 
+                            <img className='rounded-full w-12 h-12' src={user?.photoURL} alt="navbar-profile" referrerPolicy="no-referrer" />
+                        }
                         <div className={user ? 'flex justify-center py-5 gap-8' : 'hidden'}>
-                            <NavLink to='/' className=  'text-xl'><FaUserAlt /></NavLink>
                             <NavLink to='/' className='text-xl'><BsCart3 /></NavLink>
                         </div>
                     
                         <div className= {user ? 'flex justify-center py-4 gap-8' : ' hidden'}>
                             <button className='text-3xl'><AiFillWechat /></button>
-                            <button className='text-3xl'><AiOutlineLogout /></button>
+                            <NavLink to="/settings" className='text-3xl'><AiOutlineLogout /></NavLink>
                         </div>
                        
                     </div>
@@ -86,13 +87,13 @@ const NavbarLayout = ({user}) =>{
                         <NavLink to="/" className='hover:font-bold'>About</NavLink>
                     </li >
                     <li className={user ? "hidden" : 'flex justify-center mx-6 p-2 bg-gray-200 mb-4 rounded-full'}>
-                        <button className='font-bold w-48'>Login</button>
-                    </li>
-                    <li className={user ? "hidden" : 'flex justify-center mx-6 p-2 bg-gray-200 rounded-full'}>
-                        <button className='font-bold w-48'>Register</button>
+                        <NavLink to="/login" className='font-bold w-48 text-center'>Login</NavLink>
                     </li>
                     <li className={user ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
-                        <button className='font-bold w-48'><FaUserAlt /></button>
+                        {/* <button className='font-bold w-48'><FaUserAlt /></button> */}
+                        {user && 
+                            <img className='rounded-full w-12' src={user?.photoURL} alt="navbar-profile" referrerPolicy="no-referrer" />
+                        }
                     </li>
                     <li className={user ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
                         <button className='font-bold w-48'><BsCart3 /></button>
@@ -101,7 +102,7 @@ const NavbarLayout = ({user}) =>{
                         <button className='font-bold w-48'><AiFillWechat /></button>
                     </li>
                     <li className={user ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
-                        <button className='font-bold w-48'><AiOutlineLogout /></button>
+                        <NavLink to="/settings" className='font-bold w-48'><AiOutlineLogout /></NavLink>
                     </li>
     
                 </ul>
