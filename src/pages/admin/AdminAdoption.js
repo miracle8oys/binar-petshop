@@ -4,6 +4,7 @@ import NavbarLayout from "../../components/Navbar";
 import FooterLayout from "../../components/Footer";
 import { Link } from "react-router-dom";
 import {MdAddCircleOutline} from "react-icons/md"
+import AdoptionCatalog from "../../components/AdoptionCatalog";
 
 const AdminAdoption = () => {
 
@@ -27,8 +28,16 @@ const AdminAdoption = () => {
             setAdoptData(result.data)
         }, []);
 
-        setAnimalCategories(categories);
-    }, [currentCategory, keyword])
+        //setAnimalCategories(categories);
+    }, [currentCategory, keyword]);
+
+    // useEffect(() => {
+    //     fetch('http://localhost:8000/categories')
+    //         .then(res => res.json())
+    //         .then(result => {
+    //             setAnimalCategories(result.data)
+    //         });
+    // }, []);
 
     const handleCategoryClick = (categoryId) => {
         if (currentCategory === categoryId) {
@@ -37,7 +46,7 @@ const AdminAdoption = () => {
             setCurrentCategory(categoryId);
         }
     }
-
+    console.log("test");
     return (
         <> 
             <NavbarLayout />
@@ -52,11 +61,12 @@ const AdminAdoption = () => {
                             <MdAddCircleOutline />
                         </Link>
                     </div>
-                    <div className="flex justify-between mx-3 md:mx-12 mb-7 md:mb-7">
+                    {/* <div className="flex justify-between mx-3 md:mx-12 mb-7 md:mb-7">
                         {animalCategories.map(item => (
                             <button key={item.id} onClick={() => handleCategoryClick(item.id)} className={`w-16 md:w-20 font-bold bg-slate-500 text-center py-2 rounded-md ${currentCategory === item.id ? 'bg-orange-500' : 'bg-slate-500'}`}>{item.name}</button>
                         ))}
-                    </div>
+                    </div> */}
+                    <AdoptionCatalog setAnimalCategories={setAnimalCategories} animalCategories={animalCategories} currentCategory={currentCategory} handleCategoryClick={handleCategoryClick} />
                     <div className="grid grid-cols-2 md:grid-cols-5 mx-3 pb-3 md:mx-12 gap-5">
                         {adoptData.map((item, i) => (
                             <div key={i} className="text-lg border-2 py-3 px-2 bg-slate-200 rounded-md">
