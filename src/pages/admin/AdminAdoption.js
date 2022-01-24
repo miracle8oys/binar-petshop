@@ -1,10 +1,11 @@
-import categories from "./categories.json";
 import { useEffect, useState } from "react";
 import NavbarLayout from "../../components/Navbar";
 import FooterLayout from "../../components/Footer";
 import { Link } from "react-router-dom";
 import {MdAddCircleOutline} from "react-icons/md"
 import AdoptionCatalog from "../../components/AdoptionCatalog";
+import { storage } from "../../config/firebase";
+import { deleteObject, ref } from "firebase/storage";
 
 const AdminAdoption = () => {
 
@@ -12,9 +13,11 @@ const AdminAdoption = () => {
     const [animalCategories, setAnimalCategories] = useState([]);
     const [currentCategory, setCurrentCategory] = useState('');
     const [keyword, setKeyword] = useState('');
+    const [changes, setChanges] = useState(0);
+    const base_url = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
-        fetch(`http://localhost:8000/adopt?title=${keyword}&category=${currentCategory}`, 
+        fetch(`${base_url}/adopt?title=${keyword}&category=${currentCategory}`, 
         {
             method: "GET",
             headers: {
@@ -26,10 +29,10 @@ const AdminAdoption = () => {
             // setAdoptData(result)
             console.log(result.data);
             setAdoptData(result.data)
-        }, []);
+        });
 
         //setAnimalCategories(categories);
-    }, [currentCategory, keyword]);
+    }, [currentCategory, keyword, changes]);
 
     // useEffect(() => {
     //     fetch('http://localhost:8000/categories')
@@ -45,6 +48,21 @@ const AdminAdoption = () => {
         } else {
             setCurrentCategory(categoryId);
         }
+    }
+
+    const handleDelete = (id, imageUrl) => {
+        const imageName = imageUrl.split('/')[7].split('?')[0];
+        const imageRef = ref(storage, imageName);
+        fetch(`${base_url}/admin/v1/adopt/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'Application/JSON'
+            }
+        }).then(() => {
+            deleteObject(imageRef).then(() => {
+                setChanges(current => current + 1);
+            })
+        })
     }
     console.log("test");
     return (
@@ -78,7 +96,7 @@ const AdminAdoption = () => {
                                 </div>
                                 <div className="flex justify-between">
                                     <Link to={`/admin/adopt/update/${item.id}`} className="bg-yellow-500 py-1 px-1 rounded-md font-bold">Update</Link>
-                                    <button className="bg-red-500 py-1 px-1 rounded-md font-bold">Delete</button>
+                                    <button onClick={() => handleDelete(item.id, item.img)} className="bg-red-500 py-1 px-1 rounded-md font-bold">Delete</button>
                                 </div>
                             </div>
                         ))}

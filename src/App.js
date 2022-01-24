@@ -31,14 +31,13 @@ function App() {
         <Route path="/" element={<Home user={user} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/catalog" element={<ProductsCatalog />}/>
+        <Route path="/catalog" element={<ProductsCatalog user={user} />}/>
         <Route path="/products/tags=:name" element={<CategoryProduct user={user} />}/>
         <Route path="/adopt" element={<AdoptCatalog user={user} />} />
         <Route path="/settings" element={<Settings handleLogout={handleLogout} />} />
         <Route path="/admin/adopt/add" element={<FormAdopt />} />
         <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt />} />
         <Route path="/admin/adopt" element={<AdminAdoption />} />
-        <Route path="/product" element={<ProductsCatalog user={user} />} />
       </Routes>
     </BrowserRouter>
   );
