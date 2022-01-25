@@ -2,6 +2,8 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
 import { signInWithGoogle } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
+import NavbarLayout from "../components/Navbar";
+import FooterLayout from "../components/Footer";
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -50,6 +52,8 @@ const Register = () => {
         navigate("/");
     }
     return ( 
+        <>
+        <NavbarLayout />
         <div className="grid justify-center h-[100vh] py-10 bg-orange-50">
             <div className="h-fit w-[70vw] md:w-[30vw]">
                 <h1 className="text-center text-2xl font-bold">Register</h1>
@@ -67,6 +71,8 @@ const Register = () => {
                     <button onClick={handleLoginGoogle} className="bg-blue-300 py-3 px-2 font-bold rounded-md">Sign In With Google</button>
                 </div>
         </div>
+        <FooterLayout />
+        </>
      );
 }
  

@@ -29,8 +29,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login user={user} />} />
+        <Route path="/register" element={<Register user={user} />} />
         <Route path="/catalog" element={<ProductsCatalog user={user} />}/>
         <Route path="/products/tags=:name" element={<CategoryProduct user={user} />}/>
         <Route path="/adopt" element={<AdoptCatalog user={user} />} />

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { signInWithGoogle, auth } from "../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import NavbarLayout from "../components/Navbar";
+import FooterLayout from "../components/Footer";
 
 
 const Login = () => {
@@ -29,6 +31,8 @@ const Login = () => {
     }
 
     return ( 
+        <>
+        <NavbarLayout />
         <div className="grid justify-center h-[100vh] bg-orange-50">
             <div className="h-fit w-[70vw] md:w-[30vw]">
             <h1 className="text-center my-12 font-bold text-2xl">Login</h1>
@@ -47,6 +51,8 @@ const Login = () => {
                 </div>
             </div>
         </div>
+        <FooterLayout />
+        </>
      );
 }
  
