@@ -40,12 +40,19 @@ const Home = ({user}) => {
         navigate(`/products/tags=${name}`)
     }
 
+    const capitalizeLetter = (tags) => {
+        let word = tags.toLowerCase().split(' ')
+        for(let i = 0; i < word.length; i++){
+            word[i] = word[i].charAt(0).toUpperCase() + word[i].substring(1)
+        }
+        return word.join(' ')
+    }
     return ( 
         <div className="h-screen w-full mx-auto">
             <NavbarLayout user={user}/>
-            <div className="bg-orange-50 md:container">
-                <div className="py-5 flex items-center grid md:grid-cols-2 md:auto-cols-max ">
-                    <div className="mx-auto font-bold text-center my-5 tracking-wide md:tracking-normal">
+            <div className="bg-orange-50 mx-auto">
+                <div className="py-5 flex justify-center items-center grid md:grid-cols-2 md:auto-cols-max ">
+                    <div className="font-bold text-center my-5 tracking-wide md:tracking-normal">
                         <h1 className="md:text-4xl font-display">Love your pet</h1>
                         <h1 className="md:text-4xl font-display">Make them healthy</h1>
                         <div className="md:mt-14 mt-8">
@@ -53,15 +60,15 @@ const Home = ({user}) => {
                         </div>
                         
                     </div>
-                        <img src={HomePet} alt="Pet" className="hidden md:block"/> 
+                        <img src={HomePet} alt="Pet" className="hidden md:block md:w-auto"/> 
                 </div>
             </div>
             <div className="mx-auto md:mx-5 px-3 mt-6 p-2">
-                 <h5 className="font-bold md:text-lg font-display">Category Products</h5>
+                 <h5 className="font-bold md:text-lg font-display">Products Category </h5>
                     <div className="flex inline font-sans my-5 md:gap-6 gap-2 overflow-x-auto scrollbar">
                     {tags.map(tag => (
                         <button key={tag.id} onClick={() => handleClickCategory(tag.name)}  className="text-sm md:text-base flex justify-center py-2  px-3 min-w-max hover:bg-amber-100 active:bg-amber-100 focus:bg-amber-100 rounded-full border-amber-200 border-solid border bg-amber-50 mb-3">
-                            {tag.name}
+                            {capitalizeLetter(tag.name)}
                         </button>
                     ))}
                     </div>

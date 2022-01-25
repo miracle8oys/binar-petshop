@@ -53,7 +53,7 @@ const NavbarLayout = ({user}) =>{
 
 
             <div className="md:hidden flex justify-between mx-6">
-                <img src={LogoPet} alt='Petshop Logo' className='w-16'/>
+               <NavLink to={"/"}> <img src={LogoPet} alt='Petshop Logo' className='w-16'/></NavLink>
                
                 <button className="outline-none hover:bg-orange-50" type='button' onClick={()=> setNavbarToggle(!navbarToggle)}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -74,10 +74,10 @@ const NavbarLayout = ({user}) =>{
                 
                 <ul className='ml-8 my-2 text-stone-900 md:hidden font-medium'>
                     <li className='py-1  hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2'>
-                        <NavLink to="/" className='hover:font-bold '>Product</NavLink>
+                        <NavLink to="/catalog" className='hover:font-bold '>Product</NavLink>
                     </li>
                     <li className='py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2'>
-                        <NavLink to="/" className='hover:font-bold'>Pet Adoption</NavLink>
+                        <NavLink to="/adopt" className='hover:font-bold'>Pet Adoption</NavLink>
                     </li>
                     <li className='py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2'>
                         <NavLink to="/" className='hover:font-bold'>Helps</NavLink>
@@ -95,10 +95,10 @@ const NavbarLayout = ({user}) =>{
                         }
                     </li>
                     <li className={user ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
-                        <button className='font-bold w-48'><BsCart3 /></button>
+                        <NavLink to="/" className='font-bold w-48'><BsCart3 /></NavLink>
                     </li>
                     <li className={user ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
-                        <button className='font-bold w-48'><AiFillWechat /></button>
+                        <NavLink to="/" className='font-bold w-48'><AiFillWechat /></NavLink>
                     </li>
                     <li className={user ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
                         <NavLink to="/settings" className='font-bold w-48'><AiOutlineLogout /></NavLink>

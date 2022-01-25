@@ -52,6 +52,14 @@ const CategoryProduct = ({user}) =>{
     const handleChange = (e) =>{
         setKeyword(e.target.value)
     };
+
+    const capitalizeLetter = (tags) => {
+        let word = tags.toLowerCase().split(' ')
+        for(let i = 0; i < word.length; i++){
+            word[i] = word[i].charAt(0).toUpperCase() + word[i].substring(1)
+        }
+        return word.join(' ')
+    }
   
     return (
         <div className='h-screen w-full mx-auto'>
@@ -70,7 +78,7 @@ const CategoryProduct = ({user}) =>{
                         <div className={(DropdownToggle ? "absolute translate-y-1 shadow w-auto md:w-max mr-12 md:mt-1 mt-2 rounded-md h-fit border-t-[1px] bg-white overflow-y-auto h-60 overflow-x-hidden" : "hidden")}>
                             <ul className="text-gray-800 m-2 md:pb-1">
                                 {tags.map(item => (
-                                    <li key={item.id} className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button onClick={() => handleClickCategory(item.name)} type='button' className='py-2 px-2 rounded-md'>{item.name}</button></li>
+                                    <li key={item.id} className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button onClick={() => handleClickCategory(item.name)} type='button' className='py-2 px-2 rounded-md'>{capitalizeLetter(item.name)}</button></li>
                                 ))}
                                 <li className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button onClick={() => navigate('/catalog')} type='button' className='py-2 px-2 rounded-md'>All Product</button></li>
                             </ul>
