@@ -27,7 +27,7 @@ const CategoryProduct = ({user}) =>{
         .then(result => {
             setProduct(result.data)
         }, []);
-        fetch(`http://localhost:8000/admin/v1/tags`, 
+        fetch(`${base_url}/admin/v1/tags`, 
         {
             method: "GET",
             headers: {
@@ -42,7 +42,7 @@ const CategoryProduct = ({user}) =>{
 
     const handleClickCategory = (name)=>{
         if(name === " "){
-            navigate(`/products`)
+            navigate(`/catalog`)
         }else{
             navigate(`/products/tags=${name}`)
         }

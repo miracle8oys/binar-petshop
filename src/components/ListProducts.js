@@ -2,7 +2,7 @@ const ListProducts = ({prod}) => {
     return ( 
         <>
             <div>
-                <img src={`${prod.product_id.image}`} alt={prod.product_id.name} className='w-full  rounded'/>
+                <img src={`${prod.product_id.img}`} alt={prod.product_id.name} className='w-full  rounded'/>
             </div>
             <div className='font-sans p-2'>
 
