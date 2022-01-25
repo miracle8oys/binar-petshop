@@ -31,7 +31,7 @@ const ProductsCatalog = ({user}) =>{
             setProduct(result.data)
         }, []);
 
-        fetch(`http://localhost:8000/admin/v1/tags`, 
+        fetch(`${base_url}/admin/v1/tags`, 
         {
             method: "GET",
             headers: {
