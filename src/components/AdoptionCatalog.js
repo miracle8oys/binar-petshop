@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 const AdoptionCatalog = ({setAnimalCategories, animalCategories, currentCategory, handleCategoryClick}) => {
    
-    const base_url = process.env.REACT_APP_BASE_URL;
     useEffect(() => {
+        const base_url = process.env.REACT_APP_BASE_URL;
         fetch(`${base_url}/categories`)
             .then(res => res.json())
             .then(result => {
                 setAnimalCategories(result.data)
             });
-    }, []);
+    }, [setAnimalCategories]);
+
+    console.log("test");
 
     return ( 
         <div className="flex justify-between mx-3 md:mx-12 mb-7 md:mb-7">

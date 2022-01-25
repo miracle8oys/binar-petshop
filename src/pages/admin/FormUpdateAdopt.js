@@ -29,7 +29,7 @@ const FormUpdateAdopt = () => {
             setPreviewImage(result.data.img);
             setCurrentImage(result.data.img);
         });
-    }, [setName, setAge, setRace, setCategory, setPreviewImage, setCurrentImage]);
+    }, [setName, setAge, setRace, setCategory, setPreviewImage, setCurrentImage, base_url, adoption_id]);
 
    
     useEffect(() => {
@@ -38,7 +38,7 @@ const FormUpdateAdopt = () => {
             .then(result => {
                 setCategoryChoice(result.data)
             });
-    }, []);
+    }, [base_url]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -77,7 +77,7 @@ const FormUpdateAdopt = () => {
     }
 
     const storeAdopionCatalog = (imageUrl) => {
-        fetch(`http://localhost:8000/admin/v1/adopt/${adoption_id}`, {
+        fetch(`${base_url}/admin/v1/adopt/${adoption_id}`, {
             method: "PUT",
             headers: {
                     'Content-Type': 'Application/JSON'
@@ -126,7 +126,7 @@ const FormUpdateAdopt = () => {
                         hover:file:bg-violet-100
                         " multiple />
                     </label>
-                    {previewImage && <img src={`${previewImage}`} />}
+                    {previewImage && <img src={`${previewImage}`} alt="update-preview" />}
                     <div className="flex justify-center">
                         <button type="submit" className="btn bg-slate-200 py-3 self-center w-28 rounded-md font-bold">Submit</button>
                     </div>

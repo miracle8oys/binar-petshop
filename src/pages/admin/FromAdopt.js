@@ -21,7 +21,7 @@ const FormAdopt = () => {
             .then(result => {
                 setCategoryChoice(result.data)
             });
-    }, []);
+    }, [base_url]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -97,7 +97,7 @@ const FormAdopt = () => {
                         hover:file:bg-violet-100
                         " multiple />
                     </label>
-                    {previewImage && <img src={`${previewImage}`} />}
+                    {previewImage && <img src={`${previewImage}`} alt="add-preview" />}
                     <div className="flex justify-center">
                         <button type="submit" className="btn bg-slate-200 py-3 self-center w-28 rounded-md font-bold">Submit</button>
                     </div>

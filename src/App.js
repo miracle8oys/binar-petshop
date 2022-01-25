@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, useParams} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./config/firebase";
 import ProductsCatalog from "./pages/ProductsCatalog";
@@ -37,7 +37,7 @@ function App() {
         <Route path="/settings" element={<Settings handleLogout={handleLogout} />} />
         <Route path="/admin/adopt/add" element={<FormAdopt />} />
         <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt />} />
-        <Route path="/admin/adopt" element={<AdminAdoption />} />
+        <Route path="/admin/adopt" element={<AdminAdoption user={user} />} />
       </Routes>
     </BrowserRouter>
   );

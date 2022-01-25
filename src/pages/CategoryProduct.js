@@ -10,13 +10,12 @@ const CategoryProduct = ({user}) =>{
     const [DropdownToggle, setDropDown] = useState(false);
     const [products, setProduct] = useState([]);
     const [tags, setTags] = useState([]);
-    const [currentTags, setCurrentTags] = useState([]);
     const [keyword, setKeyword] = useState('');
     const {name} = useParams();    
     const navigate = useNavigate();
-    const base_url = process.env.REACT_APP_BASE_URL;
-
+    
     useEffect(() => {
+        const base_url = process.env.REACT_APP_BASE_URL;
         fetch(`${base_url}/products?title=${keyword}&tags=${name}`, 
         {
             method: "GET",

@@ -3,7 +3,7 @@ import FooterLayout from "../components/Footer";
 import {ListProducts, BestSellerProducts} from '../components/ListProducts'
 import { useState, useEffect } from 'react';
 import { Transition } from '@tailwindui/react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ProductsCatalog = ({user}) =>{
 
@@ -15,11 +15,10 @@ const ProductsCatalog = ({user}) =>{
     const [tags, setTags] = useState([]);
     const [currentTags, setCurrentTags] = useState([]);
     const [keyword, setKeyword] = useState('');
-    const {name} = useParams();
     
-    const base_url = process.env.REACT_APP_BASE_URL;
-
+    
     useEffect(() => {
+        const base_url = process.env.REACT_APP_BASE_URL;
         fetch(`${base_url}/products?title=${keyword}&tags=${currentTags}`, 
         {
             method: "GET",

@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoPet from '../assets/LogoPet.png'
-import {FaUserAlt} from "react-icons/fa"
 import {BsCart3} from "react-icons/bs"
 import {AiFillWechat} from "react-icons/ai"
 import {AiOutlineLogout} from "react-icons/ai"

@@ -7,16 +7,16 @@ import AdoptionCatalog from "../../components/AdoptionCatalog";
 import { storage } from "../../config/firebase";
 import { deleteObject, ref } from "firebase/storage";
 
-const AdminAdoption = () => {
+const AdminAdoption = ({user}) => {
 
     const [adoptData, setAdoptData] = useState([]);
     const [animalCategories, setAnimalCategories] = useState([]);
     const [currentCategory, setCurrentCategory] = useState('');
     const [keyword, setKeyword] = useState('');
     const [changes, setChanges] = useState(0);
-    const base_url = process.env.REACT_APP_BASE_URL;
-
+    
     useEffect(() => {
+        const base_url = process.env.REACT_APP_BASE_URL;
         fetch(`${base_url}/adopt?title=${keyword}&category=${currentCategory}`, 
         {
             method: "GET",
@@ -53,6 +53,7 @@ const AdminAdoption = () => {
     const handleDelete = (id, imageUrl) => {
         const imageName = imageUrl.split('/')[7].split('?')[0];
         const imageRef = ref(storage, imageName);
+        const base_url = process.env.REACT_APP_BASE_URL;
         fetch(`${base_url}/admin/v1/adopt/${id}`, {
             method: "DELETE",
             headers: {
@@ -67,7 +68,7 @@ const AdminAdoption = () => {
     console.log("test");
     return (
         <> 
-            <NavbarLayout />
+            <NavbarLayout user={user} />
                 <div className="bg-orange-50 h-max min-h-screen">
                     <h1 className="text-center py-3 text-2xl font-bold">Adoption</h1>
                     <div className="flex justify-center my-3 gap-1 mb-5">

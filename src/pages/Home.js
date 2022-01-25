@@ -2,7 +2,7 @@ import NavbarLayout from "../components/Navbar";
 import FooterLayout from "../components/Footer";
 import ListPet from "../components/ListPet";
 import HomePet from "../assets/woof-delivery.png"
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Home = ({user}) => {
@@ -34,7 +34,7 @@ const Home = ({user}) => {
         .then(result => {
             setTags(result.data)
         }, []);
-    }, []);
+    }, [base_url]);
 
     const handleClickCategory = (name)=>{
         navigate(`/products/tags=${name}`)
