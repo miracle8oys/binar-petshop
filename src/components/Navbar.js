@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 const NavbarLayout = () =>{
     const [navbarToggle, setNavbarToggle] = React.useState(false);
     const userData = useSelector(state => state.loginReducer);
-    console.log(userData.user.accessToken);
+    console.log(userData.user?.accessToken);
     return(
         <div className='bg-orange-50 md:font-display md:text-yellow-800 border-b-[1.5px]'>
             <div className="md:container mx-auto md:h-16 hidden md:block">
