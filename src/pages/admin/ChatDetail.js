@@ -52,7 +52,7 @@ const ChatDetail = () => {
     }, [room_id]);
 
     return ( 
-        <div className="min-h-[85vh] mb-20">
+        <div className="min-h-[85vh] mb-20 md:w-2/4 mx-auto px-3 py-2">
             {msgData.map(chat => (
                 <div key={chat.id}>
                 {chat.role !== "admin" ? 
@@ -74,10 +74,12 @@ const ChatDetail = () => {
                 }
                 </div>
             ))}
-            <form onSubmit={handleSubmit} className="flex items-center justify-center w-screen gap-2 mt-3 fixed bottom-0 mb-3">
-                    <textarea value={msg} onChange={(e) => setMsg(e.target.value)} className="border-2 w-[80vw] md:w-96 h-16"></textarea>
-                    <button className="py-3 bg-blue-500 w-14 h-16 rounded-md flex justify-center items-center"><FiSend className=" text-3xl" /></button>
-            </form>
+            <div className="flex justify-center">
+                <form onSubmit={handleSubmit} className="flex gap-2 mt-3 fixed bottom-0 mb-3">
+                        <textarea value={msg} onChange={(e) => setMsg(e.target.value)} className="border-2 w-[80vw] md:w-96 h-16"></textarea>
+                        <button className="py-3 bg-blue-500 w-14 h-16 rounded-md flex justify-center items-center"><FiSend className=" text-3xl" /></button>
+                </form>
+            </div>
         </div>
      );
 }
