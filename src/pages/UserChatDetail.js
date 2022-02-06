@@ -52,6 +52,7 @@ const UserChatDetail = () => {
     }, [room_id]);
 
     return ( 
+        <>
         <div className="min-h-[85vh] mb-20 md:w-2/4 mx-auto">
             {msgData.map(chat => (
                 <div key={chat.id}>
@@ -81,6 +82,7 @@ const UserChatDetail = () => {
                 </form>
             </div>
         </div>
+        </>
      );
 }
  

@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { useSelector } from "react-redux";
 import {FiSend} from "react-icons/fi";
+import NavbarLayout from "../../components/Navbar";
+import FooterLayout from "../../components/Footer";
 
 const ChatDetail = () => {
 
@@ -20,8 +22,8 @@ const ChatDetail = () => {
         addDoc(msgDetailRef, {
             room_id,
             role: "admin",
-            username: userData?.user?.displayName,
-            profile_pic: userData?.user?.photoURL,
+            username: "Petshop Admin",
+            profile_pic: "https://firebasestorage.googleapis.com/v0/b/binar-petshop.appspot.com/o/profile%2Fadminuser.png?alt=media&token=845fa2be-a716-4703-ab37-ba04c6bb0478",
             msg_content: msg,
             createdAt: currentTime
         }).then(() => {
@@ -52,6 +54,8 @@ const ChatDetail = () => {
     }, [room_id]);
 
     return ( 
+        <>
+        <NavbarLayout />
         <div className="min-h-[85vh] mb-20 md:w-2/4 mx-auto px-3 py-2">
             {msgData.map(chat => (
                 <div key={chat.id}>
@@ -81,6 +85,8 @@ const ChatDetail = () => {
                 </form>
             </div>
         </div>
+        <FooterLayout />
+        </>
      );
 }
  

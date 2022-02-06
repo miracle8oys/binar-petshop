@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, orderBy, query} from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { Link } from "react-router-dom";
+import NavbarLayout from "../../components/Navbar";
+import FooterLayout from "../../components/Footer";
 
 const ChatDashboard = ({user}) => {
 
@@ -36,6 +38,7 @@ const ChatDashboard = ({user}) => {
 
     return ( 
         <>
+            <NavbarLayout />
             <div className="min-h-[80vh] pt-5 flex justify-center bg-orange-50">
                 <div className="min-h-[100vh] w-11/12 md:w-2/4 bg-slate-200 rounded-md px-5">
                     {rooms.map(room => (
@@ -51,6 +54,7 @@ const ChatDashboard = ({user}) => {
                     ))}
                 </div>
             </div>
+            <FooterLayout />
         </>
      );
 }
