@@ -20,6 +20,7 @@ import ChatDetail from "./pages/admin/ChatDetail";
 import UserChat from "./pages/UserChat";
 import UserChatDetail from "./pages/UserChatDetail";
 import Authorize from "./hoc/Authorize";
+import Cart from "./pages/Cart";
 function App() {
 
   const [user, setUser] = useState({});
@@ -71,13 +72,14 @@ function App() {
         <Route path="/settings" element={<Settings handleLogout={handleLogout} />} />
         <Route path="/chat" element={<UserChat />} />
         <Route path="/chat/:room_id" element={<UserChatDetail />} />
+        <Route path="/cart" element={<Cart />} />
         <Route element={<Authorize />}>
         <Route path="/admin/adopt/add" element={<FormAdopt />} />
         <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt />} />
         <Route path="/admin/adopt" element={<AdminAdoption user={user} />} />
-        </Route>
         <Route path="/admin/chat" element={<ChatDashboard />} />
         <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

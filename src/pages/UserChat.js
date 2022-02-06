@@ -3,6 +3,8 @@ import {addDoc, collection, getDocs, orderBy, query, where} from "firebase/fires
 import { db } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import NavbarLayout from "../components/Navbar";
+import FooterLayout from "../components/Footer";
 
 const UserChat = () => {
 
@@ -57,9 +59,11 @@ const UserChat = () => {
                     ))}
                 </div>
             </div> */}
+            <NavbarLayout />
             <div className="h-screen w-screen flex justify-center items-center">
                 <button className="py-2 px-2 bg-sky-500 rounded-md font-bold" onClick={createRoom}>Chat With Admin</button>
             </div>
+            <FooterLayout />
         </>
      );
 }
