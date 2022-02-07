@@ -2,7 +2,6 @@ import { addDoc, collection, doc, query, updateDoc, Timestamp, where, orderBy, o
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
-import { useSelector } from "react-redux";
 import {FiSend} from "react-icons/fi";
 import NavbarLayout from "../../components/Navbar";
 import FooterLayout from "../../components/Footer";
@@ -13,7 +12,6 @@ const ChatDetail = () => {
     const [msg, setMsg] = useState('');
     
     const [msgData, setMsgData] = useState([]);
-    const userData = useSelector(state => state.loginReducer);
 
     const handleSubmit = (e) => {
         e.preventDefault();

@@ -1,4 +1,4 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 const Authorize = () => {
