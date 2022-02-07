@@ -1,12 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 const Authorize = () => {
     const userData = useSelector(state => state.loginReducer);
-    const [userRole, setUserRole] = useState(false)
+    const [userRole, setUserRole] = useState(false);
     useEffect(() => {
         if (!!userData.user?.accessToken) {
-            console.log(userData);
             fetch(`http://localhost:8000/auth/checkAdmin`, {
                 method: "GET",
                 headers: {
@@ -15,16 +14,18 @@ const Authorize = () => {
                 }
               }).then(res => res.json())
               .then(result => {
-                console.log(result.message);
                 if (result.message === 'Success') {
-                  setUserRole(true)
+                  setUserRole(true);
                 }
               })
         }
     }, [userData, setUserRole])
     return (
         <>
-            {!!userRole && <Outlet />}
+            {!userRole && 
+              <h1 className="text-center mt-52">Access Not Allowed</h1>
+            }
+            {userRole && <Outlet />}
         </>
         )
 }
