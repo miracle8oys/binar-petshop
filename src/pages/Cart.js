@@ -41,20 +41,20 @@ const Cart = () => {
             });
     }
 
-    const updateQty = (cart_id, action) => {
-        // fetch(`http://localhost:8000/v1/user/cart/${cart_id}`, {
-        //     method: "POST",
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `${userToken}`
-        //     },
-        //     body: JSON.stringify({
-        //         cart_id, 
-        //         action
-        //     });
-        // })
-
-        console.log(cart_id, action);
+    const updateQty = (cart_id, method) => {
+        fetch(`http://localhost:8000/v1/user/cart`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${userToken}`
+            },
+            body: JSON.stringify({
+                cart_id, 
+                method
+            })
+        }).then(() => {
+            setChanges(current => current + 1);
+        })
     }
 
     return ( 
@@ -81,7 +81,7 @@ const Cart = () => {
                                         {item.quantity === 1 ? 
                                         <button className="bg-orange-200 py-1 px-2 rounded-md font-semibold"><BiMinus /></button>
                                         :
-                                        <button onClick={() => updateQty(item.id, "REMOVE")} className="bg-orange-500 py-1 px-2 rounded-md font-semibold"><BiMinus /></button>
+                                        <button onClick={() => updateQty(item.id, "SUBSTRACT")} className="bg-orange-500 py-1 px-2 rounded-md font-semibold"><BiMinus /></button>
                                     }
                                     </div>
                                 </div>
