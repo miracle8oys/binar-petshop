@@ -107,7 +107,7 @@ const CategoryProduct = ({user}) =>{
                         <h5 className="font-medium md:text-lg font-display my-4">Products</h5>
                         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                         { products.length !== 0 && products.map(item => (
-                            <Link to={'/'} key={item.id}>
+                            <Link to={`/product/${item.id}`} key={item.id}>
                                  <div  className="md:w-56 w-36 shadow border-solid border rounded bg-orange-50">
                                     <ListProducts prod={item}/>
                                 </div> 
