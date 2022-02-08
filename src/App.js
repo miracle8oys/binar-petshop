@@ -20,8 +20,10 @@ import ChatDetail from "./pages/admin/ChatDetail";
 import UserChat from "./pages/UserChat";
 import UserChatDetail from "./pages/UserChatDetail";
 import Authorize from "./hoc/Authorize";
-import Cart from "./pages/Cart";
-import ResetPassword from "./pages/ResetPassword";
+import Dashboard from "./pages/admin/Dashboard";
+import AdminProduct from "./pages/admin/AdminProduct";
+import AddProduct from "./pages/admin/FormAddProduct";
+import CurrentProduct from "./pages/CurrentProduct";
 function App() {
 
   const [user, setUser] = useState({});
@@ -82,6 +84,12 @@ function App() {
           <Route path="/admin/chat" element={<ChatDashboard />} />
           <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
         </Route>
+        <Route path="/admin/chat" element={<ChatDashboard />} />
+        <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
+        <Route path="/admin/dashboard" element={<Dashboard user={user}/>}/>
+        <Route path="/admin/products" element={<AdminProduct user={user}/>}/>
+        <Route path="/admin/product/add" element={<AddProduct user={user}/>}/>
+        <Route path="/product/:id" element={<CurrentProduct user={user}/>}/>
       </Routes>
     </BrowserRouter>
   );
