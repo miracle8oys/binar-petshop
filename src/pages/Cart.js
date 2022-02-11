@@ -3,19 +3,21 @@ import FooterLayout from "../components/Footer";
 import NavbarLayout from "../components/Navbar";
 import { useSelector } from "react-redux";
 import {MdOutlineDeleteOutline} from "react-icons/md"
-import {BiMinus, BiPlus} from "react-icons/bi"
+import {BiMinus, BiPlus} from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 
 const Cart = () => {
 
     const userToken = useSelector(state => state.loginReducer.user?.accessToken);
-    console.log("TRUE");
     const [cart, setCart] = useState([]);
     const [changes, setChanges] = useState(0);
+    const navigate = useNavigate();
+    const base_url = process.env.REACT_APP_BASE_URL;
     
     useEffect(() => {
         if (!!userToken) {
-            fetch(`http://localhost:8000/v1/user/cart`, {
+            fetch(`${base_url}/v1/user/cart`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,7 +32,7 @@ const Cart = () => {
     }, [userToken, changes])
 
     const deleteItem = (cart_id) => {
-        fetch(`http://localhost:8000/v1/user/cart/${cart_id}`, {
+        fetch(`${base_url}/v1/user/cart/${cart_id}`, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,7 +44,7 @@ const Cart = () => {
     }
 
     const updateQty = (cart_id, method) => {
-        fetch(`http://localhost:8000/v1/user/cart`, {
+        fetch(`${base_url}/v1/user/cart`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -57,6 +59,20 @@ const Cart = () => {
         })
     }
 
+    const handleChackout = () => {
+        fetch(`${base_url}/v1/user/order/init`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${userToken}`
+            }
+        }).then(() => {
+            navigate("/checkout")
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     return ( 
         <>
         <NavbarLayout />
@@ -66,7 +82,7 @@ const Cart = () => {
                         <div className="md:flex md:justify-center">
                             <div className="grid grid-cols-8 items-center gap-2 md:w-2/4">
                                 <div className="col-span-2">
-                                    <img className="h-28" src="https://firebasestorage.googleapis.com/v0/b/binar-petshop.appspot.com/o/WhatsApp%20Image%202022-01-24%20at%2009.08.28.jpeg?alt=media&token=e2df4196-4bf0-454c-9941-841d765a8947" alt="product" />
+                                    <img className="h-28" src={item.product?.img} alt="product" />
                                 </div>
                                 <div className="col-span-4">
                                     <p>{item.product?.name}</p>
@@ -93,6 +109,9 @@ const Cart = () => {
                             <hr className="font-semibold text-2xl bg-zinc-900" />
                     </div>
                 ))}
+            </div>
+            <div className="flex justify-center my-2">
+                <button onClick={handleChackout} className="py-2 px-2 bg-sky-500 rounded-md">Checkout</button>
             </div>
         <FooterLayout />
         </>

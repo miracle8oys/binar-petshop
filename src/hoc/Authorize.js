@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 const Authorize = () => {
     const userData = useSelector(state => state.loginReducer);
     const [userRole, setUserRole] = useState(false);
+    const base_url = process.env.REACT_APP_BASE_URL;
     useEffect(() => {
         if (!!userData.user?.accessToken) {
-            fetch(`http://localhost:8000/auth/checkAdmin`, {
+            fetch(`${base_url}/auth/checkAdmin`, {
                 method: "GET",
                 headers: {
                   'Content-Type': 'application/json',
