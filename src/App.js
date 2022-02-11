@@ -24,6 +24,10 @@ import Dashboard from "./pages/admin/Dashboard";
 import AdminProduct from "./pages/admin/AdminProduct";
 import AddProduct from "./pages/admin/FormAddProduct";
 import CurrentProduct from "./pages/CurrentProduct";
+import Cart from "./pages/Cart";
+import ResetPassword from "./pages/ResetPassword";
+import CreateAddress from "./pages/CreateAddress";
+import Checkout from "./pages/Checkout";
 function App() {
 
   const [user, setUser] = useState({});
@@ -77,6 +81,8 @@ function App() {
         <Route path="/chat/:room_id" element={<UserChatDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/reset-password" element={<ResetPassword /> } />
+        <Route path="/address" element={<CreateAddress />} />
+        <Route path="/checkout" element={<Checkout /> } />
         <Route element={<Authorize />}>
           <Route path="/admin/adopt/add" element={<FormAdopt />} />
           <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt />} />
