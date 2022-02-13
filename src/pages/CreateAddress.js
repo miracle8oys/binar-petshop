@@ -39,7 +39,7 @@ const CreateAddress = () => {
     }
     return ( 
         <div className="flex justify-center">
-            <div className="w-4/5">
+            <div className="w-4/5 md:w-1/4">
                 <div className="flex justify-center">
                     <h1>Address</h1>
                 </div>
