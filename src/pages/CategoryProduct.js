@@ -8,14 +8,14 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 const CategoryProduct = ({user}) =>{
 
     const [DropdownToggle, setDropDown] = useState(false);
-    const [products, setProduct] = useState([]);
+    const [product, setProduct] = useState([]);
     const [tags, setTags] = useState([]);
     const [keyword, setKeyword] = useState('');
     const {name} = useParams();    
     const navigate = useNavigate();
+    const base_url = process.env.REACT_APP_BASE_URL;
     
     useEffect(() => {
-        const base_url = process.env.REACT_APP_BASE_URL;
         fetch(`${base_url}/products?title=${keyword}&tags=${name}`, 
         {
             method: "GET",
@@ -25,8 +25,12 @@ const CategoryProduct = ({user}) =>{
         })
         .then(res => res.json())
         .then(result => {
+            console.log(result.data)
             setProduct(result.data)
-        }, []);
+        });
+    }, [name, keyword, base_url])
+
+    useEffect(() => {
         fetch(`${base_url}/admin/v1/tags`, 
         {
             method: "GET",
@@ -37,8 +41,8 @@ const CategoryProduct = ({user}) =>{
         .then(res => res.json())
         .then(result => {
             setTags(result.data)
-        }, []);
-    }, [name, keyword])
+        });
+    }, [base_url]);
 
     const handleClickCategory = (name)=>{
         if(name === " "){
@@ -60,6 +64,8 @@ const CategoryProduct = ({user}) =>{
         }
         return word.join(' ')
     }
+
+ 
   
     return (
         <div className='h-screen w-full mx-auto'>
@@ -106,8 +112,8 @@ const CategoryProduct = ({user}) =>{
                     <div className='md:mx-8 mx-4 px-3'>
                         <h5 className="font-medium md:text-lg font-display my-4">Products</h5>
                         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                        { products.length !== 0 && products.map(item => (
-                            <Link to={`/product/${item.id}`} key={item.id}>
+                        {  product.products && product.products?.map((item, i) => (
+                            <Link to={`/product/${item.product_id?.id}`} key={i}>
                                  <div  className="md:w-56 w-36 shadow border-solid border rounded bg-orange-50">
                                     <ListProducts prod={item}/>
                                 </div> 
