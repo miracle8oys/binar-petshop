@@ -26,7 +26,7 @@ const Cart = () => {
             }).then(res => res.json())
             .then(result => {
                 console.log(result);
-                setCart(result.data)
+                setCart(result.data.carts)
             }) 
         }
     }, [userToken, changes])
@@ -72,7 +72,7 @@ const Cart = () => {
             console.log(err);
         })
     }
-
+    console.log("test");
     return ( 
         <>
         <NavbarLayout />
@@ -88,6 +88,7 @@ const Cart = () => {
                                     <p>{item.product?.name}</p>
                                     <p>Qty: {item.quantity}</p>
                                     <p>Rp. <span className="font-semibold">{item.product?.price}</span></p>
+                                    <p>Subtotal: Rp. {item.product?.price * item.quantity}</p>
                                 </div>
                                 <div className="col-span-1">
                                     <div>
