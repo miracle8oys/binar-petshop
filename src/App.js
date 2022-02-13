@@ -28,6 +28,8 @@ import Cart from "./pages/Cart";
 import ResetPassword from "./pages/ResetPassword";
 import CreateAddress from "./pages/CreateAddress";
 import Checkout from "./pages/Checkout";
+import UpdateProduct from "./pages/admin/FormUpdateProduct";
+import Tags from "./pages/admin/Tags";
 function App() {
 
   const [user, setUser] = useState({});
@@ -87,14 +89,14 @@ function App() {
           <Route path="/admin/adopt/add" element={<FormAdopt />} />
           <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt />} />
           <Route path="/admin/adopt" element={<AdminAdoption user={user} />} />
-          <Route path="/admin/chat" element={<ChatDashboard />} />
-          <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
+          <Route path="/admin/dashboard" element={<Dashboard user={user}/>}/>
+          <Route path="/admin/product/update/:id" element={<UpdateProduct user={user}/>}/>
+          <Route path="/admin/products" element={<AdminProduct user={user}/>}/>
+          <Route path="/admin/product/add" element={<AddProduct user={user}/>}/>
+          <Route path="/admin/tags" element={<Tags user={user}/>}/>
         </Route>
         <Route path="/admin/chat" element={<ChatDashboard />} />
         <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
-        <Route path="/admin/dashboard" element={<Dashboard user={user}/>}/>
-        <Route path="/admin/products" element={<AdminProduct user={user}/>}/>
-        <Route path="/admin/product/add" element={<AddProduct user={user}/>}/>
         <Route path="/product/:id" element={<CurrentProduct user={user}/>}/>
       </Routes>
     </BrowserRouter>

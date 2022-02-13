@@ -5,7 +5,8 @@ import {BiEdit} from 'react-icons/bi';
 import {FiTrash2} from 'react-icons/fi';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { storage } from "../../config/firebase";
+import { deleteObject, ref } from "firebase/storage";
 
 const AdminProduct = ({user}) =>{
     const [product, setProduct] = useState([]);
@@ -14,10 +15,11 @@ const AdminProduct = ({user}) =>{
     const [currentTags, setCurrentTags] = useState([]);
     const [keyword, setKeyword] = useState('');
     const navigate = useNavigate();
+    const [changes, setChanges] = useState(0);
     const base_url = process.env.REACT_APP_BASE_URL;
     let i = 1;
     const userData = useSelector(state => state.loginReducer);
-    // console.log(userData.user?.accessToken);
+    console.log(userData.user?.accessToken);
 
     useLayoutEffect(() => {
         if(userData.user?.accessToken){
@@ -35,8 +37,8 @@ const AdminProduct = ({user}) =>{
                 setProduct(result.data)
             });
         }
-        console.log(product.products)
-    }, [keyword, currentTags, base_url, userData])
+        // console.log(product.products)
+    }, [keyword, currentTags, base_url, userData, changes])
 
     useEffect(() => {
         fetch(`${base_url}/admin/v1/tags`, 
@@ -65,10 +67,23 @@ const AdminProduct = ({user}) =>{
         } 
     }
 
-    // console.log(product.products)
-    // product.products.map((item) => (
-    //     console.log(item.product_id.id)
-    // ))
+    const handleDeleteProd = (id, imageUrl) => {
+        const imgName = imageUrl.split('/')[7].split('?')[0];
+        console.log(imgName);
+        const imgRef = ref(storage, imgName);
+        fetch(`${base_url}/admin/v1/products/${id}`,{
+            method: 'DELETE',
+            headers:{
+                'Content-Type': 'Application/JSON',
+                'authorization': userData.user?.accessToken
+            }
+        }).then(() =>{
+            deleteObject(imgRef).then(() =>{
+                setChanges(current => current + 1)
+            })
+        })
+
+    }
 
     return (
         <div className="h-screen w-full flex flex-col">
@@ -90,7 +105,7 @@ const AdminProduct = ({user}) =>{
                         <div className='col-end-12'>
                             <div className='flex'>
                                 <input onChange={handleChange} className="md:min-w-full placeholder:italic placeholder:text-slate-400 bg-white border border-slate-300 rounded-full py-2 pl-3 pr-3 shadow-sm focus:outline-none focus:border-sky-100 focus:ring-sky-500 focus:ring-1 text-sm" placeholder="Search product..." type="search" name="search"/>
-                                <button className="flex items-center justify-center px-4 border-l -ml-10 hover:bg-gray-100 rounded-full ">
+                                <button className="flex items-center justify-center px-4 border-l -ml-14 hover:bg-gray-100 rounded-full ">
                                     <svg className="md:w-6 md:h-6 w-4 h-4 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24">
                                         <path
@@ -111,6 +126,9 @@ const AdminProduct = ({user}) =>{
                             <th className="py-4 text-center">Nama Produk</th>
                             <th className="py-4 text-center">Gambar</th>
                             <th className="py-4 text-center">Harga</th>
+                            <th className="py-4 text-center">Quantity</th>
+                            <th className="py-4 text-center">Weight</th>
+                            <th className="py-4 text-center">Sold</th>
                             <th className="py-4 text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -123,12 +141,15 @@ const AdminProduct = ({user}) =>{
                                 <img src={item.product_id?.img} alt={item.product_id?.name} className="w-24 h-28"/>
                             </td>
                             <td className="text-center">Rp. {item.product_id?.price}</td>
+                            <td className="text-center">{item.product_id?.qty}</td>
+                            <td className="text-center">{item.product_id?.weight}</td>
+                            <td className="text-center">{item.product_id?.sold}</td>
                             <td>
                                 <div className="flex justify-center mb-2">
-                                    <button type="button" name="update" className="py-2 font-bold w-32  bg-yellow-100 hover:bg-yellow-200 rounded-lg inline-flex items-center justify-center text-sm"><BiEdit className="mr-3"/>Update</button>
+                                    <button onClick={() => navigate(`/admin/product/update/${item.product_id?.id}`)} type="button" name="update" className="py-2 font-bold w-32  bg-yellow-100 hover:bg-yellow-200 rounded-lg inline-flex items-center justify-center text-sm"><BiEdit className="mr-3"/>Update</button>
                                 </div>
                                 <div className="flex justify-center">
-                                    <button type="button" name="update" className="py-2 font-bold w-32  bg-red-100 hover:bg-red-200 rounded-lg inline-flex items-center justify-center text-sm"><FiTrash2 className="mr-3"/>Delete</button>
+                                    <button onClick={() => handleDeleteProd(item.product_id?.id, item.product_id?.img)} name="delete" className="py-2 font-bold w-32  bg-red-100 hover:bg-red-200 rounded-lg inline-flex items-center justify-center text-sm" type="button"><FiTrash2 className="mr-3"/>Delete</button>
                                 </div>
                             </td>
                         </tr>
