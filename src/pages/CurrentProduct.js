@@ -1,16 +1,24 @@
 import NavbarLayout from "../components/Navbar";
 import FooterLayout from "../components/Footer";
 import "../assets/style.css"
-import { useParams } from "react-router-dom";
+import { Navigate, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 const base_url = process.env.REACT_APP_BASE_URL;
 
 const CurrentProduct = ({user}) =>{
     const {id} = useParams();
-    const [prodId, setCurrentProduct] = useState({});
+    const [name, setName]=useState("")
+    const [qty, setQty]=useState(0)
+    const [price, setPrice]=useState(0)
+    const [sold, setSold]=useState(0)
+    const [weight, setWeight]=useState(0)
+    const [description, setDescription]=useState("")
+    const [previewImage, setPreviewImage]=useState("")
     // const [counter, setCounter] = useState(0);
+    const [errMsg, setErrMsg] = useState({});
     const userData = useSelector(state => state.loginReducer);
+    const navigate = useNavigate()
 
     useEffect(() =>{
         fetch(`${base_url}/products/${id}`,{
@@ -23,12 +31,41 @@ const CurrentProduct = ({user}) =>{
         .then(res => res.json())
         .then(result =>{
             console.log(result.data)
-            setCurrentProduct(result.data)
+            setName(result.data.product_id.name)
+            setQty(result.data.product_id.qty)
+            setSold(result.data.product_id.sold)
+            setPrice(result.data.product_id.price)
+            setWeight(result.data.product_id.weight)
+            setDescription(result.data.product_id.description)
+            setPreviewImage(result.data.product_id.img)
         }, []);
-    }, [id])
+    }, [id, setName, setQty, setPrice, setSold, setDescription, setWeight, setPreviewImage ])
 
     const firstLetter = (string) => {
         return string?.charAt(0).toUpperCase() + string?.slice(1)
+    }
+console.log(qty)
+    const handleCreateCart = (id) =>{
+        if(qty == 0){
+            setErrMsg({message: 'Stok kosong, Anda tidak bisa membeli produk ini.'})
+        }else{
+            fetch(`${base_url}/v1/user/cart`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': userData.user?.accessToken
+                },
+                body: JSON.stringify({
+                    product_id: id,
+                    quantity:1
+                })
+            }).then(() => {
+                navigate('/cart')
+            }).catch(err => {
+                console.log(err);
+                setErrMsg(err)
+            })
+        }
     }
 
     // const handleIncrement = () =>{
@@ -57,46 +94,32 @@ const CurrentProduct = ({user}) =>{
         <div className="flex flex-col w-full h-screen">
             <NavbarLayout user={user}/>
             
-            <div className="flex-grow grid grid-cols-2 md:-ml-32 gap-8 my-8 md:mx-24 ">
+            <div className="flex-grow mb-4">
 
+            <div className="grid grid-cols-2 md:-ml-32 gap-8 my-8 md:mx-24">
                 <div className="flex justify-end items-center">
-                    <img src={prodId.product_id?.img} alt="Product" className="md:w-44 w-32 h-max"/>
+                    <img src={previewImage} alt="Product" className="md:w-44 w-32 h-max"/>
+                </div>
+                <div className="ml-4">
+                     
+                    <p className="md:text-xl text-lg font-bold">{firstLetter(name)}</p>
+                    <p className= {(qty == 0 ? "text-red-600" : "text-slate-600"  )}>Stok {qty}</p>
+                    <p className="md:text-2xl text-xl my-4">Rp. {price}</p>
+
+                    <p className="text-slate-500 text-sm md:text-base mt-6">Berat: {weight}</p>
+                    <p className="text-slate-500 text-sm md:text-base">Terjual: {sold}</p>
+                    <p className="text-slate-500 text-sm md:text-base mb-3">{description}</p>
                 </div>
                 
-                    <div>
-                        
-                        <p className="md:text-xl text-lg font-bold">{firstLetter(prodId.product_id?.name)}</p>
-                        <p className="text-slate-600">Stok {prodId.product_id?.qty}</p>
-                        <p className="md:text-2xl text-xl my-4">Rp. {prodId.product_id?.price}</p>
+            </div>
+                
 
-                        <p className="text-slate-500 text-sm md:text-base mt-6 mb-3">{prodId.product_id?.description}</p>
-                    </div>
+                <div className="flex justify-center items-center">
+                        <button type="button" onClick={() => handleCreateCart(id)} className="h-10 rounded w-32 bg-gray-300 hover:bg-gray-400">Beli</button>
                 </div>
-                {/* <div className="md:mx-auto mb-8 md:h-max w-max">
-                    <div className="grid grid-flow-col">
-                        <div className="h-10 w-32 ml-6">
-                            <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
-                                <button onClick={() => handleDecrement()} className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
-                                    <span className="text-2xl font-thin">−</span>
-                                </button>
-                                <input onChange={handleChange} value={counter} type="number" className="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="counter"/>
-                                <button onClick={() => handleIncrement()} className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
-                                    <span className="text-2xl font-thin">+</span>
-                                </button>
-                            </div>
-
-                        </div>
-        
-                        <p className="font-semibold ml-6 text-sm md:text-base pt-2">Sub Total: Rp. {totalPrice(prodId.product_id?.price)}</p>
-                        
-                    </div>
-                </div> */}
-
-                <div className="flex justify-center items-center mb-10">
-                        <button type="button" className="h-10 rounded w-32 bg-gray-300 hover:bg-gray-400">Beli</button>
-                        {/* <button type="button" className="h-10 rounded w-32 bg-gray-300 hover:bg-gray-400 ml-6">Keranjang</button> */}
-                </div>
-            
+                {Object.keys(errMsg).length !== 0 && <p className="text-yellow-500 text-sm my-2 text-center">{errMsg.message}</p>}
+               
+        </div>
             <FooterLayout/>
         </div>
     )

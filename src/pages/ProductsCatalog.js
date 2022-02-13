@@ -139,12 +139,12 @@ const ProductsCatalog = ({user}) =>{
                         <div className='md:mx-8 mx-4 px-3'>
                             <h5 className="font-medium md:text-lg font-display my-4">Best Seller</h5>
                             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                            { product.products?.length !== 0 && product.products?.slice(0,5).map(item => (
-                                <Link to={`/product/${item.product_id?.id}`} key={item.product_id?.id}>
-                                    <div className="md:w-56 w-36 shadow border-solid border rounded bg-rose-50">
-                                    <BestSellerProducts bp={item}/>
-                                    </div> 
-                                </Link>
+                            { product.products?.length !== 0 && product.products?.slice(0,5).map((item, i) => (
+                                <div key={i} className="md:w-full w-36 shadow border-solid border rounded bg-rose-50 mb-2">
+                                    <Link to={`/product/${item.product_id?.id}`} >
+                                        <BestSellerProducts  bp={item} />
+                                    </Link>
+                                </div>
                             ))}
                             </div>
                             
@@ -155,12 +155,12 @@ const ProductsCatalog = ({user}) =>{
                         <div className='md:mx-8 mx-4 px-3'>
                             <h5 className="font-medium md:text-lg font-display my-4">Products</h5>
                             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                            { product.products?.length !== 0 && product.products?.map(item => (
-                                <Link to={`/product/${item.products_id?.id}`} key={item.products_id?.id}>
-                                    <div  className="md:w-56 w-36 shadow border-solid border rounded bg-orange-50">
-                                        <ListProducts prod={item}/>
-                                    </div> 
-                                </Link>
+                            { product.products?.length !== 0 && product.products?.map((item, i) => (
+                                <div key={i} className="md:w-full w-36 shadow border-solid border rounded bg-orange-50 mb-2">
+                                    <Link to={`/product/${item.product_id?.id}`} >
+                                        <ListProducts key={i} prod={item}/>
+                                    </Link>
+                                </div>
                             ))}
                             </div>
                         </div> 
