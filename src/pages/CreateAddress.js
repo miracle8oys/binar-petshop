@@ -16,6 +16,9 @@ const CreateAddress = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!userToken) {
+            return false
+        }
         fetch('http://localhost:8000/v1/user/address', {
             method: "POST",
             headers: {

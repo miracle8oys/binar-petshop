@@ -60,6 +60,9 @@ const Cart = () => {
     }
 
     const handleChackout = () => {
+        if (!userToken) {
+            return false
+        }
         fetch(`${base_url}/v1/user/order/init`, {
             method: "POST",
             headers: {
