@@ -14,7 +14,6 @@ const AdminAdoption = ({user}) => {
     const [currentCategory, setCurrentCategory] = useState('');
     const [keyword, setKeyword] = useState('');
     const [changes, setChanges] = useState(0);
-    let x = 1;
     
     useEffect(() => {
         const base_url = process.env.REACT_APP_BASE_URL;
@@ -103,10 +102,10 @@ const AdminAdoption = ({user}) => {
                         <tbody>
                             {adoptData.map((item, i) => 
                             <tr key={item.id} className=" mb-4 border border-collapse">
-                                <td className="text-center">{x++}.</td>
+                                <td className="text-center">{i + 1}.</td>
                                 <td className="text-center font-semibold">{item.name}</td>
                                 <td className="flex justify-center py-4">
-                                    <img className="h-[53%]" src={`${item.img}`} alt="item-preview" />
+                                    <img className="h-20 md:h-32" src={`${item.img}`} alt="item-preview" />
                                 </td>
                                 <td className="text-center">{item.age}</td>
                                 <td className="text-center">{item.animal_race}</td>

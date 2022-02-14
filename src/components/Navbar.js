@@ -42,11 +42,11 @@ const NavbarLayout = () =>{
                             <img className='rounded-full w-12 h-12' src={userData?.photoURL} alt="navbar-profile" referrerPolicy="no-referrer" />
                         }
                         <div className={!!userData ? 'flex justify-center py-5 gap-8' : 'hidden'}>
-                            <NavLink to='/' className='text-xl'><BsCart3 /></NavLink>
+                            <NavLink to='/cart' className='text-xl'><BsCart3 /></NavLink>
                         </div>
                     
                         <div className= {!!userData?.accessToken ? 'flex justify-center py-4 gap-8' : ' hidden'}>
-                            <button className='text-3xl'><AiFillWechat /></button>
+                            <NavLink to="/chat" className='text-3xl'><AiFillWechat /></NavLink>
                             <NavLink to="/settings" className='text-3xl'><AiOutlineLogout /></NavLink>
                         </div>
                        
