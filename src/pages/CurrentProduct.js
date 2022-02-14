@@ -18,7 +18,7 @@ const CurrentProduct = ({user}) =>{
             method: "GET",
             headers: {
                 'Content-Type': 'Application/JSON',
-                'authorization': userData.user.accessToken
+                'authorization': userData.user?.accessToken
             }
         })
         .then(res => res.json())
@@ -33,6 +33,9 @@ const CurrentProduct = ({user}) =>{
     }
 
     const handleCreateCart = (id) =>{
+        if (!userData.user) {
+            return false
+        }
         if(currProd.product_id?.qty === 0){
             setErrMsg({message: 'Stok kosong, Anda tidak bisa membeli produk ini.'})
         }else{
