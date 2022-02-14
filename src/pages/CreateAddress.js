@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const CreateAddress = () => {
     const userToken = useSelector(state => state.loginReducer.user?.accessToken);
 
@@ -11,6 +12,7 @@ const CreateAddress = () => {
     const [address, setAddress] = useState("");
     const [province_code, setProvince_code] = useState("");
     const [city_code, setCity_code] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -33,6 +35,7 @@ const CreateAddress = () => {
         }).then(res => res.json())
         .then(response => {
             console.log(response);
+            navigate(-1);
         }).catch(err => {
             console.log(err);
         })

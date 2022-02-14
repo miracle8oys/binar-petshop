@@ -29,7 +29,7 @@ const Cart = () => {
                 setCart(result.data.carts)
             }) 
         }
-    }, [userToken, changes])
+    }, [userToken, changes, base_url])
 
     const deleteItem = (cart_id) => {
         fetch(`${base_url}/v1/user/cart/${cart_id}`, {
@@ -79,10 +79,10 @@ const Cart = () => {
             <div className="min-h-[70vh] pt-3">
                 {cart.map(item => (
                     <div key={item.id}>
-                        <div className="md:flex md:justify-center">
+                        <div className="md:flex md:justify-center py-2">
                             <div className="grid grid-cols-8 items-center gap-2 md:w-2/4">
                                 <div className="col-span-2">
-                                    <img className="h-28" src={item.product?.img} alt="product" />
+                                    <img className="h-28 w-28" src={item.product?.img} alt="product" />
                                 </div>
                                 <div className="col-span-4">
                                     <p>{item.product?.name}</p>
@@ -107,7 +107,6 @@ const Cart = () => {
                                 </div>
                             </div>
                         </div>
-                            <hr className="font-semibold text-2xl bg-zinc-900" />
                     </div>
                 ))}
             </div>

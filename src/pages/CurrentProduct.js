@@ -26,7 +26,7 @@ const CurrentProduct = ({user}) =>{
             console.log(result.data)
             setCurrProd(result.data);
         }, []);
-    }, [id])
+    }, [id, userData])
 
     const firstLetter = (string) => {
         return string?.charAt(0).toUpperCase() + string?.slice(1)

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { db } from "../config/firebase";
 import { useSelector } from "react-redux";
 import {FiSend} from "react-icons/fi";
+import NavbarLayout from "../components/Navbar";
 
 const UserChatDetail = () => {
 
@@ -53,6 +54,7 @@ const UserChatDetail = () => {
 
     return ( 
         <>
+        <NavbarLayout />
         <div className="min-h-[85vh] mb-20 md:w-2/4 mx-auto">
             {msgData.map(chat => (
                 <div key={chat.id}>

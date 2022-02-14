@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
 import {FiSend} from "react-icons/fi";
 import NavbarLayout from "../../components/Navbar";
-import FooterLayout from "../../components/Footer";
 
 const ChatDetail = () => {
 
@@ -83,7 +82,6 @@ const ChatDetail = () => {
                 </form>
             </div>
         </div>
-        <FooterLayout />
         </>
      );
 }
