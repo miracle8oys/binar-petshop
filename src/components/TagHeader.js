@@ -1,8 +1,10 @@
 import { useState } from "react"
+import { useSelector } from "react-redux";
 
 const TagHeader = ({setRefresh}) =>{
     const [name, setName] = useState("")
     const base_url = process.env.REACT_APP_BASE_URL;
+    const userData = useSelector(state => state.loginReducer);
 
     const AddTag = (e) =>{
         e.preventDefault()
@@ -10,7 +12,8 @@ const TagHeader = ({setRefresh}) =>{
         fetch(`${base_url}/admin/v1/tags`, {
             method: "POST",
             headers:{
-                'Content-Type': 'Application/JSON'
+                'Content-Type': 'Application/JSON',
+                'authorization': userData.user?.accessToken
             }, 
             body: JSON.stringify(newTag)
         }).then(() =>{

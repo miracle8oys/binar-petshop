@@ -37,7 +37,7 @@ const ProductsCatalog = ({user}) =>{
         });
     }, [currentTags, keyword, base_url, userData])
     useEffect(() => {
-        fetch(`${base_url}/admin/v1/tags`, 
+        fetch(`${base_url}/tags`, 
         {
             method: "GET",
             headers: {
@@ -56,6 +56,9 @@ const ProductsCatalog = ({user}) =>{
         }else{
             setCurrentTags(name)
         } 
+    }
+    const handleClickAll = () =>{
+        setCurrentTags('')
     }
 
     const handleChange = (e) =>{
@@ -95,6 +98,7 @@ const ProductsCatalog = ({user}) =>{
                                     {tags.map(item => (
                                         <li key={item.id} className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button onClick={() => handleTagClick(item.name) } type='button' className='py-2 px-2 rounded-md'>{capitalizeLetter(item.name)}</button></li>
                                     ))}
+                                    <li className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button onClick={() => handleClickAll() } type='button' className='py-2 px-2 rounded-md'>All Product</button></li>
                                 </ul>
                             </div>
                             </Transition>

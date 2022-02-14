@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useEffect } from "react";
+import { useState,useEffect } from "react";
 import FooterLayout from "../../components/Footer";
 import NavbarLayout from "../../components/Navbar";
 import {BiEdit} from 'react-icons/bi';
@@ -19,9 +19,9 @@ const AdminProduct = ({user}) =>{
     const base_url = process.env.REACT_APP_BASE_URL;
     let i = 1;
     const userData = useSelector(state => state.loginReducer);
-    console.log(userData.user?.accessToken);
+    // console.log(userData.user?.accessToken);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if(userData.user?.accessToken){
             fetch(`${base_url}/admin/v1/products?title=${keyword}&tags=${currentTags}`, 
             {
@@ -30,7 +30,7 @@ const AdminProduct = ({user}) =>{
                     'Content-Type': 'Application/JSON',
                     'authorization': userData.user?.accessToken
                 }
-            })
+            }, [userData])
             .then(res => res.json())
             .then(result => {
                 console.log(result.data)
@@ -41,11 +41,13 @@ const AdminProduct = ({user}) =>{
     }, [keyword, currentTags, base_url, userData, changes])
 
     useEffect(() => {
+    
         fetch(`${base_url}/admin/v1/tags`, 
             {
                 method: "GET",
                 headers: {
                     'Content-Type': 'Application/JSON',
+                    'authorization': userData.user?.accessToken
                 }
             })
             .then(res => res.json())
@@ -53,7 +55,7 @@ const AdminProduct = ({user}) =>{
                 setTags(result.data)
             });
         
-    }, [base_url])
+    }, [base_url, userData])
 
     const handleChange = (e) =>{
         setKeyword(e.target.value)
@@ -65,6 +67,9 @@ const AdminProduct = ({user}) =>{
         }else{
             setCurrentTags(name)
         } 
+    }
+    const handleClickAll = () =>{
+        setCurrentTags('');
     }
 
     const handleDeleteProd = (id, imageUrl) => {
@@ -98,6 +103,7 @@ const AdminProduct = ({user}) =>{
                             {tags.map(item =>(
                                 <li key={item.id}  className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button type='button' className='py-2 px-2 rounded-md' onClick={() => handleTagClick(item.name)}>{item.name}</button></li>
                                 ))}
+                                <li className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button type='button' className='py-2 px-2 rounded-md' onClick={() => handleClickAll()}>All Product</button></li>
                             </ul>
                         </div>
                     </section>

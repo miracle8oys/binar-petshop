@@ -31,7 +31,7 @@ const CategoryProduct = ({user}) =>{
     }, [name, keyword, base_url])
 
     useEffect(() => {
-        fetch(`${base_url}/admin/v1/tags`, 
+        fetch(`${base_url}/tags`, 
         {
             method: "GET",
             headers: {

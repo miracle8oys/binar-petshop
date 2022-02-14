@@ -30,6 +30,7 @@ const AddProduct = ({user}) =>{
                 method: "GET",
                 headers: {
                     'Content-Type': 'Application/JSON',
+                    'authorization': userData.user?.accessToken
                 }
             })
             .then(res => res.json())
@@ -37,7 +38,7 @@ const AddProduct = ({user}) =>{
                 // console.log(result.data)
                 setTags(result.data)
             });
-    }, [base_url]);
+    }, [base_url, userData]);
     let optionsTag = tags.map((item) => (
         {value: item.id,
         label : item.name}
@@ -71,7 +72,7 @@ const AddProduct = ({user}) =>{
     }
 
     const storeProduct = (imageUrl) => {
-        if(Object.keys(selectedOption).length == 0){
+        if(Object.keys(selectedOption).length === 0){
             setErrMsg({message: 'Please select product tags!'})
         }else { 
             fetch(`${base_url}/admin/v1/products`, {

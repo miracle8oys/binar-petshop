@@ -59,6 +59,7 @@ const UpdateProduct = ({user}) =>{
                 method: "GET",
                 headers: {
                     'Content-Type': 'Application/JSON',
+                    'authorization': userData.user?.accessToken
                 }
             })
             .then(res => res.json())
@@ -66,7 +67,7 @@ const UpdateProduct = ({user}) =>{
                 setTags(result.data)
             });                    
 
-    }, [base_url])
+    }, [base_url,userData])
 
     let optionsTag = tags.map((item) => (
         {value: item.id,
