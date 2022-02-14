@@ -31,6 +31,9 @@ const UserChat = () => {
     }, [userData, navigate])
 
     const createRoom = () => {
+        if (!userData.user) {
+            return false
+        }
         const roomRef = collection(db, "messages");
         addDoc(roomRef, {
             uid: userData?.user?.uid,

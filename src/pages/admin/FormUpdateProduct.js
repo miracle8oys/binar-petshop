@@ -289,7 +289,7 @@ const UpdateProduct = ({user}) =>{
 
                     </div>
                     <div className=" flex justify-center">
-                        {previewImage && <img src={`${previewImage}`} alt="preview-image" className="w-52"/>} 
+                        {previewImage && <img src={`${previewImage}`} alt="preview-product" className="w-52"/>} 
                     </div>
 
 
