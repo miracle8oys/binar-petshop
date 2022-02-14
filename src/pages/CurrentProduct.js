@@ -1,21 +1,14 @@
 import NavbarLayout from "../components/Navbar";
 import FooterLayout from "../components/Footer";
 import "../assets/style.css"
-import { Navigate, useParams, useNavigate } from "react-router-dom";
+import {useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 const base_url = process.env.REACT_APP_BASE_URL;
 
 const CurrentProduct = ({user}) =>{
     const {id} = useParams();
-    const [name, setName]=useState("")
-    const [qty, setQty]=useState(0)
-    const [price, setPrice]=useState(0)
-    const [sold, setSold]=useState(0)
-    const [weight, setWeight]=useState(0)
-    const [description, setDescription]=useState("")
-    const [previewImage, setPreviewImage]=useState("")
-    // const [counter, setCounter] = useState(0);
+    const [currProd, setCurrProd] = useState([]);
     const [errMsg, setErrMsg] = useState({});
     const userData = useSelector(state => state.loginReducer);
     const navigate = useNavigate()
@@ -31,22 +24,16 @@ const CurrentProduct = ({user}) =>{
         .then(res => res.json())
         .then(result =>{
             console.log(result.data)
-            setName(result.data.product_id.name)
-            setQty(result.data.product_id.qty)
-            setSold(result.data.product_id.sold)
-            setPrice(result.data.product_id.price)
-            setWeight(result.data.product_id.weight)
-            setDescription(result.data.product_id.description)
-            setPreviewImage(result.data.product_id.img)
+            setCurrProd(result.data);
         }, []);
-    }, [id, setName, setQty, setPrice, setSold, setDescription, setWeight, setPreviewImage ])
+    }, [id])
 
     const firstLetter = (string) => {
         return string?.charAt(0).toUpperCase() + string?.slice(1)
     }
-console.log(qty)
+
     const handleCreateCart = (id) =>{
-        if(qty == 0){
+        if(currProd.product_id?.qty === 0){
             setErrMsg({message: 'Stok kosong, Anda tidak bisa membeli produk ini.'})
         }else{
             fetch(`${base_url}/v1/user/cart`, {
@@ -98,24 +85,24 @@ console.log(qty)
 
             <div className="grid grid-cols-2 md:-ml-32 gap-8 my-8 md:mx-24">
                 <div className="flex justify-end items-center">
-                    <img src={previewImage} alt="Product" className="md:w-44 w-32 h-max"/>
+                    <img src={`${currProd.product_id?.img}`} alt="Product" className="md:w-44 w-32 h-max"/>
                 </div>
                 <div className="ml-4">
                      
-                    <p className="md:text-xl text-lg font-bold">{firstLetter(name)}</p>
-                    <p className= {(qty == 0 ? "text-red-600" : "text-slate-600"  )}>Stok {qty}</p>
-                    <p className="md:text-2xl text-xl my-4">Rp. {price}</p>
+                    {currProd.product_id && <p className="md:text-xl text-lg font-bold">{firstLetter(currProd.product_id?.name)}</p>}
+                    <p className= {(currProd.product_id?.qty === 0 ? "text-red-600" : "text-slate-600"  )}>Stok {currProd.product_id?.qty}</p>
+                    <p className="md:text-2xl text-xl my-4">Rp. {currProd.product_id?.price}</p>
 
-                    <p className="text-slate-500 text-sm md:text-base mt-6">Berat: {weight}</p>
-                    <p className="text-slate-500 text-sm md:text-base">Terjual: {sold}</p>
-                    <p className="text-slate-500 text-sm md:text-base mb-3">{description}</p>
+                    <p className="text-slate-500 text-sm md:text-base mt-6">Berat: {currProd.product_id?.weight}</p>
+                    <p className="text-slate-500 text-sm md:text-base">Terjual: {currProd.product_id?.sold}</p>
+                    <p className="text-slate-500 text-sm md:text-base mb-3">{currProd.product_id?.description}</p>
                 </div>
                 
             </div>
                 
 
                 <div className="flex justify-center items-center">
-                        <button type="button" onClick={() => handleCreateCart(id)} className="h-10 rounded w-32 bg-gray-300 hover:bg-gray-400">Beli</button>
+                        <button type="button" onClick={() => handleCreateCart(currProd.product_id?.id)} className="h-10 rounded w-32 bg-gray-300 hover:bg-gray-400">Beli</button>
                 </div>
                 {Object.keys(errMsg).length !== 0 && <p className="text-yellow-500 text-sm my-2 text-center">{errMsg.message}</p>}
                
