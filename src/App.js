@@ -20,6 +20,16 @@ import ChatDetail from "./pages/admin/ChatDetail";
 import UserChat from "./pages/UserChat";
 import UserChatDetail from "./pages/UserChatDetail";
 import Authorize from "./hoc/Authorize";
+import Dashboard from "./pages/admin/Dashboard";
+import AdminProduct from "./pages/admin/AdminProduct";
+import AddProduct from "./pages/admin/FormAddProduct";
+import CurrentProduct from "./pages/CurrentProduct";
+import Cart from "./pages/Cart";
+import ResetPassword from "./pages/ResetPassword";
+import CreateAddress from "./pages/CreateAddress";
+import Checkout from "./pages/Checkout";
+import UpdateProduct from "./pages/admin/FormUpdateProduct";
+import Tags from "./pages/admin/Tags";
 function App() {
 
   const [user, setUser] = useState({});
@@ -71,13 +81,23 @@ function App() {
         <Route path="/settings" element={<Settings handleLogout={handleLogout} />} />
         <Route path="/chat" element={<UserChat />} />
         <Route path="/chat/:room_id" element={<UserChatDetail />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/reset-password" element={<ResetPassword /> } />
+        <Route path="/address" element={<CreateAddress />} />
+        <Route path="/checkout" element={<Checkout /> } />
         <Route element={<Authorize />}>
-        <Route path="/admin/adopt/add" element={<FormAdopt />} />
-        <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt />} />
-        <Route path="/admin/adopt" element={<AdminAdoption user={user} />} />
+          <Route path="/admin/adopt/add" element={<FormAdopt />} />
+          <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt />} />
+          <Route path="/admin/adopt" element={<AdminAdoption user={user} />} />
+          <Route path="/admin/dashboard" element={<Dashboard user={user}/>}/>
+          <Route path="/admin/product/update/:id" element={<UpdateProduct user={user}/>}/>
+          <Route path="/admin/products" element={<AdminProduct user={user}/>}/>
+          <Route path="/admin/product/add" element={<AddProduct user={user}/>}/>
+          <Route path="/admin/tags" element={<Tags user={user}/>}/>
         </Route>
         <Route path="/admin/chat" element={<ChatDashboard />} />
         <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
+        <Route path="/product/:id" element={<CurrentProduct user={user}/>}/>
       </Routes>
     </BrowserRouter>
   );

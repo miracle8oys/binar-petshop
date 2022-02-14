@@ -2,8 +2,8 @@ import { addDoc, collection, doc, query, updateDoc, Timestamp, where, orderBy, o
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
-import { useSelector } from "react-redux";
 import {FiSend} from "react-icons/fi";
+import NavbarLayout from "../../components/Navbar";
 
 const ChatDetail = () => {
 
@@ -11,7 +11,6 @@ const ChatDetail = () => {
     const [msg, setMsg] = useState('');
     
     const [msgData, setMsgData] = useState([]);
-    const userData = useSelector(state => state.loginReducer);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,8 +19,8 @@ const ChatDetail = () => {
         addDoc(msgDetailRef, {
             room_id,
             role: "admin",
-            username: userData?.user?.displayName,
-            profile_pic: userData?.user?.photoURL,
+            username: "Petshop Admin",
+            profile_pic: "https://firebasestorage.googleapis.com/v0/b/binar-petshop.appspot.com/o/profile%2Fadminuser.png?alt=media&token=845fa2be-a716-4703-ab37-ba04c6bb0478",
             msg_content: msg,
             createdAt: currentTime
         }).then(() => {
@@ -52,7 +51,9 @@ const ChatDetail = () => {
     }, [room_id]);
 
     return ( 
-        <div className="min-h-[85vh] mb-20">
+        <>
+        <NavbarLayout />
+        <div className="min-h-[85vh] mb-20 md:w-2/4 mx-auto px-3 py-2">
             {msgData.map(chat => (
                 <div key={chat.id}>
                 {chat.role !== "admin" ? 
@@ -74,11 +75,14 @@ const ChatDetail = () => {
                 }
                 </div>
             ))}
-            <form onSubmit={handleSubmit} className="flex items-center justify-center w-screen gap-2 mt-3 fixed bottom-0 mb-3">
-                    <textarea value={msg} onChange={(e) => setMsg(e.target.value)} className="border-2 w-[80vw] md:w-96 h-16"></textarea>
-                    <button className="py-3 bg-blue-500 w-14 h-16 rounded-md flex justify-center items-center"><FiSend className=" text-3xl" /></button>
-            </form>
+            <div className="flex justify-center">
+                <form onSubmit={handleSubmit} className="flex gap-2 mt-3 fixed bottom-0 mb-3">
+                        <textarea value={msg} onChange={(e) => setMsg(e.target.value)} className="border-2 w-[80vw] md:w-96 h-16"></textarea>
+                        <button className="py-3 bg-blue-500 w-14 h-16 rounded-md flex justify-center items-center"><FiSend className=" text-3xl" /></button>
+                </form>
+            </div>
         </div>
+        </>
      );
 }
  

@@ -4,6 +4,8 @@ import {ListProducts, BestSellerProducts} from '../components/ListProducts'
 import { useState, useEffect } from 'react';
 import { Transition } from '@tailwindui/react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 
 const ProductsCatalog = ({user}) =>{
 
@@ -11,27 +13,31 @@ const ProductsCatalog = ({user}) =>{
     // const perPage = 10;
     // const [totalPages, setTotalPages] = useState(1);
     // const [page, setPage] = useState(1);
-    const [products, setProduct] = useState([]);
+    const [product, setProduct] = useState([]);
     const [tags, setTags] = useState([]);
     const [currentTags, setCurrentTags] = useState([]);
     const [keyword, setKeyword] = useState('');
+    const userData = useSelector(state => state.loginReducer);
+    const base_url = process.env.REACT_APP_BASE_URL;
     
     
     useEffect(() => {
-        const base_url = process.env.REACT_APP_BASE_URL;
         fetch(`${base_url}/products?title=${keyword}&tags=${currentTags}`, 
         {
             method: "GET",
             headers: {
-                'Content-Type': 'Application/JSON'
+                'Content-Type': 'Application/JSON',
+                'authorization': userData.user?.accessToken
             }
         })
         .then(res => res.json())
         .then(result => {
+            console.log(result.data)
             setProduct(result.data)
-        }, []);
-
-        fetch(`${base_url}/admin/v1/tags`, 
+        });
+    }, [currentTags, keyword, base_url, userData])
+    useEffect(() => {
+        fetch(`${base_url}/tags`, 
         {
             method: "GET",
             headers: {
@@ -41,8 +47,8 @@ const ProductsCatalog = ({user}) =>{
         .then(res => res.json())
         .then(result => {
             setTags(result.data)
-        }, []);
-    }, [currentTags, keyword])
+        });
+    }, [base_url])
 
     const handleTagClick = (name) =>{
         if(currentTags === name){
@@ -50,6 +56,9 @@ const ProductsCatalog = ({user}) =>{
         }else{
             setCurrentTags(name)
         } 
+    }
+    const handleClickAll = () =>{
+        setCurrentTags('')
     }
 
     const handleChange = (e) =>{
@@ -63,6 +72,11 @@ const ProductsCatalog = ({user}) =>{
         }
         return word.join(' ')
     }
+
+    // console.log(product.products)
+    // product.products?.map((item) => (
+    //     console.log(item.product_id.id)
+    // ))
   
     return (
         <>
@@ -84,6 +98,7 @@ const ProductsCatalog = ({user}) =>{
                                     {tags.map(item => (
                                         <li key={item.id} className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button onClick={() => handleTagClick(item.name) } type='button' className='py-2 px-2 rounded-md'>{capitalizeLetter(item.name)}</button></li>
                                     ))}
+                                    <li className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button onClick={() => handleClickAll() } type='button' className='py-2 px-2 rounded-md'>All Product</button></li>
                                 </ul>
                             </div>
                             </Transition>
@@ -128,12 +143,12 @@ const ProductsCatalog = ({user}) =>{
                         <div className='md:mx-8 mx-4 px-3'>
                             <h5 className="font-medium md:text-lg font-display my-4">Best Seller</h5>
                             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                            { products.length !== 0 && products.slice(0,5).map(item => (
-                                <Link to={'/'} key={item.id}>
-                                    <div className="md:w-56 w-36 shadow border-solid border rounded bg-rose-50">
-                                    <BestSellerProducts bp={item}/>
-                                    </div> 
-                                </Link>
+                            { product.products?.length !== 0 && product.products?.slice(0,5).map((item, i) => (
+                                <div key={i} className="md:w-full w-36 shadow border-solid border rounded bg-rose-50 mb-2">
+                                    <Link to={`/product/${item.product_id?.id}`} >
+                                        <BestSellerProducts  bp={item} />
+                                    </Link>
+                                </div>
                             ))}
                             </div>
                             
@@ -144,19 +159,19 @@ const ProductsCatalog = ({user}) =>{
                         <div className='md:mx-8 mx-4 px-3'>
                             <h5 className="font-medium md:text-lg font-display my-4">Products</h5>
                             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                            { products.length !== 0 && products.map(item => (
-                                <Link to={'/'} key={item.id}>
-                                    <div  className="md:w-56 w-36 shadow border-solid border rounded bg-orange-50">
-                                        <ListProducts prod={item}/>
-                                    </div> 
-                                </Link>
+                            { product.products?.length !== 0 && product.products?.map((item, i) => (
+                                <div key={i} className="md:w-full w-36 shadow border-solid border rounded bg-orange-50 mb-2">
+                                    <Link to={`/product/${item.product_id?.id}`} >
+                                        <ListProducts key={i} prod={item}/>
+                                    </Link>
+                                </div>
                             ))}
                             </div>
-                        </div>
+                        </div> 
 
-                        {/* <div className='flex justify-center items-center my-5'>
+                    <div className='flex justify-center items-center my-5'>
                             <button type='button' name='load' className='text-sm md:text-base md:p-3 p-2 w-20 font-medium rounded-md bg-slate-200'>More</button>
-                        </div> */}
+                        </div>
                     </div>
 
                     <FooterLayout/>

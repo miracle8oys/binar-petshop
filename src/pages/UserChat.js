@@ -1,28 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {addDoc, collection, getDocs, orderBy, query, where} from "firebase/firestore";
 import { db } from "../config/firebase";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import NavbarLayout from "../components/Navbar";
+import FooterLayout from "../components/Footer";
 
-const UserChat = ({user}) => {
+const UserChat = () => {
 
-    const [rooms, setRooms] = useState([]);
     const userData = useSelector(state => state.loginReducer);
     const navigate = useNavigate();
 
 
     useEffect(() => {
         const selectRoomRef = query(collection(db, "messages"), where("uid", "==", `${userData?.user?.uid}`), orderBy("updatedAt", "desc"));
-        getDocs(selectRoomRef)
-            .then(snapshot => {
-                setRooms(snapshot.docs.map(room => (  
-                    {
-                        ...room.data(),
-                        id: room.id
+        if (userData.user?.accessToken) {
+            getDocs(selectRoomRef)
+                .then(snapshot => {
+                    // setRooms(snapshot.docs.map(room => (  
+                    //     {
+                    //         ...room.data(),
+                    //         id: room.id
+                    //     }
+                    // )))
+                    if (snapshot.docs.length !== 0) {
+                        navigate(`/chat/${snapshot.docs[0]?.id}`);
                     }
-                )))
-            })
-    }, [userData])
+                })
+        }
+    }, [userData, navigate])
 
     const createRoom = () => {
         const roomRef = collection(db, "messages");
@@ -38,7 +44,7 @@ const UserChat = ({user}) => {
 
     return ( 
         <>
-            <div className="min-h-[80vh] mt-5">
+            {/* <div className="min-h-[80vh] mt-5">
                 <div className="min-h-[30vh]">
                     {rooms.map(room => (
                         <Link to={`/chat/${room.id}`} key={room.id}>
@@ -52,8 +58,12 @@ const UserChat = ({user}) => {
                         </Link> 
                     ))}
                 </div>
+            </div> */}
+            <NavbarLayout />
+            <div className="h-screen w-screen flex justify-center items-center">
+                <button className="py-2 px-2 bg-sky-500 rounded-md font-bold" onClick={createRoom}>Chat With Admin</button>
             </div>
-            <button onClick={createRoom}>Create Room</button>
+            <FooterLayout />
         </>
      );
 }

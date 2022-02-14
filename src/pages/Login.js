@@ -44,7 +44,10 @@ const Login = () => {
                     </div>
                 </form>
                 <p className="text-center mt-12 text-blue-400 hover:text-blue-900">
-                    <a href="/register">doesn,t have any account ? Register</a>
+                    <a href="/register">doesn,t have any account? Register</a>
+                </p>
+                <p className="text-center mt-12 text-blue-400 hover:text-blue-900">
+                    <a href="/reset-password">Forgot Password? Reset-Password</a>
                 </p>
                 <div className="flex justify-center">
                     <button onClick={handleLoginGoogle} className="btn bg-blue-300 font-bold py-3 px-2 my-32 md:my-10 rounded-md">Sign In With Google</button>

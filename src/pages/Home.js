@@ -22,8 +22,8 @@ const Home = ({user}) => {
         .then(res => res.json())
         .then(result => {
             setPetList(result.data)
-        }, [])
-        fetch(`${base_url}/admin/v1/tags`, 
+        })
+        fetch(`${base_url}/tags`, 
         {
             method: "GET",
             headers: {
@@ -33,7 +33,7 @@ const Home = ({user}) => {
         .then(res => res.json())
         .then(result => {
             setTags(result.data)
-        }, []);
+        });
     }, [base_url]);
 
     const handleClickCategory = (name)=>{

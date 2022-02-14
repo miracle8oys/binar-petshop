@@ -70,6 +70,7 @@ const AdminAdoption = ({user}) => {
         <> 
             <NavbarLayout user={user} />
                 <div className="bg-orange-50 h-max min-h-screen">
+                    
                     <h1 className="text-center py-3 text-2xl font-bold">Adoption</h1>
                     <div className="flex justify-center my-3 gap-1 mb-5">
                         <input type="search" className="w-3/4 md:w-2/4 border-2" onChange={(e) => setKeyword(e.target.value)} />
@@ -86,7 +87,42 @@ const AdminAdoption = ({user}) => {
                         ))}
                     </div> */}
                     <AdoptionCatalog setAnimalCategories={setAnimalCategories} animalCategories={animalCategories} currentCategory={currentCategory} handleCategoryClick={handleCategoryClick} />
-                    <div className="grid grid-cols-2 md:grid-cols-5 mx-3 pb-3 md:mx-12 gap-5">
+                    <div className="mx-6">
+                        <table className="table-auto border-collapse border border-gray-200 min-w-full shadow-md bg-white mx-auto mb-6">
+                        <thead className="bg-white">
+                            <tr className="border-b-[1px]">
+                                <th className="py-4 text-center">No.</th>
+                                <th className="py-4 text-center">Nama</th>
+                                <th className="py-4 text-center">Gambar</th>
+                                <th className="py-4 text-center">Umur</th>
+                                <th className="py-4 text-center">Spesies</th>
+                                <th className="py-4 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {adoptData.map((item, i) => 
+                            <tr key={item.id} className=" mb-4 border border-collapse">
+                                <td className="text-center">{i + 1}.</td>
+                                <td className="text-center font-semibold">{item.name}</td>
+                                <td className="flex justify-center py-4">
+                                    <img className="h-20 md:h-32" src={`${item.img}`} alt="item-preview" />
+                                </td>
+                                <td className="text-center">{item.age}</td>
+                                <td className="text-center">{item.animal_race}</td>
+                                <td className="py-4">
+                                    <div className="flex justify-center mb-2">
+                                        <Link to={`/admin/adopt/update/${item.id}`} className="bg-yellow-500 py-1 px-1 text-center rounded-md font-semibold w-28">Update</Link>
+                                    </div>
+                                    <div className="flex justify-center">
+                                        <button onClick={() => handleDelete(item.id, item.img)} className="bg-red-500 py-1 px-1 rounded-md font-semibold w-28">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            )}
+                        </tbody>
+                    </table>
+                    </div>
+                    {/* <div className="grid grid-cols-2 md:grid-cols-5 mx-3 pb-3 md:mx-12 gap-5">
                         {adoptData.map((item, i) => (
                             <div key={i} className="text-lg border-2 py-3 px-2 bg-slate-200 rounded-md">
                                 <img className="h-[53%]" src={`${item.img}`} alt="item-preview" />
@@ -101,7 +137,7 @@ const AdminAdoption = ({user}) => {
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </div> */}
                 </div>
             <FooterLayout />
         </>

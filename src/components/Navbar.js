@@ -9,8 +9,9 @@ import { useSelector } from 'react-redux';
 
 const NavbarLayout = () =>{
     const [navbarToggle, setNavbarToggle] = React.useState(false);
-    const userData = useSelector(state => state.loginReducer);
-    console.log(userData.user?.accessToken);
+    const userData = useSelector(state => state.loginReducer.user);
+    console.log(userData.accessToken);
+  
     return(
         <div className='bg-orange-50 md:font-display md:text-yellow-800 border-b-[1.5px]'>
             <div className="md:container mx-auto md:h-16 hidden md:block">
@@ -34,19 +35,19 @@ const NavbarLayout = () =>{
                     </div>
 
                     <div className='flex px-10 gap-8 items-center'>
-                        <div className={!!userData?.user ? 'hidden' : 'flex justify-center py-5 gap-8'}>
+                        <div className={!!userData ? 'hidden' : 'flex justify-center py-5 gap-8'}>
                             <NavLink to="/login" className='font-medium hover:font-bold'>Login</NavLink>
                         </div>
                         {
-                            !!userData?.user && 
-                            <img className='rounded-full w-12 h-12' src={userData?.user?.photoURL} alt="navbar-profile" referrerPolicy="no-referrer" />
+                            !!userData && 
+                            <img className='rounded-full w-12 h-12' src={userData?.photoURL} alt="navbar-profile" referrerPolicy="no-referrer" />
                         }
-                        <div className={!!userData?.user ? 'flex justify-center py-5 gap-8' : 'hidden'}>
-                            <NavLink to='/' className='text-xl'><BsCart3 /></NavLink>
+                        <div className={!!userData ? 'flex justify-center py-5 gap-8' : 'hidden'}>
+                            <NavLink to='/cart' className='text-xl'><BsCart3 /></NavLink>
                         </div>
                     
-                        <div className= {!!userData?.user?.accessToken ? 'flex justify-center py-4 gap-8' : ' hidden'}>
-                            <button className='text-3xl'><AiFillWechat /></button>
+                        <div className= {!!userData?.accessToken ? 'flex justify-center py-4 gap-8' : ' hidden'}>
+                            <NavLink to="/chat" className='text-3xl'><AiFillWechat /></NavLink>
                             <NavLink to="/settings" className='text-3xl'><AiOutlineLogout /></NavLink>
                         </div>
                        
@@ -88,22 +89,22 @@ const NavbarLayout = () =>{
                     <li className='hover:bg-gray-200 rounded-md  font-sans hover:py-2 pt-1 mb-5 px-2'>
                         <NavLink to="/" className='hover:font-bold'>About</NavLink>
                     </li >
-                    <li className={!!userData?.user ? "hidden" : 'flex justify-center mx-6 p-2 bg-gray-200 mb-4 rounded-full'}>
+                    <li className={!!userData ? "hidden" : 'flex justify-center mx-6 p-2 bg-gray-200 mb-4 rounded-full'}>
                         <NavLink to="/login" className='font-bold w-48 text-center'>Login</NavLink>
                     </li>
-                    <li className={!!userData?.user ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
+                    <li className={!!userData ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
                         {/* <button className='font-bold w-48'><FaUserAlt /></button> */}
-                        {!!userData?.user && 
-                            <img className='rounded-full w-12' src={userData?.user?.photoURL} alt="navbar-profile" referrerPolicy="no-referrer" />
+                        {!!userData && 
+                            <img className='rounded-full w-12' src={userData?.photoURL} alt="navbar-profile" referrerPolicy="no-referrer" />
                         }
                     </li>
-                    <li className={!!userData?.user ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
+                    <li className={!!userData ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
                         <NavLink to="/" className='font-bold w-48'><BsCart3 /></NavLink>
                     </li>
-                    <li className={!!userData?.user ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
+                    <li className={!!userData ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
                         <NavLink to="/" className='font-bold w-48'><AiFillWechat /></NavLink>
                     </li>
-                    <li className={!!userData?.user ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
+                    <li className={!!userData ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
                         <NavLink to="/settings" className='font-bold w-48'><AiOutlineLogout /></NavLink>
                     </li>
     
