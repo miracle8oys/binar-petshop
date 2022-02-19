@@ -33,36 +33,27 @@ import Tags from "./pages/admin/Tags";
 function App() {
 
   const [user, setUser] = useState({});
+  const base_url = process.env.REACT_APP_BASE_URL;
 
   const dispatch = useDispatch();
 
     onAuthStateChanged(auth, (currentUser) => {
-      dispatch(login(currentUser))
-      // fetch(`http://localhost:8000/auth/checkAdmin`, {
-      //   method: "GET",
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': currentUser?.accessToken
-      //   }
-      // }).then(res => res.json())
-      // .then(result => {
-      //   console.log(result.message);
-      //   if (result.message === 'Success') {
-      //     const userData = {
-      //       ...currentUser,
-      //       isAdmin: true
-      //     }
-      //     dispatch(login(userData))
-      //   } 
-      //   else {
-      //     const userData = {
-      //       ...currentUser,
-      //       isAdmin: false
-      //     }
-      //     dispatch(login(userData))
-      //   }
-      // })
-      setUser(currentUser);
+      localStorage.setItem("isAdmin", false);
+      if (currentUser) {
+          fetch(`${base_url}/auth/checkAdmin`, {
+            method: "GET",
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': currentUser?.accessToken
+            }
+          }).then(res => res.json())
+          .then(result => {
+            if (result.message === 'Success') {
+              localStorage.setItem("isAdmin", true);
+            }
+            dispatch(login(currentUser));
+          })
+      }
     });
 
   const handleLogout = () => {
