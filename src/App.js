@@ -30,6 +30,7 @@ import CreateAddress from "./pages/CreateAddress";
 import Checkout from "./pages/Checkout";
 import UpdateProduct from "./pages/admin/FormUpdateProduct";
 import Tags from "./pages/admin/Tags";
+import NotFound from "./pages/NotFound";
 function App() {
 
   const [user, setUser] = useState({});
@@ -85,10 +86,11 @@ function App() {
           <Route path="/admin/products" element={<AdminProduct user={user}/>}/>
           <Route path="/admin/product/add" element={<AddProduct user={user}/>}/>
           <Route path="/admin/tags" element={<Tags user={user}/>}/>
+          <Route path="/admin/chat" element={<ChatDashboard />} />
+          <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
         </Route>
-        <Route path="/admin/chat" element={<ChatDashboard />} />
-        <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
         <Route path="/product/:id" element={<CurrentProduct user={user}/>}/>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
