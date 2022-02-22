@@ -65,8 +65,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        <Route path="/login" element={<Login user={user} />} />
-        <Route path="/register" element={<Register user={user} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/catalog" element={<ProductsCatalog user={user} />}/>
         <Route path="/products/tags=:name" element={<CategoryProduct user={user} />}/>
         <Route path="/adopt" element={<AdoptCatalog user={user} />} />
@@ -75,16 +75,16 @@ function App() {
         <Route path="/chat/:room_id" element={<UserChatDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/reset-password" element={<ResetPassword /> } />
-        <Route path="/address" element={<CreateAddress />} />
+        <Route path="/address" element={<CreateAddress/>} />
         <Route path="/checkout" element={<Checkout /> } />
         <Route element={<Authorize />}>
-          <Route path="/admin/adopt/add" element={<FormAdopt />} />
-          <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt />} />
+          <Route path="/admin/adopt/add" element={<FormAdopt/>} />
+          <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt/>} />
           <Route path="/admin/adopt" element={<AdminAdoption user={user} />} />
           <Route path="/admin/dashboard" element={<Dashboard user={user}/>}/>
-          <Route path="/admin/product/update/:id" element={<UpdateProduct user={user}/>}/>
+          <Route path="/admin/product/update/:id" element={<UpdateProduct/>}/>
           <Route path="/admin/products" element={<AdminProduct user={user}/>}/>
-          <Route path="/admin/product/add" element={<AddProduct user={user}/>}/>
+          <Route path="/admin/product/add" element={<AddProduct/>}/>
           <Route path="/admin/tags" element={<Tags user={user}/>}/>
           <Route path="/admin/chat" element={<ChatDashboard />} />
           <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
