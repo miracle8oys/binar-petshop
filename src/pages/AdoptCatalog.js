@@ -10,8 +10,28 @@ const AdoptCatalog = ({user}) => {
     const [animalCategories, setAnimalCategories] = useState([]);
     const [currentCategory, setCurrentCategory] = useState('');
     const [keyword, setKeyword] = useState('');
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
+        fetch(`${base_url}/adopt?page=${page}`, 
+        {
+            method: "GET",
+            headers: {
+                'Content-Type': 'Application/JSON'
+            }
+        })
+        .then(res => res.json())
+        .then(result => {
+            // setAdoptData(result)
+            console.log(result.data);
+            setAdoptData(current => [...current, ...result.data])
+        });
+
+        // setAnimalCategories(categories);
+    }, [page]);
+
+    useEffect(() => {
+        setPage(1);
         fetch(`${base_url}/adopt?title=${keyword}&category=${currentCategory}`, 
         {
             method: "GET",
@@ -24,7 +44,7 @@ const AdoptCatalog = ({user}) => {
             // setAdoptData(result)
             console.log(result.data);
             setAdoptData(result.data)
-        }, []);
+        });
 
         // setAnimalCategories(categories);
     }, [currentCategory, keyword])
@@ -60,6 +80,7 @@ const AdoptCatalog = ({user}) => {
                     ))}
                 </div>
             </div>
+            <button onClick={() => setPage(current => current + 1)}>Page++</button>
             <FooterLayout />
         </>
      );
