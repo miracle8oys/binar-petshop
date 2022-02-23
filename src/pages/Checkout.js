@@ -66,6 +66,26 @@ const Checkout = () => {
         })
     }
 
+    const handlePayment = () => {
+        fetch(`${base_url}/v1/user/order/create`, {
+            method: "POST",
+            headers: {
+                'Authorization': `${userToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                address_id: currentAddress,
+                shipping_costs: ongkir
+            })
+        })
+        .then(res => res.json())
+        .then(result => {
+            console.log(result.data.snap_token);
+            const snap_token = result.data.snap_token;
+            window.snap.pay(snap_token);
+        })
+    }
+
     console.log(weight);
     return ( 
         <>
@@ -120,9 +140,11 @@ const Checkout = () => {
                                 <p>Total Bill: <span className="font-semibold">Rp.{totalPrice + ongkir}</span></p>
                             </div>
                         </div>
-                        <div className="flex justify-center mb-3">
-                            <button className="py-2 px-2 bg-sky-500 rounded-md font-semibold">Checkout</button>
-                        </div>
+                        {ongkir &&
+                            <div className="flex justify-center mb-3">
+                                <button onClick={handlePayment} className="py-2 px-2 bg-sky-500 rounded-md font-semibold">Payment</button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
