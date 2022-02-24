@@ -108,7 +108,7 @@ const FormAdopt = () => {
                         </label>
                         {previewImage && <img src={`${previewImage}`} alt="add-preview" className="ml-auto mr-auto"/>}
                         <div className="flex justify-center mt-4">
-                            <button type="submit" className="btn bg-slate-200 py-3 self-center w-40 rounded-md font-bold border border-slate-400 hover:bg-orange-400">Submit</button>
+                            <button type="submit" className="btn bg-orange-200 py-3 self-center w-40 rounded-md font-bold border border-slate-400 hover:bg-orange-400">Submit</button>
                         </div>
                     </form>
                     <div className="flex justify-center">

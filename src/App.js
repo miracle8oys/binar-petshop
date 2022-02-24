@@ -31,6 +31,11 @@ import Checkout from "./pages/Checkout";
 import UpdateProduct from "./pages/admin/FormUpdateProduct";
 import Tags from "./pages/admin/Tags";
 import NotFound from "./pages/NotFound";
+import AdminCategory from "./pages/admin/AdminCategory";
+import FormCategory from "./pages/admin/FormCategory";
+import AdminTags from "./pages/admin/AdminTags";
+import FormTags from "./pages/admin/FormTags";
+
 import Help from "./pages/Help";
 function App() {
 
@@ -87,9 +92,15 @@ function App() {
           <Route path="/admin/product/update/:id" element={<UpdateProduct/>}/>
           <Route path="/admin/products" element={<AdminProduct user={user}/>}/>
           <Route path="/admin/product/add" element={<AddProduct/>}/>
-          <Route path="/admin/tags" element={<Tags user={user}/>}/>
+          {/* <Route path="/admin/tags" element={<Tags user={user}/>}/> */}
           <Route path="/admin/chat" element={<ChatDashboard />} />
           <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
+          <Route path="/admin/category" element={<AdminCategory />} />
+          <Route path="/admin/category/add" element={<FormCategory action="ADD"/>} />
+          <Route path="/admin/category/update/:id" element={<FormCategory action="UPDATE"/>} />
+          <Route path="/admin/tags" element={<AdminTags />} />
+          <Route path="/admin/tag/add" element={<FormTags action="ADD"/>} />
+          <Route path="/admin/tag/update/:id" element={<FormTags action="UPDATE"/>} />
         </Route>
         <Route path="/product/:id" element={<CurrentProduct user={user}/>}/>
         <Route path="*" element={<NotFound />} />
