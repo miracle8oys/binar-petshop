@@ -31,6 +31,7 @@ import Checkout from "./pages/Checkout";
 import UpdateProduct from "./pages/admin/FormUpdateProduct";
 import Tags from "./pages/admin/Tags";
 import NotFound from "./pages/NotFound";
+import Help from "./pages/Help";
 function App() {
 
   const [user, setUser] = useState({});
@@ -77,6 +78,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword /> } />
         <Route path="/address" element={<CreateAddress/>} />
         <Route path="/checkout" element={<Checkout /> } />
+        <Route path="/help" element={<Help/>}/>
         <Route element={<Authorize />}>
           <Route path="/admin/adopt/add" element={<FormAdopt/>} />
           <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt/>} />
