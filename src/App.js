@@ -14,7 +14,7 @@ import AdminAdoption from "./pages/admin/AdminAdoption";
 import CategoryProduct from "./pages/CategoryProduct";
 
 import {useDispatch} from "react-redux";
-import {login} from "./actions";
+import {login, logout} from "./actions";
 import ChatDashboard from "./pages/admin/ChatDashboard";
 import ChatDetail from "./pages/admin/ChatDetail";
 import UserChat from "./pages/UserChat";
@@ -65,6 +65,7 @@ function App() {
 
   const handleLogout = () => {
     signOut(auth);
+    dispatch(logout());
   }
 
   return (

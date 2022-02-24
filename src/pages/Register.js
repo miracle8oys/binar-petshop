@@ -42,7 +42,7 @@ const Register = () => {
                     navigate('/');
                 })
             }).catch(err => {
-                console.log(err);
+                setErrMsg(err.message);
             })
         } catch (err) {
             setErrMsg(err?.message);
