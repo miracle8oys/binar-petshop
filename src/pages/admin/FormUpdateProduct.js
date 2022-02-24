@@ -294,7 +294,7 @@ const UpdateProduct = () =>{
 
 
                     <div className="flex justify-center my-6">
-                        <button type="submit" className="rounded w-40 bg-slate-200 hover:bg-orange-400 p-2 border border-slate-400 rounded-md font-bold">Submit</button>
+                        <button type="submit" className="rounded w-40 bg-orange-200 hover:bg-orange-400 p-2 border border-slate-400 rounded-md font-bold">Submit</button>
                     </div>
                 </form>
                 <div className="flex justify-center">
