@@ -14,7 +14,7 @@ import AdminAdoption from "./pages/admin/AdminAdoption";
 import CategoryProduct from "./pages/CategoryProduct";
 
 import {useDispatch} from "react-redux";
-import {login} from "./actions";
+import {login, logout} from "./actions";
 import ChatDashboard from "./pages/admin/ChatDashboard";
 import ChatDetail from "./pages/admin/ChatDetail";
 import UserChat from "./pages/UserChat";
@@ -30,51 +30,50 @@ import CreateAddress from "./pages/CreateAddress";
 import Checkout from "./pages/Checkout";
 import UpdateProduct from "./pages/admin/FormUpdateProduct";
 import Tags from "./pages/admin/Tags";
+import NotFound from "./pages/NotFound";
+import AdminCategory from "./pages/admin/AdminCategory";
+import FormCategory from "./pages/admin/FormCategory";
+import AdminTags from "./pages/admin/AdminTags";
+import FormTags from "./pages/admin/FormTags";
+
+import Help from "./pages/Help";
 function App() {
 
   const [user, setUser] = useState({});
+  const base_url = process.env.REACT_APP_BASE_URL;
 
   const dispatch = useDispatch();
 
     onAuthStateChanged(auth, (currentUser) => {
-      dispatch(login(currentUser))
-      // fetch(`http://localhost:8000/auth/checkAdmin`, {
-      //   method: "GET",
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': currentUser?.accessToken
-      //   }
-      // }).then(res => res.json())
-      // .then(result => {
-      //   console.log(result.message);
-      //   if (result.message === 'Success') {
-      //     const userData = {
-      //       ...currentUser,
-      //       isAdmin: true
-      //     }
-      //     dispatch(login(userData))
-      //   } 
-      //   else {
-      //     const userData = {
-      //       ...currentUser,
-      //       isAdmin: false
-      //     }
-      //     dispatch(login(userData))
-      //   }
-      // })
-      setUser(currentUser);
+      localStorage.setItem("isAdmin", false);
+      if (currentUser) {
+          fetch(`${base_url}/auth/checkAdmin`, {
+            method: "GET",
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': currentUser?.accessToken
+            }
+          }).then(res => res.json())
+          .then(result => {
+            if (result.message === 'Success') {
+              localStorage.setItem("isAdmin", true);
+            }
+            dispatch(login(currentUser));
+          })
+      }
     });
 
   const handleLogout = () => {
     signOut(auth);
+    dispatch(logout());
   }
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        <Route path="/login" element={<Login user={user} />} />
-        <Route path="/register" element={<Register user={user} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/catalog" element={<ProductsCatalog user={user} />}/>
         <Route path="/products/tags=:name" element={<CategoryProduct user={user} />}/>
         <Route path="/adopt" element={<AdoptCatalog user={user} />} />
@@ -83,21 +82,29 @@ function App() {
         <Route path="/chat/:room_id" element={<UserChatDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/reset-password" element={<ResetPassword /> } />
-        <Route path="/address" element={<CreateAddress />} />
+        <Route path="/address" element={<CreateAddress/>} />
         <Route path="/checkout" element={<Checkout /> } />
+        <Route path="/help" element={<Help/>}/>
         <Route element={<Authorize />}>
-          <Route path="/admin/adopt/add" element={<FormAdopt />} />
-          <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt />} />
+          <Route path="/admin/adopt/add" element={<FormAdopt/>} />
+          <Route path="/admin/adopt/update/:adoption_id" element={<FormUpdateAdopt/>} />
           <Route path="/admin/adopt" element={<AdminAdoption user={user} />} />
           <Route path="/admin/dashboard" element={<Dashboard user={user}/>}/>
-          <Route path="/admin/product/update/:id" element={<UpdateProduct user={user}/>}/>
+          <Route path="/admin/product/update/:id" element={<UpdateProduct/>}/>
           <Route path="/admin/products" element={<AdminProduct user={user}/>}/>
-          <Route path="/admin/product/add" element={<AddProduct user={user}/>}/>
-          <Route path="/admin/tags" element={<Tags user={user}/>}/>
+          <Route path="/admin/product/add" element={<AddProduct/>}/>
+          {/* <Route path="/admin/tags" element={<Tags user={user}/>}/> */}
+          <Route path="/admin/chat" element={<ChatDashboard />} />
+          <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
+          <Route path="/admin/category" element={<AdminCategory />} />
+          <Route path="/admin/category/add" element={<FormCategory action="ADD"/>} />
+          <Route path="/admin/category/update/:id" element={<FormCategory action="UPDATE"/>} />
+          <Route path="/admin/tags" element={<AdminTags />} />
+          <Route path="/admin/tag/add" element={<FormTags action="ADD"/>} />
+          <Route path="/admin/tag/update/:id" element={<FormTags action="UPDATE"/>} />
         </Route>
-        <Route path="/admin/chat" element={<ChatDashboard />} />
-        <Route path="/admin/chat/:room_id" element={<ChatDetail />} />
         <Route path="/product/:id" element={<CurrentProduct user={user}/>}/>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

@@ -106,7 +106,7 @@ const Cart = () => {
                                     </div>
                                 </div>
                                 <div className="col-span-1">
-                                    <MdOutlineDeleteOutline onClick={() => deleteItem(item.id)} className="text-3xl mx-2" />
+                                    <MdOutlineDeleteOutline onClick={() => deleteItem(item.id)} className="text-3xl mx-2 hover:text-5xl hover:text-red-500" />
                                 </div>
                             </div>
                         </div>

@@ -7,7 +7,7 @@ import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const AddProduct = ({user}) =>{
+const AddProduct = () =>{
     const [tags, setTags] = useState([]);
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
@@ -105,10 +105,10 @@ const AddProduct = ({user}) =>{
     }
 
     return(
-        <div className="flex flex-col h-screen w-full">
-            <NavbarLayout user={user}/>
-            <div className="flex-grow  my-4 block bg-sky-50 w-1/2 mx-auto rounded-lg shadow p-2 ">
-            <p className="md:text-2xl text-center font-semibold my-3">Product</p>
+        <div className="flex flex-col w-full bg-orange-50">
+            <NavbarLayout/>
+            <div className="flex-grow  my-4 block w-1/2 mx-auto rounded-lg shadow-2xl p-2 border border-slate-400 my-10">
+            <p className="md:text-2xl text-center font-semibold my-3">ADD PRODUCT</p>
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="form-group mb-2 px-4">
                         <label className="form-label inline-block my-2">Product Name</label>
@@ -240,8 +240,8 @@ const AddProduct = ({user}) =>{
                         file:mr-4 file:py-2 file:px-4
                         file:rounded-full file:border-0
                         file:text-sm file:font-semibold
-                        file:bg-slate-200 file:text-yellow-700
-                        hover:file:bg-yellow-100
+                        file:bg-slate-200 
+                        hover:file:bg-orange-400
                         " multiple required/>
 
                     </div>
@@ -250,7 +250,7 @@ const AddProduct = ({user}) =>{
                     </div>
 
                     <div className="flex justify-center my-6">
-                        <button type="submit" className="rounded w-40 bg-green-200 hover:bg-green-300 p-2 font-semibold">Submit</button>
+                        <button type="submit" className="rounded w-40 bg-orange-200 hover:bg-orange-400 p-2 border border-slate-400 rounded-md font-bold">Submit</button>
                     </div>
                 </form>
                 <div className="flex justify-center">

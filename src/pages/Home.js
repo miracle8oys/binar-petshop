@@ -21,7 +21,7 @@ const Home = ({user}) => {
             }})
         .then(res => res.json())
         .then(result => {
-            setPetList(result.data)
+            setPetList(result.data.all_adopt)
         })
         fetch(`${base_url}/tags`, 
         {

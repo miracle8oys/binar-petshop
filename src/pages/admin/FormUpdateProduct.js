@@ -8,7 +8,7 @@ import { uploadBytesResumable, ref, getDownloadURL, deleteObject } from "firebas
 import Select from "react-select";
 
 
-const UpdateProduct = ({user}) =>{
+const UpdateProduct = () =>{
     const {id} = useParams()
     const [tags, setTags] = useState([])
     const [name, setName] = useState('');
@@ -146,10 +146,10 @@ const UpdateProduct = ({user}) =>{
     }
     
     return (
-        <div className="flex flex-col h-screen w-full">
-            <NavbarLayout user={user}/>
-            <div className="flex-grow  my-4 block bg-sky-50 w-1/2 mx-auto rounded-lg shadow p-2 ">
-            <p className="md:text-2xl text-center font-semibold my-3">Product</p>
+        <div className="flex flex-col w-full bg-orange-50">
+            <NavbarLayout/>
+            <div className="flex-grow  my-4 block w-1/2 mx-auto rounded-lg shadow-2xl p-2 border border-slate-400 my-10">
+            <p className="md:text-2xl text-center font-semibold my-3">UPDATE PRODUCT</p>
                 {Object.keys(errMsg).length !== 0 && <h1 className="bg-slate-200 mt-3 -mb-5 py-2 px-2 text-center rounded-md font-medium">{errMsg.message}</h1>}
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="form-group mb-2 px-4">
@@ -283,8 +283,8 @@ const UpdateProduct = ({user}) =>{
                         file:mr-4 file:py-2 file:px-4
                         file:rounded-full file:border-0
                         file:text-sm file:font-semibold
-                        file:bg-slate-200 file:text-yellow-700
-                        hover:file:bg-yellow-100
+                        file:bg-slate-200 
+                        hover:file:bg-orange-400
                         " multiple />
 
                     </div>
@@ -294,7 +294,7 @@ const UpdateProduct = ({user}) =>{
 
 
                     <div className="flex justify-center my-6">
-                        <button type="submit" className="rounded w-40 bg-green-200 hover:bg-green-300 p-2 font-semibold">Submit</button>
+                        <button type="submit" className="rounded w-40 bg-orange-200 hover:bg-orange-400 p-2 border border-slate-400 rounded-md font-bold">Submit</button>
                     </div>
                 </form>
                 <div className="flex justify-center">
