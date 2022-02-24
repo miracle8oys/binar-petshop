@@ -28,7 +28,7 @@ const AdminAdoption = ({user}) => {
         .then(result => {
             // setAdoptData(result)
             console.log(result.data);
-            setAdoptData(result.data)
+            setAdoptData(result.data.all_adopt)
         });
 
         //setAnimalCategories(categories);
