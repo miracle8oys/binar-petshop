@@ -11,6 +11,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [err, setErr] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -22,7 +23,7 @@ const Login = () => {
             console.log(res);
             navigate("/")
         }).catch(err => {
-            console.log(err);
+            setErr(err.message);
         })
     }
 
@@ -37,6 +38,11 @@ const Login = () => {
         <div className="grid justify-center py-5 bg-orange-50">
             <div className="h-fit w-[70vw] md:w-[40vw] border border-slate-400 px-5 shadow-2xl my-8">
             <h1 className="text-center my-12 font-bold text-2xl">LOGIN</h1>
+                {err &&
+                    <div className="text-center bg-slate-200 py-2 rounded-md">
+                        <h1>{err}</h1>
+                    </div>
+                }
                 <form onSubmit={handleSubmit} className="grid gap-3">
                     <label className="text-gray-700 ml-2">Email</label>
                     <input onChange={(e) => setEmail(e.target.value)} className="border-2 h-12 rounded-md pl-2" type="email" placeholder="Email..." required/>
