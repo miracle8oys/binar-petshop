@@ -11,9 +11,11 @@ const AdoptCatalog = ({user}) => {
     const [currentCategory, setCurrentCategory] = useState('');
     const [keyword, setKeyword] = useState('');
     const [page, setPage] = useState(1);
+    const [endIndex, setEndIndex] = useState(0);
+    const limit = 5;
 
     useEffect(() => {
-        fetch(`${base_url}/adopt?page=${page}`, 
+        fetch(`${base_url}/adopt?page=${page}&title=${keyword}&category=${currentCategory}&limit=${limit}`, 
         {
             method: "GET",
             headers: {
@@ -23,33 +25,34 @@ const AdoptCatalog = ({user}) => {
         .then(res => res.json())
         .then(result => {
             // setAdoptData(result)
-            console.log(result.data);
-            setAdoptData(current => [...current, ...result.data])
+            setAdoptData(result.data.all_adopt);
+            setEndIndex(result.endIndex);
         });
 
         // setAnimalCategories(categories);
-    }, [page]);
+    }, [page, keyword, currentCategory]);
 
-    useEffect(() => {
-        setPage(1);
-        fetch(`${base_url}/adopt?title=${keyword}&category=${currentCategory}`, 
-        {
-            method: "GET",
-            headers: {
-                'Content-Type': 'Application/JSON'
-            }
-        })
-        .then(res => res.json())
-        .then(result => {
-            // setAdoptData(result)
-            console.log(result.data);
-            setAdoptData(result.data)
-        });
+    // useEffect(() => {
+    //     setPage(1);
+    //     fetch(`${base_url}/adopt?title=${keyword}&category=${currentCategory}`, 
+    //     {
+    //         method: "GET",
+    //         headers: {
+    //             'Content-Type': 'Application/JSON'
+    //         }
+    //     })
+    //     .then(res => res.json())
+    //     .then(result => {
+    //         // setAdoptData(result)
+    //         console.log(result.data);
+    //         setAdoptData(result.data)
+    //     });
 
-        // setAnimalCategories(categories);
-    }, [currentCategory, keyword])
+    //     // setAnimalCategories(categories);
+    // }, [currentCategory, keyword])
 
     const handleCategoryClick = (categoryId) => {
+        setPage(1);
         if (currentCategory === categoryId) {
             setCurrentCategory('');
         } else {
@@ -80,7 +83,14 @@ const AdoptCatalog = ({user}) => {
                     ))}
                 </div>
             </div>
-            <button onClick={() => setPage(current => current + 1)}>Page++</button>
+            <div className="flex gap-5 justify-center bg-orange-50">
+                {page > 1 &&     
+                    <button onClick={() => setPage(current => current - 1)}>Previus Page</button>
+                }
+                {endIndex > 0 &&
+                    <button onClick={() => setPage(current => current + 1)}>Next Page</button>
+                }
+            </div>
             <FooterLayout />
         </>
      );
