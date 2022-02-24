@@ -20,7 +20,7 @@ const FooterLayout = ()=>{
                         <div className="grid grid-flow-row auto-rows-max px-5 py-2 md:mx-auto">
                                 <p className="font-bold mb-1">Company</p>
                                 <Link to={'/'} className="hover:font-bold">Helps</Link>
-                                <Link to={'/'} className="hover:font-bold">About</Link>
+                                <Link to={'/about'} className="hover:font-bold">About</Link>
                         </div>
 
                         <div className="grid grid-flow-row md:auto-rows-max px-5 py-2 mx-auto">
