@@ -12,11 +12,11 @@ const NavbarLayout = () =>{
     const userData = useSelector(state => state.loginReducer.user);
     console.log(userData?.accessToken);
     return(
-        <div className='bg-orange-50 md:font-display md:text-yellow-800 border-b-[1.5px]'>
-            <div className="md:container mx-auto md:h-16 hidden md:block">
+        <div className='bg-orange-50 md:font-display text-yellow-800 border-b-[1.5px]'>
+            <div className="container px-4 md:h-16 hidden md:block w-full">
                 <div className='flex justify-between'>
-                    <div className='flex md:gap-8'>
-                        <div className='flex justify-center md:ml-8'>
+                    <div className='flex md:gap-8 px-4'>
+                        <div className='flex justify-center'>
                            <NavLink to='/'> <img src={LogoPet} alt='Petshop Logo' className='w-10 md:w-16'/> </NavLink>
                         </div>
                         <div className='flex justify-center py-5 md:text-base'>
@@ -33,7 +33,7 @@ const NavbarLayout = () =>{
                         </div>
                     </div>
 
-                    <div className='flex px-10 gap-8 items-center'>
+                    <div className='flex items-center gap-6'>
                         <div className={!!userData ? 'hidden' : 'flex justify-center py-5 gap-8'}>
                             <NavLink to="/login" className='font-medium hover:font-bold'>Login</NavLink>
                         </div>
@@ -41,13 +41,13 @@ const NavbarLayout = () =>{
                             !!userData && 
                             <img className='rounded-full w-12 h-12' src={userData?.photoURL} alt="navbar-profile" referrerPolicy="no-referrer" />
                         }
-                        <div className={!!userData ? 'flex justify-center py-5 gap-8' : 'hidden'}>
+                        <div className={!!userData ? 'flex justify-center py-5' : 'hidden'}>
                             <NavLink to='/cart' className='text-xl'><BsCart3 /></NavLink>
                         </div>
                     
-                        <div className= {!!userData?.accessToken ? 'flex justify-center py-4 gap-8' : ' hidden'}>
+                        <div className= {!!userData?.accessToken ? 'flex justify-center py-4 gap-4' : ' hidden'}>
                             <NavLink to="/chat" className='text-3xl'><AiFillWechat /></NavLink>
-                            <NavLink to="/settings" className='text-3xl'><AiOutlineLogout /></NavLink>
+                            <NavLink to="/settings" className='text-3xl '><AiOutlineLogout /></NavLink>
                         </div>
                        
                     </div>
@@ -55,7 +55,7 @@ const NavbarLayout = () =>{
             </div>
 
 
-            <div className="md:hidden flex justify-between mx-6">
+            <div className="md:hidden flex justify-between px-4">
                <NavLink to={"/"}> <img src={LogoPet} alt='Petshop Logo' className='w-16'/></NavLink>
                
                 <button className="outline-none hover:bg-orange-50" type='button' onClick={()=> setNavbarToggle(!navbarToggle)}>

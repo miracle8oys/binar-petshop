@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-        display: ['cursive', ...defaulTheme.fontFamily.sans]
+        display: ['Poppins', ...defaulTheme.fontFamily.sans]
       },
   },
   plugins: [],
