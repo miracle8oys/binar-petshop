@@ -2,10 +2,11 @@ import { useEffect, useState } from "react"
 import FooterLayout from "../components/Footer"
 import NavbarLayout from "../components/Navbar"
 import {IoIosArrowDropdown} from "react-icons/io";
-import data from "./data/helpData.json";
+import data from "../assets/data/helpData.json";
 import { BsSearch } from "react-icons/bs";
 import '../assets/style.css';
-import CallCenter from  '../assets/call-center.png'
+import CallCenter from  '../assets/call-center.png';
+import QnA from '../assets/bg-qa.png';
 import {BsChatDotsFill} from 'react-icons/bs';
 import { Link } from "react-router-dom";
 
@@ -48,7 +49,8 @@ const Help = (user) =>{
         <div className="flex flex-col min-h-screen w-full lg:min-w-full">
             <NavbarLayout user={user}/>
             
-            <div className="container flex-grow mt-8 pb-6">
+            <div className="flex-grow flef flex-wrap mt-8 pb-6">
+                <div className="mx-auto">
                 <div className="grid md:grid-cols-2  md:ml-12">
                     <div className="text-3xl px-8 md:px-12 mb-10 md:my-16">
                         <h4>Halo, Pet Lovers!</h4>
@@ -60,8 +62,8 @@ const Help = (user) =>{
                                 </span>
                         </div>
                         <div className="flex">
-                            <p className="text-base mt-4">Untuk menghubungi admin, silahkan klik tombol chat </p>
-                            <Link to={'/chat'} className="py-3 text-green-500"><BsChatDotsFill className="ml-1 p-1"/></Link>
+                            <p className="md:text-base text-xs mt-4">Untuk menghubungi admin, silahkan klik tombol chat </p>
+                            <Link to={'/chat'} className="md:py-3 py-2 text-green-500"><BsChatDotsFill className="ml-1 p-1 "/></Link>
                         </div>
                         
                     </div>
@@ -70,41 +72,47 @@ const Help = (user) =>{
                     </div>
                 </div>
                 
-                    <div className="h-80 qna-box flex-grow mb-6">
-                        <h4 className=" px-6 md:text-center text-slate-700 text-lg md:text-xl mb-4 tracking-wide">Yang sering ditanyakan</h4>
-                    
-
-                        <div className=" mx-auto w-3/5">
+                    <div className="h-full qna-box flex-grow md:ml-14">
+                        <h4 className=" px-6 text-center text-slate-700 mb-4 md:mb-0 text-lg md:text-2xl tracking-wide">Yang sering ditanyakan</h4>
+                        
+                        <div className="md:flex justify-center">
+                            <div className="md:visible w-96 md:block invisible hidden my-auto">
+                                <img src={QnA} alt="image" className="object-fit "/>
+                            </div>
                 
-                        <div className="rounded-xl shadow w-auto  mx-4 md:mx-20 bg-white ">
+                            <div className="rounded-xl shadow md:w-3/5 w-auto mx-4 md:mx-20 bg-white h-fit my-auto">
 
-                        {filterData.map((item, i) => (
-                            
-                            <div key={i} className="px-6 border " >
-                                {/* {item.question === null ? (<p>Kosong</p>) : ''} */}
-                            
-                                <button type="button" onClick={() => toggle(i)}   className="grid grid-cols-6 m-0 w-full py-4">
-                                
-                                <span className="w-full flex items-center text-sm md:text-base col-start-1 col-end-6 ">{item.question}</span>
-                                <IoIosArrowDropdown className={"w-full h-6 text-slate-700 transition delay-100 duration-200 col-start-6 " + (clicked === i ? "rotate-0" : "rotate-180")}/>
+                                {filterData.map((item, i) => (
                                     
-                            
-                                </button>
-                                
-                                {( clicked === i ? (
-                                    <div className= "py-4">
-                                        <p className="text-slate-600">{item.answer}</p>
-                                    </div>
+                                    <div key={i} className="px-6 border " >
+                                        {/* {item.question === null ? (<p>Kosong</p>) : ''} */}
                                     
-                                ): null) }
-                                
-                                
+                                        <button type="button" onClick={() => toggle(i)}   className="grid grid-cols-6 m-0 w-full py-4">
+                                        
+                                        <span className="w-full flex items-center text-sm md:text-base col-start-1 col-end-6 ">{item.question}</span>
+                                        <IoIosArrowDropdown className={"w-full h-6 text-slate-700 transition delay-100 duration-200 col-start-6 " + (clicked === i ? "rotate-0" : "rotate-180")}/>
+                                            
                                     
-                            </div> 
+                                        </button>
+                                        
+                                        {( clicked === i ? (
+                                            <div className= "py-4">
+                                                <p className="text-slate-600">{item.answer}</p>
+                                            </div>
+                                            
+                                        ): null) }
+                                        
+                                        
+                                            
+                                    </div> 
+                                
+                                )) }   
                         
-                        )) }   
-                        
-                    </div>
+                            </div>
+                            {filterData.length === 0 &&  <div className="my-auto">
+                                <p className="font-medium text-2xl">Kata Kunci '{query}' Tidak Ditemukan</p>
+                                </div>}
+                        </div>
                 </div>
             </div>
                 
