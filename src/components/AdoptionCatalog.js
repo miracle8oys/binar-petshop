@@ -18,7 +18,6 @@ const AdoptionCatalog = ({setAnimalCategories, animalCategories, currentCategory
         return word.join(' ')
     }
 
-
     return ( 
         <div>
             {/* {animalCategories.map(item => (
