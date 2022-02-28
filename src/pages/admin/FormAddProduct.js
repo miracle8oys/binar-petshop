@@ -36,7 +36,7 @@ const AddProduct = () =>{
             .then(res => res.json())
             .then(result => {
                 // console.log(result.data)
-                setTags(result.data)
+                setTags(result.data.tags)
             });
     }, [base_url, userData]);
     let optionsTag = tags.map((item) => (

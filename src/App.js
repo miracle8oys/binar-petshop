@@ -29,12 +29,22 @@ import ResetPassword from "./pages/ResetPassword";
 import CreateAddress from "./pages/CreateAddress";
 import Checkout from "./pages/Checkout";
 import UpdateProduct from "./pages/admin/FormUpdateProduct";
-import Tags from "./pages/admin/Tags";
+// import Tags from "./pages/admin/Tags";
 import NotFound from "./pages/NotFound";
 import AdminCategory from "./pages/admin/AdminCategory";
 import FormCategory from "./pages/admin/FormCategory";
 import AdminTags from "./pages/admin/AdminTags";
 import FormTags from "./pages/admin/FormTags";
+import AdminSupplies from "./pages/admin/AdminSupplies";
+import FormSupplies from "./pages/admin/FormSupplies";
+import AdminCouriers from "./pages/admin/AdminCouriers";
+import FormCouriers from "./pages/admin/FormCouriers";
+import FormAbout from "./pages/admin/FormAbout";
+import AdminOrders from "./pages/admin/AdminOrders";
+import FormOrder from "./pages/admin/FormOrder";
+import AdminOrderHistories from "./pages/admin/AdminOrderHistories";
+import FormOrderHistories from "./pages/admin/FormOrderHistories";
+
 
 import Help from "./pages/Help";
 function App() {
@@ -102,6 +112,18 @@ function App() {
           <Route path="/admin/tags" element={<AdminTags />} />
           <Route path="/admin/tag/add" element={<FormTags action="ADD"/>} />
           <Route path="/admin/tag/update/:id" element={<FormTags action="UPDATE"/>} />
+          <Route path="/admin/supplies" element={<AdminSupplies />} />
+          <Route path="/admin/supplies/add/:productId" element={<FormSupplies action="ADD"/>} />
+          <Route path="/admin/supplies/update/:id" element={<FormSupplies action="UPDATE"/>} />
+          <Route path="/admin/couriers" element={<AdminCouriers />} />
+          <Route path="/admin/courier/add" element={<FormCouriers action="ADD"/>} />
+          <Route path="/admin/courier/update/:id" element={<FormCouriers action="UPDATE"/>} />
+          <Route path="/admin/orders" element={<AdminOrders />} />
+          <Route path="/admin/order/update/:id" element={<FormOrder />} />
+          <Route path="/admin/histories" element={<AdminOrderHistories />} />
+          <Route path="/admin/histories/:id" element={<FormOrderHistories />} />
+
+          <Route path="/admin/about" element={<FormAbout/>} />
         </Route>
         <Route path="/product/:id" element={<CurrentProduct user={user}/>}/>
         <Route path="*" element={<NotFound />} />

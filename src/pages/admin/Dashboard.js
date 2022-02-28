@@ -83,10 +83,6 @@ const Dashboard = ({user}) => {
                                                 <td>: {item.grand_weight}</td>
                                             </tr>
                                             <tr>
-                                                <td>Grand Weight</td>
-                                                <td>: {item.grand_weight}</td>
-                                            </tr>
-                                            <tr>
                                                 <td>Shipping Costs</td>
                                                 <td>: {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(item.shipping_costs)}</td>
                                             </tr>

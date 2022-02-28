@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import {storage} from "../../config/firebase";
 import { uploadBytesResumable, ref, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 const FormAdopt = () => {
+    const userData = useSelector(state => state.loginReducer);
     const [errMsg, setErrMsg] = useState({});
     const [previewImage, setPreviewImage] = useState('');
     const [name, setName] = useState('');
@@ -19,11 +21,17 @@ const FormAdopt = () => {
     const base_url = process.env.REACT_APP_BASE_URL;
 
     useEffect(() => {
-        fetch(`${base_url}/categories`)
-            .then(res => res.json())
-            .then(result => {
-                setCategoryChoice(result.data)
-            });
+        fetch(`${base_url}/categories`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'Application/JSON',
+                'authorization': userData.user?.accessToken
+            }
+        })
+        .then(res => res.json())
+        .then(result => {
+            setCategoryChoice(result.data.categories)
+        });
     }, [base_url]);
 
     const handleSubmit = (e) => {
@@ -54,7 +62,8 @@ const FormAdopt = () => {
         fetch(`${base_url}/admin/v1/adopt`, {
             method: "POST",
             headers: {
-                    'Content-Type': 'Application/JSON'
+                    'Content-Type': 'Application/JSON',
+                    'authorization': userData.user?.accessToken
                 },
             body: JSON.stringify({
                 name, 

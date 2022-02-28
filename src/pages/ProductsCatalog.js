@@ -72,7 +72,7 @@ const ProductsCatalog = ({user}) =>{
         })
         .then(res => res.json())
         .then(result => {
-            setTags(result.data)
+            setTags(result.data.tags)
         });
     }, [base_url])
 
