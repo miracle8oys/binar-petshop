@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import NavbarLayout from "../components/Navbar";
 import FooterLayout from "../components/Footer";
+import  msgPict from "../assets/Messaging-cuate.png"
 
 const UserChat = () => {
 
@@ -62,11 +63,29 @@ const UserChat = () => {
                     ))}
                 </div>
             </div> */}
-            <NavbarLayout />
-            <div className="h-screen w-screen flex justify-center items-center">
-                <button className="py-2 px-2 bg-sky-500 rounded-md font-bold" onClick={createRoom}>Chat With Admin</button>
-            </div>
-            <FooterLayout />
+            
+                <div className="h-screen w-full flex flex-col">
+                <NavbarLayout />
+                    
+                        <div className="md:flex justify-center items-center gap-12 flex-grow">
+                            <div className="mx-auto md:mx-0">
+                                <img src={msgPict} className="w-full md:h-80 h-96 object-fit "/>
+                            </div>
+                            
+                            <div className="px-6 md:px-0">
+                                <p className="text-2xl font-medium mb-1">Halo, {userData?.user?.displayName}</p>
+                                <p className="text-lg mb-5">Silahkan klik tombol dibawah untuk menghubungi admin</p>
+                                <div className="flex justify-center items-center my-10">
+                                    <button className="py-2 px-4 bg-orange-300 hover:bg-orange-200 rounded-md font-medium" onClick={createRoom}>Chat Admin</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                  
+                    <FooterLayout />
+                </div>
+            
+           
         </>
      );
 }
