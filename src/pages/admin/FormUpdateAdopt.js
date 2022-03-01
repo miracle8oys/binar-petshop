@@ -40,16 +40,21 @@ const FormUpdateAdopt = () => {
             setPreviewImage(result.data.img);
             setCurrentImage(result.data.img);
         });
-    }, [setName, setAge, setRace, setCategory, setPreviewImage, setCurrentImage, base_url, adoption_id]);
+    }, [setName, setAge, setRace, setCategory, setPreviewImage, setCurrentImage, base_url, userData, adoption_id]);
 
    
     useEffect(() => {
-        fetch(`${base_url}/categories`)
+        fetch(`${base_url}/categories`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'Application/JSON',
+                'authorization': userData.user?.accessToken
+            }})
             .then(res => res.json())
             .then(result => {
                 setCategoryChoice(result.data.categories)
             });
-    }, [base_url]);
+    }, [base_url, userData]);
 
     const handleSubmit = (e) => {
         e.preventDefault();

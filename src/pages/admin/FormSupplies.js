@@ -8,7 +8,7 @@ import SidebarLayout from "../../components/SideberAdmin"
 
 const FormSupplies = ({action}) => {
     const base_url = process.env.REACT_APP_BASE_URL;
-    const {id,productId} = useParams()
+    const {id, productId} = useParams()
     const navigate = useNavigate();
     const userData = useSelector(state => state.loginReducer);
     const [errMsg, setErrMsg] = useState({});
@@ -46,7 +46,7 @@ const FormSupplies = ({action}) => {
                 setProduct(result.data.product)
             })
         }
-    }, [base_url])
+    }, [base_url, userData, id, productId, action])
 
     const handleSubmit = (e) => {
         e.preventDefault();

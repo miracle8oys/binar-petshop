@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import FooterLayout from "../../components/Footer";
 import NavbarLayout from "../../components/Navbar";
 import SidebarLayout from "../../components/SideberAdmin"
@@ -11,7 +11,6 @@ const FormOrderHistories = () => {
     let i = 1;
     const {id} = useParams()
     const userData = useSelector(state => state.loginReducer);
-    const [errMsg, setErrMsg] = useState({});
     const [grand_total, setGrand_total] = useState(0);
     const [grand_weight, setGrand_weight] = useState(0);
     const [createdAt, setCreatedAt] = useState('');
@@ -45,7 +44,7 @@ const FormOrderHistories = () => {
             setCreatedAt(result.data.createdAt)
             setProducts(result.data.products)
         })
-    }, [base_url])
+    }, [base_url, userData, id])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -59,7 +58,6 @@ const FormOrderHistories = () => {
                 <div className="grid justify-center h-max min-h-screen w-full py-10">
                     <div className="h-fit w-[70vw] md:w-[70vw] border border-slate-400 px-5 pt-4 shadow-2xl">
                         <h1 className="text-center text-2xl font-semibold">ORDER DETAILS</h1>
-                        {Object.keys(errMsg).length !== 0 && <h1 className="bg-slate-200 mt-3 -mb-5 py-2 px-2 text-center rounded-md font-medium">{errMsg.message}</h1>}
                         <form onSubmit={handleSubmit} encType="multipart/form-data" className="grid my-8 gap-3 md:gap-3">
                             <label className="text-gray-700 ml-2">Name</label>
                             <input value={name} className="border border-slate-400 h-12 rounded-md pl-2" readOnly disabled/>

@@ -4,7 +4,7 @@ import NavbarLayout from "../../components/Navbar";
 import SidebarLayout from "../../components/SideberAdmin"
 import {BiEdit} from 'react-icons/bi';
 import {FiTrash2} from 'react-icons/fi';
-import {IoIosArrowDropdown, IoMdTennisball} from 'react-icons/io'
+import {IoIosArrowDropdown} from 'react-icons/io'
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -30,23 +30,21 @@ const AdminOrders = () =>{
     // console.log(userData.user?.accessToken);
 
     useEffect(() => {
-        // if(userData.user?.accessToken){
-            fetch(`${base_url}/admin/v1/order?name=${keyword}&status=${currentStatus}`, 
-            {
-                method: "GET",
-                headers: {
-                    'Content-Type': 'Application/JSON',
-                    'authorization': userData.user?.accessToken
-                }
-            }, [userData])
-            .then(res => res.json())
-            .then(result => {
-                // console.log(result.data)
-                setOrders(result.data.orders)
-                setCount(result.data.count)
-            });
-        // }
-    }, [keyword, currentStatus, base_url, userData, changes])
+        fetch(`${base_url}/admin/v1/order?name=${keyword}&status=${currentStatus}`, 
+        {
+            method: "GET",
+            headers: {
+                'Content-Type': 'Application/JSON',
+                'authorization': userData.user?.accessToken
+            }
+        })
+        .then(res => res.json())
+        .then(result => {
+            // console.log(result.data)
+            setOrders(result.data.orders)
+            setCount(result.data.count)
+        });
+    }, [keyword, userData, currentStatus, base_url, changes])
 
 
     useEffect ( () => {
@@ -70,7 +68,7 @@ const AdminOrders = () =>{
         } else {
             setStatusChanges(current => current + 1)
         }
-    }, [selectStatus])
+    }, [selectStatus, userData])
 
     const handleChange = (e) =>{
         setKeyword(e.target.value)

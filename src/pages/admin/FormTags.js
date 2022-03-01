@@ -29,7 +29,7 @@ const FormTags = ({action}) => {
                 setName(result.data.name)
             })
         }
-    }, [base_url])
+    }, [base_url, userData, id, action])
 
     const handleSubmit = (e) => {
         e.preventDefault();

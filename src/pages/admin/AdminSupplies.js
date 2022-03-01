@@ -34,7 +34,7 @@ const AdminSupplies = () => {
             setSupplies(result.data.supplies)
             setCount(result.data.count)
         })
-    }, [base_url, changes])
+    }, [base_url, userData, changes])
 
     // const handleChange = (e) =>{
     //     setKeyword(e.target.value)

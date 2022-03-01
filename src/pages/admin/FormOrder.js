@@ -60,7 +60,7 @@ const FormOrder = () => {
             setAddress(result.data.address.address)
             setProducts(result.data.order_product)
         })
-    }, [base_url])
+    }, [base_url, userData, id])
 
     const handleSubmit = (e) => {
         e.preventDefault();

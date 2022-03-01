@@ -29,7 +29,7 @@ const FormCategory = ({action}) => {
                 setName(result.data.name)
             })
         }
-    }, [base_url])
+    }, [base_url, userData, action, id])
 
     const handleSubmit = (e) => {
         e.preventDefault();

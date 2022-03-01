@@ -42,7 +42,7 @@ const AdminProduct = ({user}) =>{
             });
         // }
         // console.log(product.products)
-    }, [keyword, currentTags, base_url, userData, changes])
+    }, [keyword, userData, currentTags, base_url, changes])
 
     useEffect(() => {
     

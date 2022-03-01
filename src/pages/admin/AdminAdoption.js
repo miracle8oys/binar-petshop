@@ -41,7 +41,7 @@ const AdminAdoption = ({user}) => {
         });
 
         //setAnimalCategories(categories);
-    }, [base_url, currentCategory, keyword, changes]);
+    }, [base_url, userData, currentCategory, keyword, changes]);
 
     useEffect(() => {
         fetch('http://localhost:8000/categories',{
@@ -56,7 +56,7 @@ const AdminAdoption = ({user}) => {
             // console.log(result)
             setAnimalCategories(result.data.categories)
         });
-    }, [base_url]);
+    }, [base_url, userData]);
 
     const handleCategoryClick = (categoryId) => {
         if (currentCategory === categoryId) {

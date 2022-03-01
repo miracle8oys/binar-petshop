@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import FooterLayout from "../../components/Footer"
 import NavbarLayout from "../../components/Navbar"
 import SidebarLayout from "../../components/SideberAdmin"
 
 const Dashboard = ({user}) => {
+    const userData = useSelector(state => state.loginReducer);
     const [countProducts, setCountProducts] = useState(0);
     const [countOrders, setCountOrders] = useState(0);
     const [countProcess, setCountProcess] = useState(0);
@@ -17,6 +19,7 @@ const Dashboard = ({user}) => {
             method: "GET",
             headers: {
                 'Content-Type': 'Application/JSON',
+                'authorization': userData.user?.accessToken 
             }
         })
         .then(res => res.json())
@@ -28,7 +31,7 @@ const Dashboard = ({user}) => {
             setCountHistory(result.data.count_history)
             setNewOrders(result.data.new_orders)
         });
-    }, [base_url])
+    }, [base_url, userData])
 
     return (
         <div className="flex flex-col w-full h-screen">
