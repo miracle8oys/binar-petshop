@@ -67,7 +67,7 @@ const UpdateProduct = () =>{
                 setTags(result.data.tags)
             });                    
 
-    }, [base_url,userData])
+    }, [base_url, userData])
 
     let optionsTag = tags.map((item) => (
         {value: item.id,

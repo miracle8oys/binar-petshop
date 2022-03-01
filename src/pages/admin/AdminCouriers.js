@@ -7,9 +7,9 @@ import SidebarLayout from "../../components/SideberAdmin"
 import {BiEdit} from 'react-icons/bi';
 import {FiTrash2} from 'react-icons/fi';
 
-const base_url = process.env.REACT_APP_BASE_URL;
 
 const AdminCouriers = () => {
+    const base_url = process.env.REACT_APP_BASE_URL;
     let i = 1;
     const navigate = useNavigate();
     const userData = useSelector(state => state.loginReducer);
@@ -32,7 +32,7 @@ const AdminCouriers = () => {
             setCouriers(result.data.couriers)
             setCount(result.data.count)
         })
-    }, [base_url, changes, keyword])
+    }, [base_url, userData, changes, keyword])
 
     const handleChange = (e) =>{
         setKeyword(e.target.value)

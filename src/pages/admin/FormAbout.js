@@ -28,7 +28,13 @@ const FormAbout = () => {
 
     useEffect(()=> {
         try{
-            fetch('http://localhost:8000/about')
+            fetch('http://localhost:8000/about', {
+                method: "GET",
+                    headers: {
+                        'Content-Type': 'Application/JSON',
+                        'authorization': userToken
+                    }
+            })
             .then(res => res.json())
             .then(result => {
                 setName(result.data.name)
@@ -54,17 +60,23 @@ const FormAbout = () => {
             console.log(err);
         }
         
-    }, [base_url, changes])
+    }, [base_url, userToken, changes])
 
     useEffect(()=> {
-        fetch(`http://localhost:8000/city?province=${newProvince.province_id}`)
+        fetch(`http://localhost:8000/city?province=${newProvince.province_id}`, {
+            method: "GET",
+                headers: {
+                    'Content-Type': 'Application/JSON',
+                    'authorization': userToken
+                }
+        })
         .then(res => res.json())
         .then(response => {
             setCityList(response.rajaongkir.results)
         }).catch(err => {
             console.log(err);
         })
-    }, [base_url, newProvince])
+    }, [base_url, userToken, newProvince])
 
     useMemo(() => {
         setPostal_code('')
@@ -132,13 +144,13 @@ const FormAbout = () => {
                     <label className="text-gray-700 ml-2">Maps (Embed)</label>
                     <textarea onChange={(e) => setMaps(e.target.value)} className="border-2 h-12 rounded-md pl-2 w-1/2" value={maps} placeholder="Maps..."></textarea>
                     <label className="text-gray-700 ml-2 mt-3">Province</label>
-                    <p>(Current Province: <span className="font-bold">{province}</span>)</p>
+                    <p className="pl-2">(Current Province: <span className="font-bold">{province}</span>)</p>
                     <select onChange={(e)=>setNewProvince(JSON.parse(e.target.value))} className="border-2 h-12 rounded-md pl-2 w-1/4" required>
                         <option key="-1" value={JSON.stringify({})} selected disabled hidden>-</option>
                         {provinceList.map(item =>(<option key={item.province_id} value={JSON.stringify(item)}>{item.province}</option>))}
                     </select>
                     <label className="text-gray-700 ml-2 mt-3">City</label>
-                    <p>(Current City: <span className="font-bold">{city}</span>)</p>
+                    <p className="pl-2">(Current City: <span className="font-bold">{city}</span>)</p>
                     <select onChange={(e)=>setNewCity(JSON.parse(e.target.value))} className="border-2 h-12 rounded-md pl-2 w-1/4" required>
                         <option key="-1" value={JSON.stringify({})} selected disabled hidden>-</option>
                         {cityList.map(item => (<option key={item.city_id} value={JSON.stringify(item)}>{item.city_name}</option>))}

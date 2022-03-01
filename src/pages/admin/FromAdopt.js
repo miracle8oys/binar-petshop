@@ -32,7 +32,7 @@ const FormAdopt = () => {
         .then(result => {
             setCategoryChoice(result.data.categories)
         });
-    }, [base_url]);
+    }, [base_url, userData]);
 
     const handleSubmit = (e) => {
         e.preventDefault();

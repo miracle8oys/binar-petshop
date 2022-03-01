@@ -7,9 +7,9 @@ import SidebarLayout from "../../components/SideberAdmin"
 import {BiEdit} from 'react-icons/bi';
 import {FiTrash2} from 'react-icons/fi';
 
-const base_url = process.env.REACT_APP_BASE_URL;
 
 const AdminOrderHistories = () => {
+    const base_url = process.env.REACT_APP_BASE_URL;
     let i = 1;
     const navigate = useNavigate();
     const userData = useSelector(state => state.loginReducer);
@@ -34,7 +34,7 @@ const AdminOrderHistories = () => {
             setOrderHistories(result.data.orderHistory)
             setCount(result.data.count)
         })
-    }, [base_url, changes])
+    }, [base_url, userData, changes])
 
     // const handleChange = (e) =>{
     //     setKeyword(e.target.value)
