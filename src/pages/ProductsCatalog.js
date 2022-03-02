@@ -23,6 +23,7 @@ const ProductsCatalog = ({user}) =>{
     const [best_seller, setBestSeller] = useState(0);
     const [bestProduct, setBestProduct] = useState([]);
     const [endIndex, setEndIndex] = useState(0);
+    const [errMsg, setErrMsg] = useState('')
     const userData = useSelector(state => state.loginReducer);
     const base_url = process.env.REACT_APP_BASE_URL;
     
@@ -40,8 +41,15 @@ const ProductsCatalog = ({user}) =>{
         .then(result => {
             setProduct(result.data.products)
             setEndIndex(result.endIndex);
+  
+            if(result.data.products.length === 0 ){
+                setErrMsg({message: 'Product Not Found'})
+            }else{
+                setErrMsg('')
+            }
+           
 
-        });
+        })        
     }, [base_url, userData, page, keyword, currentTags]);
 
     useEffect(() => {
@@ -101,24 +109,24 @@ const ProductsCatalog = ({user}) =>{
         }
         return word.join(' ')
     }
-    console.log(page)
-    console.log(endIndex)
+    // console.log(page)
+    // console.log(endIndex)
   
     return (
         <>
             <div className='flex flex-col min-h-screen w-full bg-orange-100 bg-opacity-25 '>
                 <NavbarLayout user={user} />
-                    <div className='flex container lg:min-w-full px-8  my-5 gap-4 '>
+                    <div className='flex container flex-grow lg:min-w-full md:px-8 px-4  mb-5 mt-10 gap-4 '>
                         <div>
-                        <button type='button' onClick={()=> setDropDown(!DropdownToggle)} className='shadow items-center gap-2 py-2 px-4 font-semibold hover:bg-orange-50 active:bg-orange-50 focus:bg-orange-50 rounded-md md:text-base text-sm border flex bg-white'> Kategori <IoIosArrowDropdown/></button>
+                        <button type='button' onClick={()=> setDropDown(!DropdownToggle)} className='shadow items-center gap-2 py-2 px-4 font-semibold hover:bg-orange-50 active:bg-orange-50 focus:bg-orange-50 rounded-md md:text-base text-sm border flex bg-white'> Category <IoIosArrowDropdown/></button>
                             <Transition
                                 show={DropdownToggle}
-                                enter="transition-opacity duration-700"
-                                enterFrom="opacity-0"
-                                enterTo="opacity-100"
-                                leave="transition-opacity duration-500"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0">
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95">
                             <div className={(DropdownToggle ? "absolute translate-y-1 shadow px-2 w-max  md:mt-1 mt-2 rounded-md h-fit border-t-[1px] bg-white overflow-y-auto h-60 overflow-x-hidden" : "hidden")}>
                                 <ul className="text-gray-800 m-2 md:pb-1">
                                 <li className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1 '><button onClick={() => handleClickAll() } type='button' className='py-2 px-2 rounded-md'>All Product</button></li>
@@ -132,7 +140,7 @@ const ProductsCatalog = ({user}) =>{
                             </div>
                      
                             <div className='flex w-full shadow'>
-                                <input onChange={handleChange} className="w-full placeholder:italic placeholder:text-slate-400 bg-white border border-slate-300 rounded-md py-2 pl-7 pr-3 shadow-sm focus:outline-none focus:border-sky-100 focus:ring-sky-500 focus:ring-1 text-sm" placeholder="Search product..." type="text" name="search"/>
+                                <input onChange={handleChange} className="w-full placeholder:italic placeholder:text-slate-400 bg-white border border-slate-300 rounded-md py-2 pl-7 pr-3 shadow-sm focus:outline-none focus:border-orange-100 focus:ring-orange-100 focus:ring-1 text-sm" placeholder="Search product..." type="text" name="search"/>
                                 <button className="flex items-center justify-center md:-ml-12 -ml-8  ">
                                     <BsSearch/>
                                 </button>
@@ -140,7 +148,7 @@ const ProductsCatalog = ({user}) =>{
                       
                     </div>
                     
-                    <div className={(DropdownToggle ? 'hidden ': 'container lg:min-w-full px-8 mt-5' )}>
+                    <div className={(DropdownToggle ? 'hidden ': 'container lg:min-w-full md:px-8 px-4 mt-5' )}>
                     <Transition
                         show={!DropdownToggle}
                         enter="transition-opacity duration-700"
@@ -161,16 +169,16 @@ const ProductsCatalog = ({user}) =>{
                         </Transition>
                     </div>
 
-                    {bestProduct.length === 0 && 
-                        <h5 className="font-bold text-xl px-8 font-display py-20 text-center">Produk Tidak Ditemukan</h5> 
+                    {Object.keys(errMsg).length !== 0 &&
+                        <h5 className="font-bold text-xl px-8 font-display py-20 text-center">{errMsg.message}</h5> 
                     }
                     
-                    <div className='container min-w-full py-3 mb-2 flex flex-wrap flex-grow '>
-                    {bestProduct.length!== 0  && <h5 className="font-bold md:text-xl font-display pt-4 mb-4 lg:px-8 px-4">Best Seller</h5>}
-                        <div className='mx-auto'>
-                            <div className={bestProduct.length !== 0 ? "w-max grid grid-cols-2 md:grid-cols-5 gap-6 lg:gap-10 bg-white rounded-2xl shadow-md p-4" : 'hidden'}>
+                    <div className={bestProduct.length!== 0 ? 'container min-w-full py-3 mb-2 flex-grow ': 'hidden'}>
+                    <h5 className="font-bold md:text-2xl text-lg font-display pt-4 mb-4 px-8">Best Seller Products</h5>
+                        <div className='w-max mx-auto'> 
+                            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
                             { bestProduct.length !== 0 && bestProduct.slice(0,5).map((item, i) => (
-                                <div key={i} className="lg:w-52 w-36 shadow-lg border-solid border rounded-xl bg-white">
+                                <div key={i} className="lg:w-56 w-40 shadow-lg border-solid border rounded-xl bg-white">
                                     <Link to={`/product/${item.product_id?.id}`} >
                                         <BestSellerProducts  bp={item} />
                                     </Link>
@@ -182,12 +190,12 @@ const ProductsCatalog = ({user}) =>{
                         
                     </div>
                     
-                    <div className= 'w-full lg:min-w-full mb-5 flex flex-wrap flex-grow'>
-                        {product?.length !== 0  && <h5 className="font-bold md:text-xl font-display mt-4 mb-6 px-8">Products</h5>}
-                        <div className='mx-auto'>
-                                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 lg:gap-6">
+                    <div className= {product.length!== 0 ? 'container min-w-full py-3 mb-5 flex-grow ': 'hidden'}>
+                        <h5 className="font-bold md:text-2xl text-lg font-sans mt-4 mb-4 px-6">Products</h5>
+                        <div className='w-max mx-auto'>
+                                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
                                 { product?.length !== 0 && product?.map((item, i) => (
-                                    <div key={i} className="lg:w-56 md:48  w-36 shadow-lg border-solid border rounded-xl mb-4 bg-white">
+                                    <div key={i} className="md:w-56 w-40 shadow-lg border-solid border rounded-xl mb-4 bg-orange-500 bg-opacity-75">
                                         <Link to={`/product/${item.product_id?.id}`} >
                                             <ListProducts key={i} prod={item}/>
                                         </Link>
@@ -198,10 +206,10 @@ const ProductsCatalog = ({user}) =>{
                     </div>
                     <div className="flex gap-5 justify-center mb-6 ">
                         {page > 1 && 
-                            <button onClick={() => setPage(current => current - 1)} type="button" className="border border-1 bg-slate-50 hover:bg-slate-100 rounded-md p-2 shadow">Previous Page</button>
+                            <button onClick={() => setPage(current => current - 1)} type="button" className="border border-1 bg-orange-300 hover:bg-orange-200 rounded-md p-2 shadow font-medium">Previous Page</button>
                         }
                         {endIndex > 0 &&
-                            <button onClick={() => setPage(current => current + 1)} type="button" className="bg-slate-50 hover:bg-slate-100 border border-1 rounded-md p-2 shadow">Next Page</button>
+                            <button onClick={() => setPage(current => current + 1)} type="button" className="bg-orange-300 hover:bg-orange-200 border border-1 rounded-md p-2 shadow font-medium">Next Page</button>
                         }
                     </div>
 
