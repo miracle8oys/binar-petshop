@@ -120,7 +120,7 @@ const CurrentProduct = ({user}) =>{
      )))
 
     return (
-        <div className="flex flex-col w-full h-screen bg-orange-50 bg-opacity-25">
+        <div className="flex flex-col w-full min-h-screen bg-orange-50 bg-opacity-50">
             <NavbarLayout user={user}/>
 
             <div className="container px-6 flex mt-6">
@@ -153,20 +153,20 @@ const CurrentProduct = ({user}) =>{
                             
                         </div>
                         
-                        <div className="mt-4 relative md:ml-4 col-span-4 lg:mt-0">
+                        <div className="mt-4 relative md:ml-8 col-span-4 lg:mt-0">
                             <div>
                                 {currProd.product_id && <p className="lg:text-2xl tracking-wide text-xl mb-0 ">{capitalizeEachLetter(currProd.product_id?.name)}</p>}
                             
                                 <p className="md:text-2xl text-xl my-3 tracking-wide font-medium text-green-600">{formatRupiah (currProd.product_id?.price)} (pcs)</p>
-                                <p className="text-lg mb-3 tracking-wide">Ketersediaan:<span className={(currProd.product_id?.stok !== 0 ? "ml-2 text-sky-500" : "text-red-600")}>{currProd.product_id?.stok !== 0 ? 'Tersedia' : 'Tidak Tersedia'}</span> </p>
-                                <p className= {"mt-8 flex " +(currProd.product_id?.qty === 0 ? "text-red-600" : "text-slate-600"  )}><GiShop className="mt-1 mr-2"/>Tersedia <span className={"mx-1 " + (currProd.product_id?.qty === 0 ? "text-red-600" : "text-sky-600"  )}>{currProd.product_id?.qty}</span>  pcs</p>
-                                <p className="text-slate-500 text-base my-2 flex"><FaShoppingBag className="mt-1 mr-2"/>Terjual: {currProd.product_id?.sold} pcs</p>
-                                <p className="text-slate-500 text-base my-2 flex"><FaShippingFast className="mt-1 mr-2"/>Melayani Pesan-Antar</p>
+                                <p className="text-lg mb-3 tracking-wide">Availability:<span className={(currProd.product_id?.stok !== 0 ? "ml-2 text-sky-500" : "text-red-600")}>{currProd.product_id?.stok !== 0 ? 'Available' : 'Not Available'}</span> </p>
+                                <p className= {"mt-8 flex " +(currProd.product_id?.qty === 0 ? "text-red-600" : "text-slate-600"  )}><GiShop className="mt-1 mr-2"/>Stock<span className={"mx-1 " + (currProd.product_id?.qty === 0 ? "text-red-600" : "text-sky-600"  )}>{currProd.product_id?.qty}</span>  pcs</p>
+                                <p className="text-slate-500 text-base my-2 flex"><FaShoppingBag className="mt-1 mr-2"/>Sells: {currProd.product_id?.sold} pcs</p>
+                                <p className="text-slate-500 text-base my-2 flex"><FaShippingFast className="mt-1 mr-2"/>Serve Fast Delivery</p>
                             </div>
                             <div className="w-full flex md:absolute md:inset-x-0 md:bottom-14 gap-4 mt-6 ">
                                 
-                                    <button type="button" onClick={() => handleCreateCart(currProd.product_id?.id)} className="h-10 w-36 lg:w-48 rounded font-semibold tracking-wide text-white  bg-blue-600 hover:bg-blue-500">Beli Produk</button>
-                                    <button type="button" className=" h-10 rounded font-medium border border-gray-400 hover:bg-slate-100 w-36 lg:w-48 flex items-center justify-center" id="copy-button" onClick={copy}><FiShare2 className="mr-2"/> {!copied ? "Bagikan" : "Berhasil!"}</button>
+                                    <button type="button" onClick={() => handleCreateCart(currProd.product_id?.id)} className="h-10 w-36 lg:w-48 rounded font-semibold tracking-wide bg-orange-300 hover:bg-orange-200 shadow-md">Buy Product</button>
+                                    <button type="button" className=" h-10 rounded font-medium border border-gray-300 hover:bg-slate-100 w-36 lg:w-48 flex items-center justify-center bg-white shadow" id="copy-button" onClick={copy}><FiShare2 className="mr-2"/> {!copied ? "Share" : "Succeed!"}</button>
                                     {Object.keys(errMsg).length !== 0 && <p className="text-yellow-500 text-sm my-2 text-center">{errMsg.message}</p>}
                                     {/* <Link to={`/${base_url}/product/${currProd.product_id?.id}`} className="h-10 mx-4 rounded font-semibold px-8 tracking-wide text-white w- bg-blue-600 hover:bg-blue-500">Bagikan</Link> */}
                                 
@@ -206,17 +206,17 @@ const CurrentProduct = ({user}) =>{
                 
             </div>
             <div className="w-full lg:min-w-full my-5 px-6 flex-grow container ">
-                    <h6 className="font-bold">Informasi Produk</h6>
+                    <h6 className="font-bold">Product Information</h6>
                     <div className="flex flex-wrap">
                         <div className="w-full">
                             <ul className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row gap-8  border-b-2"role="tablist">
                                 <li className="text-blue-800">
                                     <button className={"text-base  " + (openTab === 1? "text-sky-700 font-medium" : "text-black bg-white")} 
-                                    onClick = {e => {e.preventDefault(); setOpenTab(1);}}data-toggle="tab" href="#link1" role="tablist">Deskripsi</button>          
+                                    onClick = {e => {e.preventDefault(); setOpenTab(1);}}data-toggle="tab" href="#link1" role="tablist">Description</button>          
                                 </li>
                                 <li className="text-blue-800">
                                     <button className={"text-base " + (openTab === 2? "text-sky-700 font-medium " : "text-black bg-white")} 
-                                    onClick = {e => {e.preventDefault(); setOpenTab(2);}}data-toggle="tab" href="#link2" role="tablist">Informasi</button>          
+                                    onClick = {e => {e.preventDefault(); setOpenTab(2);}}data-toggle="tab" href="#link2" role="tablist">Information</button>          
                                 </li>
                             </ul>
 
@@ -230,7 +230,7 @@ const CurrentProduct = ({user}) =>{
                                     <div className={(openTab === 2 ? " block mb-6" : " hidden")} id="link2">
                                         <div className="flex  pt-3 ">
                                             <p className="w-24">
-                                                Berat 
+                                                Weight
                                             </p>
                                             <p className="w-full">
                                                 {currProd.product_id?.weight} gram
@@ -238,7 +238,7 @@ const CurrentProduct = ({user}) =>{
                                         </div>
                                         <div className="flex  pt-3  ">
                                             <p className="w-24">
-                                                Kategori
+                                                Categories
                                             </p>
                                             <div className="w-full">
                                                 {(categoryProd.map((item, i) =>(

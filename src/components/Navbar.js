@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link} from 'react-router-dom';
 import Logo from '../assets/newlogo.png'
 import {BsCart3} from "react-icons/bs"
 import {AiFillWechat} from "react-icons/ai"
@@ -7,14 +7,14 @@ import {AiOutlineLogout} from "react-icons/ai"
 import { Transition } from '@tailwindui/react';
 import { useSelector } from 'react-redux';
 import {GiHamburgerMenu} from 'react-icons/gi'
-import {CgProfile} from 'react-icons/cg'
+// import {CgProfile} from 'react-icons/cg'
 import '../assets/style.css'
 
 const NavbarLayout = () =>{
     const [navbarToggle, setNavbarToggle] = useState(false);
     const [DropdownToggle, setDropDown] = useState(false)
     const userData = useSelector(state => state.loginReducer.user);
-    console.log(userData?.accessToken);
+    // console.log(userData?.accessToken);
     return(
         <>
             <nav className="bg-orange-300 bg-opacity-50 shadow-lg">
@@ -32,11 +32,14 @@ const NavbarLayout = () =>{
                                 <img className="block lg:hidden h-8 w-auto" src={Logo} alt="Workflow"/>
                                 <img className="hidden lg:block h-8 w-auto" src={Logo} alt="Logo"/>
                             </div>
+                            <div className='hidden md:block my-auto ml-4'>
+                                <Link to={'/'} className="text-orange-800  rounded-md font-bold">ABCD PetShop</Link>
+                            </div>
                             <div className="hidden sm:block sm:ml-6 my-auto">
                                 <div className="flex space-x-4">
-                                    <NavLink to={'/'}  className="bg-orange-100 text-orange-800 px-3 py-2 rounded-md text-sm font-bold" aria-current="page">Home</NavLink>
+                                    <NavLink to={'/'}  className="hover:bg-orange-100 text-orange-800 px-3 py-2 rounded-md text-sm font-bold">Home</NavLink>
 
-                                    <NavLink to={'/catalog'} className="hover:bg-orange-100 text-orange-800 px-3 py-2 rounded-md text-sm font-bold">Products</NavLink>
+                                    <NavLink to={'/catalog'} className="hover:bg-orange-100 text-orange-800 px-3 py-2 rounded-md text-sm font-bold" >Products</NavLink>
 
                                     <NavLink to={'/adopt'} className="text-orange-800 hover:bg-orange-100 px-3 py-2 rounded-md text-sm font-bold">Pet Adoptions</NavLink>
 
@@ -72,7 +75,7 @@ const NavbarLayout = () =>{
 
                                     <div className={(navbarToggle ? "origin-top-right absolute right-0 mt-3 md:mt-2 w-48 rounded-md shadow-lg py-1 bg-orange-50 ring-1 ring-black ring-opacity-5 focus:outline-none  z-30" : 'hidden')} role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
                                          {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
-                                        <NavLink to={'/profile'} className="block px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700 " role="menuitem" tabIndex="-1" id="user-menu-item-0"><CgProfile className='mr-2 text-xl'/>My Profile</NavLink>
+                                        {/* <NavLink to={'/profile'} className="block px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700 " role="menuitem" tabIndex="-1" id="user-menu-item-0"><CgProfile className='mr-2 text-xl'/>My Profile</NavLink> */}
                                         <NavLink to={'/cart'} className="block px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700 border-b-2" role="menuitem" tabIndex="-1" id="user-menu-item-1"><BsCart3 className='mr-2 text-xl' />Cart</NavLink>
                                         <NavLink to={'/logout'} className="block px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700" role="menuitem" tabIndex="-1" id="user-menu-item-2"><AiOutlineLogout className='mr-2 text-xl'/>Sign out</NavLink>
                                     </div>
@@ -95,10 +98,10 @@ const NavbarLayout = () =>{
                     leave="transition ease-in duration-75"
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95">
-                        <div className={(DropdownToggle ? 'block absolute w-full bg-orange-200  z-20' : "hidden")} id="mobile-menu">
+                        <div className={(DropdownToggle ? 'block md:hidden absolute w-full bg-orange-200  z-20' : "hidden")} id="mobile-menu">
                             <div className="px-2 pt-2 pb-3 space-y-1">
                                 {/* <!-- Current: "bg-gray-900 text-white", Default: "text-white hover:bg-gray-700 hover:text-white" --> */}
-                                <NavLink to={'/'} className="bg-orange-100 text-orange-800 block px-3 py-2 rounded-md text-base font-bold" aria-current="page">Home</NavLink>
+                                <NavLink to={'/'} className="hover:bg-orange-100 text-orange-800 block px-3 py-2 rounded-md text-base font-bold" aria-current="page">Home</NavLink>
 
                                 <NavLink to={'/catalog'} className="hover:bg-orange-100 text-orange-800 hover:text-white block px-3 py-2 rounded-md text-base font-bold">Products</NavLink>
 

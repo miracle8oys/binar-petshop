@@ -69,12 +69,12 @@ const UserChat = () => {
                     
                         <div className="md:flex justify-center items-center gap-12 flex-grow">
                             <div className="mx-auto md:mx-0">
-                                <img src={msgPict} className="w-full md:h-80 h-96 object-fit "/>
+                                <img src={msgPict} alt="ilustration-msg" className="w-full md:h-80 h-96 object-fit "/>
                             </div>
                             
                             <div className="px-6 md:px-0">
-                                <p className="text-2xl font-medium mb-1">Halo, {userData?.user?.displayName}</p>
-                                <p className="text-lg mb-5">Silahkan klik tombol dibawah untuk menghubungi admin</p>
+                                <p className="text-2xl font-medium mb-1">Hello, {userData?.user?.displayName}</p>
+                                <p className="text-lg mb-5">Please click the button below to contact admin</p>
                                 <div className="flex justify-center items-center my-10">
                                     <button className="py-2 px-4 bg-orange-300 hover:bg-orange-200 rounded-md font-medium" onClick={createRoom}>Chat Admin</button>
                                 </div>
