@@ -123,12 +123,8 @@ const FormOrder = () => {
                             <label className="text-gray-700 ml-2">Grand Total</label>
                             <input value={grand_total} className="border border-slate-400 h-12 rounded-md pl-2" readOnly disabled/>
                             <label className="text-gray-700 ml-2">Status</label>
-                            <select onChange={(e) =>{setSelectStatus(e.target.value)}} className="border border-slate-400 h-12 rounded-md">
-                                {statusList.map((stat, index) => {
-                                    // console.log(`${stat} = ${item.status} : ${stat === item.status}`)
-                                    if((stat.localeCompare(status)) === 0) {return (<option key={index} value={stat} selected>{stat}</option>)}
-                                    else {return (<option key={index} value={stat}>{stat}</option>)}
-                                })}
+                            <select onChange={(e) =>{setSelectStatus(e.target.value)}} value={status} className="border border-slate-400 h-12 rounded-md">
+                                {statusList.map((stat, index) => (<option key={index} value={stat}>{stat}</option>))}
                             </select>
                             <label className="text-gray-700 ml-2">Created At</label>
                             <input value={createdAt} className="border border-slate-400 h-12 rounded-md pl-2" readOnly disabled/>

@@ -17,11 +17,11 @@ const AdminOrderHistories = () => {
     const [changes, setChanges] = useState(0);
     // const [keyword, setKeyword] = useState('');
     const [orderHistories, setOrderHistories] = useState([])
-    const [startDate, setStartDate] = useState('')
-    const [endDate, setEndDate] = useState('')
+    const [startDate, setStartDate] = useState(new Date().toString())
+    const [endDate, setEndDate] = useState(new Date().toString())
 
     useEffect(() => {
-        fetch(`${base_url}/admin/v1/histories?startDate=${startDate}&endDate=${endDate}`, {
+        fetch(`${base_url}/admin/v1/histories`, {
             method: "GET",
                 headers: {
                     'Content-Type': 'Application/JSON',
@@ -54,7 +54,22 @@ const AdminOrderHistories = () => {
     }
 
     const handleFilter = () => {
-        setChanges(current => current + 1)
+        fetch(`${base_url}/admin/v1/histories?startDate=${startDate}&endDate=${endDate}`, {
+            method: "GET",
+                headers: {
+                    'Content-Type': 'Application/JSON',
+                    'authorization': userData.user?.accessToken
+                }
+        })
+        .then(res => res.json())
+        .then(result => {
+            // console.log(result)
+            setOrderHistories(result.data.orderHistory)
+            setCount(result.data.count)
+        })
+        // console.log(new Date().toLocaleDateString())
+        // console.log(endDate)
+        // setChanges(current => current + 1)
     }
 
     const handleDeleteByDate = () => {

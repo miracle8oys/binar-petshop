@@ -7,9 +7,9 @@ import SidebarLayout from "../../components/SideberAdmin"
 import {BiEdit} from 'react-icons/bi';
 import {FiTrash2} from 'react-icons/fi';
 
-const base_url = process.env.REACT_APP_BASE_URL;
 
 const AdminSupplies = () => {
+    const base_url = process.env.REACT_APP_BASE_URL;
     const userData = useSelector(state => state.loginReducer);
     let i = 1;
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ const AdminSupplies = () => {
     const [endDate, setEndDate] = useState('')
 
     useEffect(() => {
-        fetch(`${base_url}/admin/v1/supplies?startDate=${startDate}&endDate=${endDate}`, {
+        fetch(`${base_url}/admin/v1/supplies`, {
             method: "GET",
                 headers: {
                     'Content-Type': 'Application/JSON',
@@ -54,7 +54,19 @@ const AdminSupplies = () => {
     }
 
     const handleFilter = () => {
-        setChanges(current => current + 1)
+        fetch(`${base_url}/admin/v1/supplies?startDate=${startDate}&endDate=${endDate}`, {
+            method: "GET",
+                headers: {
+                    'Content-Type': 'Application/JSON',
+                    'authorization': userData.user?.accessToken
+                }
+        })
+        .then(res => res.json())
+        .then(result => {
+            // console.log(result)
+            setSupplies(result.data.supplies)
+            setCount(result.data.count)
+        })
     }
     return (
         <div className="h-screen w-full flex flex-col">

@@ -18,12 +18,12 @@ const AdminOrders = () =>{
         "CANCEL",
         "FINISH",
     ];
-    const [selectStatus, setSelectStatus] = useState({})
+    // const [selectStatus, setSelectStatus] = useState({})
     const [currentStatus, setCurrentStatus] = useState([]);
     const [keyword, setKeyword] = useState('');
     const navigate = useNavigate();
     const [changes, setChanges] = useState(0);
-    const [statusChanges, setStatusChanges] = useState(0);
+    // const [statusChanges, setStatusChanges] = useState(0);
     const base_url = process.env.REACT_APP_BASE_URL;
     let i = 1;
     const userData = useSelector(state => state.loginReducer);
@@ -46,29 +46,25 @@ const AdminOrders = () =>{
         });
     }, [keyword, userData, currentStatus, base_url, changes])
 
-
-    useEffect ( () => {
-        if(statusChanges > 0){
-            fetch(`http://localhost:8000/admin/v1/order/${selectStatus.id}`, {
-                method: "PUT",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': userData.user?.accessToken
-                },
-                body: JSON.stringify({
-                    resi: selectStatus.resi,
-                    status: selectStatus.status
-                })
-            }).then(res => res.json())
-            .then(response => {
-                console.log(response);
-            }).catch(err => {
-                console.log(err);
+    const statusChange = (selectStatus) => {
+        fetch(`http://localhost:8000/admin/v1/order/${selectStatus.id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': userData.user?.accessToken
+            },
+            body: JSON.stringify({
+                resi: selectStatus.resi,
+                status: selectStatus.status
             })
-        } else {
-            setStatusChanges(current => current + 1)
-        }
-    }, [selectStatus, userData])
+        }).then(res => res.json())
+        .then(response => {
+            setChanges(current => current + 1)
+            // console.log(response);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
     const handleChange = (e) =>{
         setKeyword(e.target.value)
@@ -163,12 +159,8 @@ const AdminOrders = () =>{
                                 <td className="text-center">{item.address.address}</td>
                                 <td className="text-center">{item.resi}</td>
                                 <td className="text-center">
-                                    <select onChange={(e) =>{setSelectStatus(JSON.parse(e.target.value))}} className="border border-slate-400 h-8 rounded-md ">
-                                        {status.map((stat, index) => {
-                                            // console.log(`${stat} = ${item.status} : ${stat === item.status}`)
-                                            if((stat.localeCompare(item.status)) === 0) {return (<option key={index} value={JSON.stringify({id: item.id, resi: item.resi, status: stat})} selected>{stat}</option>)}
-                                            else {return (<option key={index} value={JSON.stringify({id: item.id, status: stat})}>{stat}</option>)}
-                                        })}
+                                    <select onChange={(e) =>{statusChange(JSON.parse(e.target.value))}} value={JSON.stringify({id: item.id, status: item.status})} className="border border-slate-400 h-8 rounded-md ">
+                                        {status.map((stat, index) => (<option key={index} value={JSON.stringify({id: item.id, status: stat})}>{stat}</option>))}
                                     </select>
                                 </td>
                                 <td>
