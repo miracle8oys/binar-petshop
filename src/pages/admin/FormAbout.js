@@ -142,7 +142,7 @@ const FormAbout = () => {
                     <label className="text-gray-700 ml-2 mt-3">Province</label>
                     <p className="pl-2">(Current Province: <span className="font-bold">{province}</span>)</p>
                     <select onChange={(e)=>setNewProvince(JSON.parse(e.target.value))} className="border-2 h-12 rounded-md pl-2 w-1/4" required>
-                        <option key="-1" value={JSON.stringify({})} selected disabled hidden>-</option>
+                        <option key="-1" value={JSON.stringify({})} disabled hidden>-</option>
                         {provinceList.map(item =>(<option key={item.province_id} value={JSON.stringify(item)}>{item.province}</option>))}
                     </select>
                     <label className="text-gray-700 ml-2 mt-3">City</label>
@@ -151,7 +151,7 @@ const FormAbout = () => {
                         setPostal_code('')
                         setNewCity(JSON.parse(e.target.value))
                     }} className="border-2 h-12 rounded-md pl-2 w-1/4" required>
-                        <option key="-1" value={JSON.stringify({})} selected disabled hidden>-</option>
+                        <option key="-1" value={JSON.stringify({})} disabled hidden>-</option>
                         {cityList.map(item => (<option key={item.city_id} value={JSON.stringify(item)}>{item.city_name}</option>))}
                     </select>
                     <label className="text-gray-700 ml-2">Address</label>

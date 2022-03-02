@@ -107,7 +107,7 @@ const AdminProduct = ({user}) =>{
                             <div className={(DropdownToggle ? "absolute translate-y-1 shadow w-auto md:w-max mr-12 md:mt-1 mt-2 rounded-md h-fit border-t-[1px] bg-white overflow-y-auto h-60 overflow-x-hidden" : "hidden")}>
                                 <ul className="text-gray-800 m-2 md:pb-1">
                                     <li className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button type='button' className='py-2 px-2 rounded-md' onClick={() => handleClickAll()}>All Product</button></li>
-                                    {tags.map(item =>(
+                                    {tags?.length > 0 && tags.map(item =>(
                                         <li key={item.id}  className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button type='button' className='py-2 px-2 rounded-md' onClick={() => handleTagClick(item.name)}>{item.name}</button></li>
                                         ))}
                                 </ul>
