@@ -90,7 +90,7 @@ const AdoptCatalog = ({user}) => {
         <> 
             <div className="flex flex-col min-h-screen w-full bg-orange-100 bg-opacity-25">
                 <NavbarLayout user={user} />
-                <div className='flex container lg:min-w-full md:px-8 px-5  my-5 gap-4 '>
+                <div className='flex container lg:min-w-full md:px-8 px-5  mb-5 mt-10 gap-4 '>
                     <div>
                           <button type='button' onClick={()=> setDropDown(!DropdownToggle)} className='shadow items-center gap-2 py-2 px-4 font-semibold hover:bg-orange-50 active:bg-orange-50 focus:bg-orange-50 rounded-md md:text-base text-sm border flex bg-white'> Category<IoIosArrowDropdown/></button>
                             <Transition
