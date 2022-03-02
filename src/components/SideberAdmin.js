@@ -23,9 +23,9 @@ const SidebarAdmin = () => {
                 </li>
                 {
                     menu.map((item, index) => (
-                        <li>
-                            <NavLink to={item.link} className="" activeClassName>
-                                <p key={index} className={`text-xl p-2 hover:bg-orange-200 pl-4`}>{item.name}</p>
+                        <li key={index}>
+                            <NavLink to={item.link} className="" >
+                                <p className={`text-xl p-2 hover:bg-orange-200 pl-4`}>{item.name}</p>
                             </NavLink>
                         </li>
                     ))

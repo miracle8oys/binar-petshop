@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import FooterLayout from "../../components/Footer";
 import NavbarLayout from "../../components/Navbar";
@@ -78,10 +78,6 @@ const FormAbout = () => {
         })
     }, [base_url, userToken, newProvince])
 
-    useMemo(() => {
-        setPostal_code('')
-    }, [base_url, newCity])
-
     const handleSubmit = (e) => {
         e.preventDefault();
         let body = {
@@ -151,7 +147,10 @@ const FormAbout = () => {
                     </select>
                     <label className="text-gray-700 ml-2 mt-3">City</label>
                     <p className="pl-2">(Current City: <span className="font-bold">{city}</span>)</p>
-                    <select onChange={(e)=>setNewCity(JSON.parse(e.target.value))} className="border-2 h-12 rounded-md pl-2 w-1/4" required>
+                    <select onChange={(e)=>{
+                        setPostal_code('')
+                        setNewCity(JSON.parse(e.target.value))
+                    }} className="border-2 h-12 rounded-md pl-2 w-1/4" required>
                         <option key="-1" value={JSON.stringify({})} selected disabled hidden>-</option>
                         {cityList.map(item => (<option key={item.city_id} value={JSON.stringify(item)}>{item.city_name}</option>))}
                     </select>
