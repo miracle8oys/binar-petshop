@@ -53,17 +53,18 @@ const Help = (user) =>{
                 <div className="mx-auto">
                 <div className="grid md:grid-cols-2  md:ml-12">
                     <div className="text-3xl px-8 md:px-12 mb-10 md:my-16">
-                        <h4>Halo, Pet Lovers!</h4>
-                        <h4>Ada yang bisa kami bantu?</h4>
+                        <h4>Hello, Pet Lovers!</h4>
+                        <h4>Do you need any help?</h4>
                         <div className='flex w-full mt-6 md:mt-10 '>
-                            <input onChange={handleSearch} className="w-full shadow   flex justify-center w-full shadow  placeholder:italic placeholder:text-slate-400 bg-white border border-slate-300 rounded py-2 pl-7 pr-3 shadow-sm focus:outline-none focus:border-sky-100 focus:ring-sky-500 focus:ring-1 text-sm" placeholder="Ketik kata kunci (misal: produk) " type="text" name="search"/>
+                            <input onChange={handleSearch} className="w-full shadow   flex justify-center w-full shadow  placeholder:italic placeholder:text-slate-400 bg-white border border-slate-300 rounded py-2 pl-7 pr-3 shadow-sm focus:outline-none focus:border-sky-100 focus:ring-sky-500 focus:ring-1 text-sm" placeholder="Keywords (example: produk) " type="text" name="search"/>
                                 <span className="flex items-center justify-center -ml-16 w-20 ">
                                     <BsSearch className="p-1"/>
                                 </span>
                         </div>
                         <div className="flex">
-                            <p className="md:text-base text-xs mt-4">Untuk menghubungi admin, silahkan klik tombol chat </p>
-                            <Link to={'/chat'} className="md:py-3 py-2 text-green-500"><BsChatDotsFill className="ml-1 p-1 "/></Link>
+                            <p className="md:text-base text-xs mt-4">To contact the admin, please click this button</p>
+                            <Link to={'/chat'} className="md:py-3 py-2 text-green-500 "><BsChatDotsFill className="ml-1 p-1 "/></Link>
+                            
                         </div>
                         
                     </div>
@@ -73,11 +74,11 @@ const Help = (user) =>{
                 </div>
                 
                     <div className="h-full qna-box flex-grow md:ml-14">
-                        <h4 className=" px-6 text-center text-slate-700 mb-4 md:mb-0 text-lg md:text-2xl tracking-wide">Yang sering ditanyakan</h4>
+                        <h4 className=" px-6 text-center text-slate-700 mb-4 md:mb-0 text-lg md:text-2xl tracking-wide">Frequently Asked</h4>
                         
                         <div className="md:flex justify-center">
                             <div className="md:visible w-96 md:block invisible hidden my-auto">
-                                <img src={QnA} alt="image" className="object-fit "/>
+                                <img src={QnA} alt="qna-ilustration" className="object-fit "/>
                             </div>
                 
                             <div className="rounded-xl shadow md:w-3/5 w-auto mx-4 md:mx-20 bg-white h-fit my-auto">

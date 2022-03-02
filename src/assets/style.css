@@ -21,4 +21,8 @@
 
 .navbar-bg{
   background-color: #fc9a59;
-} */
+}*/
+
+.active{
+  background-color: rgb(255 237 213);
+}
