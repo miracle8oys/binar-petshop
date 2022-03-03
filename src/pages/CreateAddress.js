@@ -22,7 +22,7 @@ const CreateAddress = () => {
     const [cityCheck, setCityCheck] = useState(false);
 
     useEffect(()=> {
-        fetch('http://localhost:8000/province')
+        fetch(`${base_url}/province`)
         .then(res => res.json())
         .then(response => {
             setProvinceList(response.rajaongkir.results)
@@ -32,7 +32,7 @@ const CreateAddress = () => {
     }, [base_url])
 
     useEffect(()=> {
-        fetch(`http://localhost:8000/city?province=${province.province_id}`)
+        fetch(`${base_url}/city?province=${province.province_id}`)
         .then(res => res.json())
         .then(response => {
             setCityList(response.rajaongkir.results)
@@ -54,7 +54,7 @@ const CreateAddress = () => {
         }
         setCityCheck(false)
         
-        fetch('http://localhost:8000/v1/user/address', {
+        fetch(`${base_url}/v1/user/address`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -96,12 +96,12 @@ const CreateAddress = () => {
                         <input onChange={(e) => setPhone(e.target.value)} className="border-2 h-12 rounded-md pl-2" type="text" pattern="[0-9]+" placeholder="Phone..." required/>
                         <label className="text-gray-700 ml-2">Province</label>
                         <select onChange={(e)=>setProvince(JSON.parse(e.target.value))} className="border-2 h-12 rounded-md pl-2" required>
-                            <option key="-1" value={JSON.stringify({})} selected>-</option>
+                            <option key="-1" value={JSON.stringify({})}>-</option>
                             {provinceList.map(item => (<option key={item.province_id} value={JSON.stringify(item)}>{item.province}</option>))}
                         </select>
                         <label className="text-gray-700 ml-2">City</label>
                         <select onChange={(e)=>setCity(JSON.parse(e.target.value))} className="border-2 h-12 rounded-md pl-2" required>
-                            <option key="-1" value={JSON.stringify({})} selected>-</option>
+                            <option key="-1" value={JSON.stringify({})}>-</option>
                             {cityList.map(item => (<option key={item.city_id} value={JSON.stringify(item)}>{item.city_name}</option>))}
                         </select>
                         <label className="text-gray-700 ml-2">Postal Code</label>
