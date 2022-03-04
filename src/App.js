@@ -49,6 +49,7 @@ import FormOrderHistories from "./pages/admin/FormOrderHistories";
 import Help from "./pages/Help";
 import UserOrder from "./pages/UserOrder";
 import UserOrderDetail from "./pages/UserOrderDetail";
+import About from "./pages/About";
 function App() {
 
   const [user, setUser] = useState({});
@@ -84,6 +85,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home user={user} />} />
+        <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/catalog" element={<ProductsCatalog user={user} />}/>
