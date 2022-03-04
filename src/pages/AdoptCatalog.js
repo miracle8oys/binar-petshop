@@ -115,14 +115,15 @@ const AdoptCatalog = ({user}) => {
                     </div>
                       
                 </div>
-                <div className='w-full lg:min-w-full mb-5 flex flex-wrap flex-grow'>
-                    <div className="mx-auto">
-                        <div className="h-fit">
-                            <h3 className={Object.keys(errMsg).length !== 0 ? 'hidden' : "font-bold md:text-xl font-display pt-4 mb-4"}>Pet Adoption</h3>
-                        </div>
+                <div className='w-full lg:min-w-full mb-5  flex-grow md:px-8 px-5'>
+                    <div className="h-fit">
+                        <h3 className={Object.keys(errMsg).length !== 0 ? 'hidden' : "font-bold md:text-xl font-display pt-4 mb-4"}>Pet Adoption</h3>
+                    </div>
+                    <div className="flex flex-wrap">
+                        
                         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 lg:gap-6">
                             {adoptData.map((item, i) => (
-                                <div key={i} className="lg:w-56 w-40 shadow-lg border-solid border rounded-xl mb-4 bg-white">
+                                <div key={i} className="w-auto  shadow-lg border-solid border rounded-xl mb-4 bg-white">
                                     <img className="h-48 w-full object-cover"  src={`${item.img}`} alt="item-preview" />
                                     <div className="px-3 my-3">
                                         <p className="font-medium text-lg flex">{capitalizeLetter(item.name)}
@@ -133,10 +134,11 @@ const AdoptCatalog = ({user}) => {
                                 </div>
                             ))}
                         </div>
-                        {Object.keys(errMsg).length !== 0 && 
+                        
+                    </div>
+                    {Object.keys(errMsg).length !== 0 && 
                         <h5 className="font-semibold text-xl px-8 font-display py-20 text-center">{errMsg.message}</h5> 
                     }
-                    </div>
                 </div>
             
                 <div className="flex gap-5 justify-center mb-6 ">
