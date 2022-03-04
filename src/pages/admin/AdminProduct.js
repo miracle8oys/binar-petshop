@@ -4,6 +4,7 @@ import NavbarLayout from "../../components/Navbar";
 import SidebarLayout from "../../components/SideberAdmin"
 import {BiEdit} from 'react-icons/bi';
 import {FiTrash2} from 'react-icons/fi';
+import {IoIosArrowDropdown} from 'react-icons/io'
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { storage } from "../../config/firebase";
@@ -36,12 +37,12 @@ const AdminProduct = ({user}) =>{
             .then(res => res.json())
             .then(result => {
                 // console.log(result.data)
-                setProduct(result.data)
-                setCount(result.data.count)
+                setProduct(result.data.products)
+                setCount(result.count)
             });
         // }
         // console.log(product.products)
-    }, [keyword, currentTags, base_url, userData, changes])
+    }, [keyword, userData, currentTags, base_url, changes])
 
     useEffect(() => {
     
@@ -55,7 +56,7 @@ const AdminProduct = ({user}) =>{
             })
             .then(res => res.json())
             .then(result => {
-                setTags(result.data)
+                setTags(result.data.tags)
             });
         
     }, [base_url, userData])
@@ -102,11 +103,11 @@ const AdminProduct = ({user}) =>{
                     <p className="font-bold md:text-2xl text-lg text-center pt-2 mb-6 ">Product Data</p>
                     <div className='mt-6 flex justify-between items-center mb-4'>
                         <section>
-                            <button type='button' onClick={()=> setDropDown(!DropdownToggle)}  className='p-2 bg-orange-200 hover:bg-orange-300 active:bg-orange-300  rounded-md md:text-base font-bold text-sm border border-slate-400'>Category</button>
+                            <button type='button' onClick={()=> setDropDown(!DropdownToggle)}  className='p-2 bg-orange-200 hover:bg-orange-300 active:bg-orange-300  rounded-md md:text-base font-bold text-sm border border-slate-400'>Category <IoIosArrowDropdown className="inline"/></button>
                             <div className={(DropdownToggle ? "absolute translate-y-1 shadow w-auto md:w-max mr-12 md:mt-1 mt-2 rounded-md h-fit border-t-[1px] bg-white overflow-y-auto h-60 overflow-x-hidden" : "hidden")}>
                                 <ul className="text-gray-800 m-2 md:pb-1">
                                     <li className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button type='button' className='py-2 px-2 rounded-md' onClick={() => handleClickAll()}>All Product</button></li>
-                                    {tags.map(item =>(
+                                    {tags?.length > 0 && tags.map(item =>(
                                         <li key={item.id}  className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button type='button' className='py-2 px-2 rounded-md' onClick={() => handleTagClick(item.name)}>{item.name}</button></li>
                                         ))}
                                 </ul>
@@ -145,7 +146,7 @@ const AdminProduct = ({user}) =>{
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-400">
-                            {product.products?.length !== 0 && product.products?.map((item) => 
+                            {product?.length !== 0 && product?.map((item) => 
                             <tr key={item.product_id?.id} className="">
                                 <td className="text-center">{i++}.</td>
                                 <td className="text-center font-semibold">{item.product_id?.name}</td>
@@ -157,6 +158,9 @@ const AdminProduct = ({user}) =>{
                                 <td className="text-center">{item.product_id?.weight}</td>
                                 <td className="text-center">{item.product_id?.sold}</td>
                                 <td>
+                                    <div className="flex justify-center mb-2">
+                                        <button onClick={() => navigate(`/admin/supplies/add/${item.product_id?.id}`)} type="button" name="update" className="py-2 font-bold w-32 bg-orange-200 hover:bg-orange-400 rounded-lg inline-flex items-center justify-center text-sm border border-slate-300"><BiEdit className="mr-3"/>Supply</button>
+                                    </div>
                                     <div className="flex justify-center mb-2">
                                         <button onClick={() => navigate(`/admin/product/update/${item.product_id?.id}`)} type="button" name="update" className="py-2 font-bold w-32 bg-yellow-200 hover:bg-yellow-400 rounded-lg inline-flex items-center justify-center text-sm border border-slate-300"><BiEdit className="mr-3"/>Update</button>
                                     </div>

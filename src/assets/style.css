@@ -2,20 +2,27 @@
     width: 2px;
   }
 
- .qna-box{
+ /* .qna-box{
   background-image: 
-    /* url(./bg-qa.png), */
-    url(./bg-qa.png);
+        url(./bg-qa.png);
 
   background-repeat: no-repeat;
   background-size: 
-    /* 20rem, */
+
     20rem;
   background-position: 
-    /* 56rem 1rem, */
+
     2rem 0.8rem;
   background-attachment: local;
 
 
 
+}
+
+.navbar-bg{
+  background-color: #fc9a59;
+}*/
+
+.active{
+  background-color: rgb(255 237 213);
 }

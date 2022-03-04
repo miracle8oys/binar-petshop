@@ -8,7 +8,7 @@ import {BiEdit} from 'react-icons/bi';
 import {FiTrash2} from 'react-icons/fi';
 
 
-const AdminCategory = () => {
+const AdminCouriers = () => {
     const base_url = process.env.REACT_APP_BASE_URL;
     let i = 1;
     const navigate = useNavigate();
@@ -16,10 +16,10 @@ const AdminCategory = () => {
     const [count, setCount] = useState(0);
     const [changes, setChanges] = useState(0);
     const [keyword, setKeyword] = useState('');
-    const [category, setCategory] = useState([])
+    const [couriers, setCouriers] = useState([])
 
     useEffect(() => {
-        fetch(`${base_url}/categories?title=${keyword}`, {
+        fetch(`${base_url}/couriers?title=${keyword}`, {
             method: "GET",
                 headers: {
                     'Content-Type': 'Application/JSON',
@@ -29,7 +29,7 @@ const AdminCategory = () => {
         .then(res => res.json())
         .then(result => {
             // console.log(result)
-            setCategory(result.data.categories)
+            setCouriers(result.data.couriers)
             setCount(result.data.count)
         })
     }, [base_url, userData, changes, keyword])
@@ -40,7 +40,7 @@ const AdminCategory = () => {
 
     const handleDelete = (id) => {
 
-        fetch(`${base_url}/admin/v1/categories/${id}`,{
+        fetch(`${base_url}/admin/v1/courier/${id}`,{
             method: 'DELETE',
             headers:{
                 'Content-Type': 'Application/JSON',
@@ -57,7 +57,7 @@ const AdminCategory = () => {
             <div className="flex bg-orange-50">
                 <SidebarLayout/>
                 <div className="flex-grow my-4 md:mx-20 mx-4 min-h-screen py-5">
-                    <p className="font-bold md:text-2xl text-lg text-center pt-2 mb-6 ">Category Data</p>
+                    <p className="font-bold md:text-2xl text-lg text-center pt-2 mb-6 ">Courier Data</p>
                     <div className='mt-6 flex justify-between items-center mb-4'>
                         <section className="basis-24">
                         </section>
@@ -76,7 +76,7 @@ const AdminCategory = () => {
                             </div>
                         </div>
                         <div className="">
-                            <button type="button" onClick={() => navigate('/admin/category/add')} className="bg-orange-200 p-3 hover:bg-orange-300 rounded-lg font-bold text-sm border border-slate-400">New Category</button>
+                            <button type="button" onClick={() => navigate('/admin/courier/add')} className="bg-orange-200 p-3 hover:bg-orange-300 rounded-lg font-bold text-sm border border-slate-400">New Courier</button>
                         </div>
                     </div>
                     <p className="font-bold mb-4">Total Data : {count}</p>
@@ -85,19 +85,21 @@ const AdminCategory = () => {
                             <tr className="">
                                 <th className="py-4 text-center">No.</th>
                                 <th className="py-4 text-center">Name</th>
+                                <th className="py-4 text-center">Code</th>
                                 <th className="py-4 text-center">Created At</th>
                                 <th className="py-4 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-400">
-                            {category?.length !== 0 && category?.map((item) => 
+                            {couriers?.length !== 0 && couriers?.map((item) => 
                             <tr key={item?.id} className="">
                                 <td className="text-center">{i++}.</td>
                                 <td className="text-center font-semibold">{item?.name}</td>
+                                <td className="text-center font-semibold">{item?.courier_code}</td>
                                 <td className="text-center">{new Date(item?.createdAt).toLocaleString('en-GB')}</td>
                                 <td className="py-3">
                                     <div className="flex justify-center mb-2">
-                                        <button onClick={() => navigate(`/admin/category/update/${item?.id}`)} type="button" name="update" className="py-2 font-bold w-32 bg-yellow-200 hover:bg-yellow-400 rounded-lg inline-flex items-center justify-center text-sm border border-slate-300"><BiEdit className="mr-3"/>Update</button>
+                                        <button onClick={() => navigate(`/admin/courier/update/${item?.id}`)} type="button" name="update" className="py-2 font-bold w-32 bg-yellow-200 hover:bg-yellow-400 rounded-lg inline-flex items-center justify-center text-sm border border-slate-300"><BiEdit className="mr-3"/>Update</button>
                                     </div>
                                     <div className="flex justify-center">
                                         <button onClick={() => handleDelete(item?.id)} name="delete" className="py-2 font-bold w-32  bg-red-200 hover:bg-red-400 rounded-lg inline-flex items-center justify-center text-sm border border-slate-300" type="button"><FiTrash2 className="mr-3"/>Delete</button>
@@ -114,4 +116,4 @@ const AdminCategory = () => {
     )
 }
 
-export default AdminCategory;
+export default AdminCouriers;

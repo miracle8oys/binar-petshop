@@ -20,15 +20,16 @@ const FormCategory = ({action}) => {
                 method: "GET",
                     headers: {
                         'Content-Type': 'Application/JSON',
+                        'authorization': userData.user?.accessToken
                     }
             })
             .then(res => res.json())
             .then(result => {
-                console.log(result)
+                // console.log(result)
                 setName(result.data.name)
             })
         }
-    }, [base_url])
+    }, [base_url, userData, action, id])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -77,7 +78,7 @@ const FormCategory = ({action}) => {
                 <SidebarLayout />
                 <div className="grid justify-center h-max min-h-screen w-full py-10">
                     <div className="h-fit w-[70vw] md:w-[50vw] border border-slate-400 px-5 pt-4 shadow-2xl">
-                        <h1 className="text-center text-2xl font-semibold">{action} ADOPTION</h1>
+                        <h1 className="text-center text-2xl font-semibold">{action} CATEGORY</h1>
                         {Object.keys(errMsg).length !== 0 && <h1 className="bg-slate-200 mt-3 -mb-5 py-2 px-2 text-center rounded-md font-medium">{errMsg.message}</h1>}
                         <form onSubmit={handleSubmit} encType="multipart/form-data" className="grid my-8 gap-3 md:gap-3">
                             <label className="text-gray-700 ml-2">Name</label>

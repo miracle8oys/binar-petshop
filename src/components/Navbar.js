@@ -1,120 +1,121 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import LogoPet from '../assets/LogoPet.png'
+import React, { useState } from 'react';
+import { NavLink, Link} from 'react-router-dom';
+import Logo from '../assets/newlogo.png'
 import {BsCart3} from "react-icons/bs"
 import {AiFillWechat} from "react-icons/ai"
 import {AiOutlineLogout} from "react-icons/ai"
 import { Transition } from '@tailwindui/react';
 import { useSelector } from 'react-redux';
+import {GiHamburgerMenu} from 'react-icons/gi'
+// import {CgProfile} from 'react-icons/cg'
+import '../assets/style.css'
 
 const NavbarLayout = () =>{
-    const [navbarToggle, setNavbarToggle] = React.useState(false);
+    const [navbarToggle, setNavbarToggle] = useState(false);
+    const [DropdownToggle, setDropDown] = useState(false)
     const userData = useSelector(state => state.loginReducer.user);
-
-    console.log(userData?.accessToken);
+    // console.log(userData?.accessToken);
 
     return(
-        <div className='bg-orange-50 md:font-display md:text-yellow-800 border-b-[1.5px]'>
-            <div className="md:container mx-auto md:h-16 hidden md:block">
-                <div className='flex justify-between'>
-                    <div className='flex md:gap-8'>
-                        <div className='flex justify-center md:ml-8'>
-                           <NavLink to='/'> <img src={LogoPet} alt='Petshop Logo' className='w-10 md:w-16'/> </NavLink>
+        <>
+            <nav className="bg-orange-300 bg-opacity-50 shadow-lg">
+                <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
+                    <div className="relative flex items-center justify-between h-16">
+                            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                                {/* <!-- Mobile menu button--> */}
+                                <button onClick={() =>setDropDown(!DropdownToggle)} type="button" className="inline-flex items-center justify-center p-2 rounded-md text-orange-800 hover:bg-orange-100 px-3 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                                    <span className="sr-only">Open main menu</span>
+                                    <GiHamburgerMenu/>
+                                </button>
                         </div>
-                        <div className='flex justify-center py-5 md:text-base'>
-                            <NavLink to="/catalog" className='font-semibold hover:text-orange-700'>Product</NavLink>
-                        </div>
-                        <div className='flex justify-center py-5 md:text-base'>
-                            <NavLink to="/adopt" className='font-semibold hover:text-orange-700'>Pet Adoption</NavLink>
-                        </div>
-                        <div className='flex justify-center py-5 md:text-base'>
-                            <NavLink to="/" className='font-semibold hover:text-orange-700'>Helps</NavLink>
-                        </div>
-                        <div className='flex justify-center py-5 md:text-base'>
-                            <NavLink to="/" className='font-semibold hover:text-orange-700'>About</NavLink>
-                        </div>
-                    </div>
+                        <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                            <div className="flex-shrink-0 flex items-center my-auto p-1 rounded-full ring-orange-300 ring-2">
+                                <img className="block lg:hidden h-8 w-auto" src={Logo} alt="Workflow"/>
+                                <img className="hidden lg:block h-8 w-auto" src={Logo} alt="Logo"/>
+                            </div>
+                            <div className='hidden md:block my-auto ml-4'>
+                                <Link to={'/'} className="text-orange-800  rounded-md font-bold">ABCD PetShop</Link>
+                            </div>
+                            <div className="hidden sm:block sm:ml-6 my-auto">
+                                <div className="flex space-x-4">
+                                    <NavLink to={'/'}  className="hover:bg-orange-100 text-orange-800 px-3 py-2 rounded-md text-sm font-bold">Home</NavLink>
 
-                    <div className='flex px-10 gap-8 items-center'>
-                        <div className={!!userData ? 'hidden' : 'flex justify-center py-5 gap-8'}>
-                            <NavLink to="/login" className='font-medium hover:font-bold'>Login</NavLink>
+                                    <NavLink to={'/catalog'} className="hover:bg-orange-100 text-orange-800 px-3 py-2 rounded-md text-sm font-bold" >Products</NavLink>
+
+                                    <NavLink to={'/adopt'} className="text-orange-800 hover:bg-orange-100 px-3 py-2 rounded-md text-sm font-bold">Pet Adoptions</NavLink>
+
+                                    <NavLink to={'/help'} className="text-orange-800  hover:bg-orange-100 px-3 py-2 rounded-md text-sm font-bold">Help</NavLink>
+
+                                    <NavLink to={'/about'} className="text-orange-800 hover:bg-orange-100 px-3 py-2 rounded-md text-sm font-bold">About Us</NavLink>
+                                </div>
+                            </div>
                         </div>
-                        {
-                            !!userData && 
-                            <img className='rounded-full w-12 h-12' src={userData?.photoURL} alt="navbar-profile" referrerPolicy="no-referrer" />
-                        }
-                        <div className={!!userData ? 'flex justify-center py-5 gap-8' : 'hidden'}>
-                            <NavLink to='/cart' className='text-xl'><BsCart3 /></NavLink>
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                            <button type="button" className="p-1 rounded-full text-orange-800 hover:text-orange-800 hover:bg-orange-100">
+                                <span className="sr-only">Chat</span>
+                                <NavLink to="/chat" className='text-4xl'><AiFillWechat /></NavLink>
+                            </button>
+
+                            {/* <!-- Profile dropdown --> */}
+                            <div className={(!!userData?.accessToken ? 'ml-3 relative' : "hidden")}>
+                                <div>
+                                    <button onClick={() =>setNavbarToggle(!navbarToggle)} type="button" className="bg-orange-400 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-orange-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                        <span className="sr-only">Open user menu</span>
+                                        <img className='rounded-full w-8 h-8' src={userData?.photoURL} alt="profile" referrerPolicy="no-referrer" />
+                                    </button>
+                                </div>
+
+                                <Transition
+                                    show={navbarToggle}
+                                    enter="transition ease-out duration-100"
+                                    enterFrom="transform opacity-0 scale-95"
+                                    enterTo="transform opacity-100 scale-100"
+                                    leave="transition ease-in duration-75"
+                                    leaveFrom="transform opacity-100 scale-100"
+                                    leaveTo="transform opacity-0 scale-95">
+
+                                    <div className={(navbarToggle ? "origin-top-right absolute right-0 mt-3 md:mt-2 w-48 rounded-md shadow-lg py-1 bg-orange-50 ring-1 ring-black ring-opacity-5 focus:outline-none  z-30" : 'hidden')} role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
+                                         {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
+                                        {/* <NavLink to={'/profile'} className="block px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700 " role="menuitem" tabIndex="-1" id="user-menu-item-0"><CgProfile className='mr-2 text-xl'/>My Profile</NavLink> */}
+                                        <NavLink to={'/cart'} className="block px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700 border-b-2" role="menuitem" tabIndex="-1" id="user-menu-item-1"><BsCart3 className='mr-2 text-xl' />Cart</NavLink>
+                                        <NavLink to={'/logout'} className="block px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700" role="menuitem" tabIndex="-1" id="user-menu-item-2"><AiOutlineLogout className='mr-2 text-xl'/>Sign out</NavLink>
+                                    </div>
+                                </Transition>
+                            </div>
+                            
+                            <div className={(!!userData?.accessToken ? 'hidden' : "ml-3 relative")}>
+                                <NavLink to={'/login'} className="text-white hover:bg-orange-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</NavLink>
+                            </div>
                         </div>
-                    
-                        <div className= {!!userData?.accessToken ? 'flex justify-center py-4 gap-8' : ' hidden'}>
-                            <NavLink to="/chat" className='text-3xl'><AiFillWechat /></NavLink>
-                            <NavLink to="/settings" className='text-3xl'><AiOutlineLogout /></NavLink>
-                        </div>
-                       
                     </div>
                 </div>
-            </div>
 
+                {/* <!-- Mobile menu, show/hide based on menu state. --> */}
+                <Transition
+                    show={DropdownToggle}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95">
+                        <div className={(DropdownToggle ? 'block md:hidden absolute w-full bg-orange-200  z-20' : "hidden")} id="mobile-menu">
+                            <div className="px-2 pt-2 pb-3 space-y-1">
+                                {/* <!-- Current: "bg-gray-900 text-white", Default: "text-white hover:bg-gray-700 hover:text-white" --> */}
+                                <NavLink to={'/'} className="hover:bg-orange-100 text-orange-800 block px-3 py-2 rounded-md text-base font-bold" aria-current="page">Home</NavLink>
 
-            <div className="md:hidden flex justify-between mx-6">
-               <NavLink to={"/"}> <img src={LogoPet} alt='Petshop Logo' className='w-16'/></NavLink>
-               
-                <button className="outline-none hover:bg-orange-50" type='button' onClick={()=> setNavbarToggle(!navbarToggle)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
+                                <NavLink to={'/catalog'} className="hover:bg-orange-100 text-orange-800 hover:text-white block px-3 py-2 rounded-md text-base font-bold">Products</NavLink>
 
-            <Transition
-                    show={navbarToggle}
-                    enter="transition-opacity duration-1000"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="transition-opacity delay-700"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0">
-            <div className={(navbarToggle ? "absolute flex bg-orange-50 border-b-[1.4px] w-full" : "hidden")}>
-                
-                <ul className='ml-8 my-2 text-stone-900 md:hidden font-medium'>
-                    <li className='py-1  hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2'>
-                        <NavLink to="/catalog" className='hover:font-bold '>Product</NavLink>
-                    </li>
-                    <li className='py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2'>
-                        <NavLink to="/adopt" className='hover:font-bold'>Pet Adoption</NavLink>
-                    </li>
-                    <li className='py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2'>
-                        <NavLink to="/" className='hover:font-bold'>Helps</NavLink>
-                    </li>
-                    <li className='hover:bg-gray-200 rounded-md  font-sans hover:py-2 pt-1 mb-5 px-2'>
-                        <NavLink to="/" className='hover:font-bold'>About</NavLink>
-                    </li >
-                    <li className={!!userData ? "hidden" : 'flex justify-center mx-6 p-2 bg-gray-200 mb-4 rounded-full'}>
-                        <NavLink to="/login" className='font-bold w-48 text-center'>Login</NavLink>
-                    </li>
-                    <li className={!!userData ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
-                        {/* <button className='font-bold w-48'><FaUserAlt /></button> */}
-                        {!!userData && 
-                            <img className='rounded-full w-12' src={userData?.photoURL} alt="navbar-profile" referrerPolicy="no-referrer" />
-                        }
-                    </li>
-                    <li className={!!userData ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
-                        <NavLink to="/" className='font-bold w-48'><BsCart3 /></NavLink>
-                    </li>
-                    <li className={!!userData ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
-                        <NavLink to="/" className='font-bold w-48'><AiFillWechat /></NavLink>
-                    </li>
-                    <li className={!!userData ? 'py-1 hover:bg-gray-200 rounded-md  font-sans hover:py-2 px-2' : "hidden"}>
-                        <NavLink to="/settings" className='font-bold w-48'><AiOutlineLogout /></NavLink>
-                    </li>
-    
-                </ul>
-                
-            </div>
+                                <NavLink to={'/adoption'} className="hover:bg-orange-100 text-orange-800 hover:text-white block px-3 py-2 rounded-md text-base font-bold">Pet Adoptions</NavLink>
 
-            </Transition>
-        </div>
+                                <NavLink to={'/help'} className="hover:bg-orange-100 text-orange-800 hover:text-white block px-3 py-2 rounded-md text-base font-bold">Help</NavLink>
+                                
+                                <NavLink to={'/about'} className="hover:bg-orange-100 text-orange-800 hover:text-white block px-3 py-2 rounded-md text-base font-bold">About Us</NavLink>
+                            </div>
+                        </div>
+                </Transition>
+            </nav>
+        </>   
     )
 }
 
