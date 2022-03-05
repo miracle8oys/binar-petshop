@@ -7,7 +7,7 @@ import { FaPaw, FaShoppingBag, FaComments, FaChevronRight, FaRegAddressBook } fr
 
 const About = () => {
     const [ aboutList, setAboutList ] = useState([]);
-    const [loading, setLoading] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setLoading(true);
