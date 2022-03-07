@@ -5,6 +5,7 @@ import { db } from "../config/firebase";
 import { useSelector } from "react-redux";
 import {FiSend} from "react-icons/fi";
 import NavbarLayout from "../components/Navbar";
+import '../Style/userChatDetail.css';
 
 const UserChatDetail = () => {
 
@@ -52,40 +53,65 @@ const UserChatDetail = () => {
 
     }, [room_id]);
 
-    return ( 
-        <>
+    return (
+      <>
         <NavbarLayout />
-        <div className="min-h-[85vh] mb-20 md:w-2/4 mx-auto">
-            {msgData.map(chat => (
-                <div key={chat.id}>
-                {chat.role === "admin" ? 
-                    <div className="grid grid-rows-3 grid-flow-col">
-                            <img className="row-span-3 col-span-1 rounded-full w-12 h-12" src={chat.profile_pic} alt="dm-profile" referrerPolicy="no-referrer" />
-                                <div className="row-span-3 col-span-11">
-                                    <p className="font-bold">{chat.username}</p>
-                                    <p className="mytext w-fit max-w-[70vw] min-w-min text-xl font-semibold bg-sky-300 rounded-md px-2 py-2">{chat.msg_content}</p>
-                                </div>
+        <div className="h-100 w-100 flex justify-center items-center bg-orange-100">
+          <div className="custom-scroll h-[80vh] max-h-[80vh] mt-3 mb-20 md:w-2/4 overflow-y-scroll px-5 py-2 bg-white">
+            {msgData.map((chat) => (
+              <div key={chat.id}>
+                {chat.role === "admin" ? (
+                  <div className="grid grid-rows-3 grid-flow-col">
+                    <img
+                      className="row-span-3 col-span-1 rounded-full w-12 h-12"
+                      src={chat.profile_pic}
+                      alt="dm-profile"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="row-span-3 col-span-11">
+                      <p className="font-semibold text-sky-500">{chat.username}</p>
+                      <p className="mytext w-fit max-w-[70vw] min-w-min text-md font-normat text-white bg-sky-400 rounded-md px-2 py-2">
+                        {chat.msg_content}
+                      </p>
                     </div>
-                    :
-                    <div className="grid grid-rows-3 grid-flow-col justify-items-end">
-                                <div className="row-span-3 col-span-11 grid justify-items-end">
-                                    <p className="font-bold">{chat.username}</p>
-                                    <p className="mytext w-fit max-w-[70vw] min-w-min text-xl font-semibold bg-sky-300 rounded-md px-2 py-2">{chat.msg_content}</p>
-                                </div>
-                            <img className="row-span-3 col-span-1 rounded-full w-12 h-12" src={chat.profile_pic} alt="dm-profile" referrerPolicy="no-referrer" />
+                  </div>
+                ) : (
+                  <div className="grid grid-rows-3 grid-flow-col justify-items-end">
+                    <div className="row-span-3 col-span-11 grid justify-items-end">
+                      <p className="font-semibold text-orange-400">{chat.username}</p>
+                      <p className="mytext w-fit max-w-[70vw] min-w-min text-md font-normal text-white bg-orange-400 rounded-md px-2 py-2">
+                        {chat.msg_content}
+                      </p>
                     </div>
-                }
-                </div>
+                    <img
+                      className="row-span-3 col-span-1 rounded-full w-12 h-12"
+                      src={chat.profile_pic}
+                      alt="dm-profile"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                )}
+              </div>
             ))}
             <div className="flex justify-center">
-                <form onSubmit={handleSubmit} className="flex gap-2 mt-3 fixed bottom-0 mb-3">
-                        <textarea value={msg} onChange={(e) => setMsg(e.target.value)} className="border-2 w-[80vw] md:w-96 h-16"></textarea>
-                        <button className="py-3 bg-blue-500 w-14 h-16 rounded-md flex justify-center items-center"><FiSend className=" text-3xl" /></button>
-                </form>
+              <form
+                onSubmit={handleSubmit}
+                className="flex gap-2 mt-3 fixed bottom-0 mb-3"
+              >
+                <textarea
+                  value={msg}
+                  onChange={(e) => setMsg(e.target.value)}
+                  className="border-2 w-[80vw] md:w-96 h-16"
+                ></textarea>
+                <button className="py-3 bg-orange-500 w-14 h-16 rounded-md flex justify-center items-center">
+                  <FiSend className="text-3xl text-white" />
+                </button>
+              </form>
             </div>
+          </div>
         </div>
-        </>
-     );
+      </>
+    );
 }
  
 export default UserChatDetail;
