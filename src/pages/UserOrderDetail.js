@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import FooterLayout from "../components/Footer";
 import NavbarLayout from "../components/Navbar";
 import { useSelector } from "react-redux";
@@ -9,7 +9,8 @@ const UserOrderDetail = () => {
     const {orderId} = useParams();
     const base_url = process.env.REACT_APP_BASE_URL;
     const accessToken = useSelector(state => state.loginReducer.user?.accessToken);
-    const [order, setOrder] = useState({})
+    const [order, setOrder] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (accessToken) {
@@ -33,6 +34,24 @@ const UserOrderDetail = () => {
 
     const handlePayment = () => {
         window.snap.pay(order.order?.midtrans_snap_token);
+    }
+
+    const cancleOrder = () => {
+        fetch(`${base_url}/v1/user/order/cancel/${orderId}`,{
+            method: "POST",
+            headers: {
+                'Content-Type': "Application/json",
+                "Authorization": accessToken
+            }
+        })
+        .then(res => res.json())
+        .then(result => {
+            console.log(result);
+            navigate('/order')
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     return ( 
@@ -78,6 +97,10 @@ const UserOrderDetail = () => {
                                 <button onClick={handlePayment} className="py-2 px-1 bg-orange-300 rounded-md font-semibold">Payment</button>
                             </div>
                         }
+
+                        <div className="text-center mb-3">
+                            <button onClick={cancleOrder} className="py-2 px-1 bg-red-500 rounded-md font-semibold">Cancel Order</button>
+                        </div>
 
                         <div className="flex justify-between">
                             <p>Shipping Address : </p> 

@@ -13,8 +13,9 @@ const AdminOrders = () =>{
     const [orders, setOrders] = useState([]);
     const [DropdownToggle, setDropDown] = useState(false);
     const status = [
-        "CONFIRMATION",
         "PROCESS",
+        "DELIVERY",
+        "DELIVERED",
         "CANCEL",
         "FINISH",
     ];

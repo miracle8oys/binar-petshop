@@ -45,10 +45,12 @@ import FormOrder from "./pages/admin/FormOrder";
 import AdminOrderHistories from "./pages/admin/AdminOrderHistories";
 import FormOrderHistories from "./pages/admin/FormOrderHistories";
 
-
 import Help from "./pages/Help";
 import UserOrder from "./pages/UserOrder";
 import UserOrderDetail from "./pages/UserOrderDetail";
+import About from "./pages/About";
+import UserAuthorize from "./hoc/UserAuthorize";
+import UserUnauthorize from "./hoc/UserUnauthorize";
 function App() {
 
   const [user, setUser] = useState({});
@@ -58,6 +60,7 @@ function App() {
 
     onAuthStateChanged(auth, (currentUser) => {
       localStorage.setItem("isAdmin", false);
+      localStorage.setItem("isLogin", false);
       if (currentUser) {
           fetch(`${base_url}/auth/checkAdmin`, {
             method: "GET",
@@ -71,7 +74,8 @@ function App() {
               localStorage.setItem("isAdmin", true);
             }
             dispatch(login(currentUser));
-          })
+          });
+          localStorage.setItem("isLogin", true);
       }
     });
 
@@ -84,20 +88,25 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/about" element={<About />} />
+        <Route element={<UserUnauthorize />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
         <Route path="/catalog" element={<ProductsCatalog user={user} />}/>
         <Route path="/products/tags=:name" element={<CategoryProduct user={user} />}/>
         <Route path="/adopt" element={<AdoptCatalog user={user} />} />
-        <Route path="/settings" element={<Settings handleLogout={handleLogout} />} />
-        <Route path="/chat" element={<UserChat />} />
-        <Route path="/chat/:room_id" element={<UserChatDetail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/reset-password" element={<ResetPassword /> } />
-        <Route path="/address" element={<CreateAddress/>} />
-        <Route path="/checkout" element={<Checkout /> } />
-        <Route path="/order" element={<UserOrder />} />
-        <Route path="/order/:orderId" element={<UserOrderDetail />} />
+        <Route element={<UserAuthorize />}>
+          <Route path="/settings" element={<Settings handleLogout={handleLogout} />} />
+          <Route path="/chat" element={<UserChat />} />
+          <Route path="/chat/:room_id" element={<UserChatDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/reset-password" element={<ResetPassword /> } />
+          <Route path="/address" element={<CreateAddress/>} />
+          <Route path="/checkout" element={<Checkout /> } />
+          <Route path="/order" element={<UserOrder />} />
+          <Route path="/order/:orderId" element={<UserOrderDetail />} />
+        </Route>
         <Route path="/help" element={<Help/>}/>
         <Route element={<Authorize />}>
           <Route path="/admin/adopt/add" element={<FormAdopt/>} />
@@ -126,7 +135,6 @@ function App() {
           <Route path="/admin/order/update/:id" element={<FormOrder />} />
           <Route path="/admin/histories" element={<AdminOrderHistories />} />
           <Route path="/admin/histories/:id" element={<FormOrderHistories />} />
-
           <Route path="/admin/about" element={<FormAbout/>} />
         </Route>
         <Route path="/product/:id" element={<CurrentProduct user={user}/>}/>

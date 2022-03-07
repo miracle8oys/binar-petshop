@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import FooterLayout from "../../components/Footer"
 import NavbarLayout from "../../components/Navbar"
 import SidebarLayout from "../../components/SideberAdmin"
@@ -24,7 +25,7 @@ const Dashboard = ({user}) => {
             setOrderData({
                 countProducts: result.data.count_products,
                 countOrders: result.data.count_orders,
-                countProcess: result.data.count_process,
+                countDelivery: result.data.count_delivery,
                 countHistory: result.data.count_history
             })
             setNewOrders(result.data.new_orders)
@@ -48,7 +49,7 @@ const Dashboard = ({user}) => {
                             <p className="text-center text-md">Total Order</p>
                         </div>
                         <div className="bg-orange-200 p-10 rounded-lg">
-                            <p className="text-center font-bold text-2xl">{orderData.countProcess}</p>
+                            <p className="text-center font-bold text-2xl">{orderData.countDelivery}</p>
                             <p className="text-center text-md">Dalam Pengiriman</p>
                         </div>
                         <div className="bg-orange-200 p-10 rounded-lg">
@@ -57,43 +58,45 @@ const Dashboard = ({user}) => {
                         </div>
                     </div>
 
-                    <p className="font-semibold mt-6 text-lg mb-3">New Order ({newOrders?.length})</p>
+                    <p className="font-semibold mt-6 text-lg mb-3"><Link to={`/admin/orders`}>New Order ({newOrders?.length})</Link></p>
                     <div className="grid grid-cols-2 gap-8">
                         {newOrders?.length > 0 &&
                             newOrders.map(item => (
-                                <div key={item.id} className="bg-orange-200 p-4 rounded-lg text-sm md:text-base">
-                                    <table className="table-auto">
-                                        <tbody>
-                                            <tr>
-                                                <td>Recipient</td>
-                                                <td>: {item.address.name}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Quantity</td>
-                                                <td>: {item.products.length}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Grand Weight</td>
-                                                <td>: {item.grand_weight}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Shipping Costs</td>
-                                                <td>: {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(item.shipping_costs)}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Grand Total</td>
-                                                <td>: {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(item.grand_total)}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Delivery</td>
-                                                <td>: {item.address.address}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Status</td>
-                                                <td>: <span className="font-semibold">{item.status}</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div key={item.id} className="bg-orange-200 p-4 border border-slate-400 rounded-lg text-sm md:text-base">
+                                    <Link to={`/admin/order/update/${item.id}`}>
+                                        <table className="table-auto">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Recipient</td>
+                                                    <td>: {item.address.name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Quantity</td>
+                                                    <td>: {item.products.length}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Grand Weight</td>
+                                                    <td>: {item.grand_weight}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Shipping Costs</td>
+                                                    <td>: {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(item.shipping_costs)}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Grand Total</td>
+                                                    <td>: {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(item.grand_total)}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Delivery</td>
+                                                    <td>: {item.address.address}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Status</td>
+                                                    <td>: <span className="font-semibold">{item.status}</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </Link>
                                 </div>
                             ))
                         }
