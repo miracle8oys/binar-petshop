@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {addDoc, collection, getDocs, orderBy, query, where} from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ import  msgPict from "../assets/Messaging-cuate.png"
 const UserChat = () => {
 
     const userData = useSelector(state => state.loginReducer);
+    const [errMsg, setErrMsg] = useState({});
     const navigate = useNavigate();
 
 
@@ -32,17 +33,21 @@ const UserChat = () => {
     }, [userData, navigate])
 
     const createRoom = () => {
-        if (!userData.user) {
+        if (userData.user.accessToken === undefined) {
+            setErrMsg({message: `You are not login. Please login your account.`})
             return false
+        }else if(userData.user?.accessToken){
+            const roomRef = collection(db, "messages");
+            addDoc(roomRef, {
+                uid: userData?.user?.uid,
+                profile_pic: userData?.user?.photoURL,
+                username: userData?.user?.displayName
+            }).then(snapshot => {
+                navigate(`/chat/${snapshot.id}`);
+            });
+
         }
-        const roomRef = collection(db, "messages");
-        addDoc(roomRef, {
-            uid: userData?.user?.uid,
-            profile_pic: userData?.user?.photoURL,
-            username: userData?.user?.displayName
-        }).then(snapshot => {
-            navigate(`/chat/${snapshot.id}`);
-        });
+       
     }
 
 
@@ -68,16 +73,20 @@ const UserChat = () => {
                 <NavbarLayout />
                     
                         <div className="md:flex justify-center items-center gap-12 flex-grow">
-                            <div className="mx-auto md:mx-0">
-                                <img src={msgPict} alt="ilustration-msg" className="w-full md:h-80 h-96 object-fit "/>
+                            <div className="mx-auto md:mx-0 w-auto">
+                                <img src={msgPict} alt="ilustration-msg" className="w-full md:h-80 h-96 object-cover "/>
                             </div>
                             
                             <div className="px-6 md:px-0">
                                 <p className="text-2xl font-medium mb-1">Hello, {userData?.user?.displayName}</p>
                                 <p className="text-lg mb-5">Please click the button below to contact admin</p>
-                                <div className="flex justify-center items-center my-10">
+                                <div className="flex justify-center items-center mt-10 mb-4">
                                     <button className="py-2 px-4 bg-orange-300 hover:bg-orange-200 rounded-md font-medium" onClick={createRoom}>Chat Admin</button>
                                 </div>
+                                {Object.keys(errMsg).length !== 0 &&
+                                <div className="flex justify-center mb-3">
+                                     <p className="text-yellow-700 text-sm text-center">{errMsg.message}</p>
+                                </div>}
                             </div>
                         </div>
                         
