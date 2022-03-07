@@ -27,7 +27,6 @@ const Checkout = () => {
                 }
             }).then(res => res.json())
             .then(result => {
-                console.log(result);
                 setCart(result.data.carts);
                 setTotalPrice(result.data.totalPrice);
                 setWeight(result.data.totalWeight);
@@ -48,7 +47,7 @@ const Checkout = () => {
     }, [userToken, base_url]);
 
 
-    const handleCheckShipping = () => {
+    const handleCheckShipping = (currentAddress) => {
         if(currentAddress === undefined){
             setErrMsg({message: 'Please create your shipping address'})
             return false
@@ -65,16 +64,42 @@ const Checkout = () => {
                 })
             }).then(res => res.json())
             .then(result => {
+                console.log(result);
                 setOngkir(result.rajaongkir.results[0].costs[0].cost[0].value)
                 setErrMsg({message:null})
             }).catch(err => {
-                console.log(err.message);
-
+                console.log(err);
             })
 
         }
         
     }
+
+    useEffect(() => {
+        if (address?.length > 0 && weight !== 0 ) {
+            console.log(address[0].id);
+            // handleCheckShipping(address[0].id);
+            fetch(`${base_url}/cost`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${userToken}`
+                },
+                body: JSON.stringify({
+                    address_id: `${address[0].id}`,
+                    weight: `${weight * 1000}`
+                })
+            }).then(res => res.json())
+            .then(result => {
+                console.log(result);
+                setOngkir(result.rajaongkir.results[0].costs[0].cost[0].value)
+                setErrMsg({message:null})
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+
+    }, [address, weight, base_url, userToken])
 
     const handlePayment = () => {
         if(ongkir === 0){
@@ -120,7 +145,6 @@ const Checkout = () => {
 
 
     // console.log(address);
-    console.log(currentAddress);
     return ( 
         <div className="flex flex-col w-full h-screen bg-orange-50 bg-opacity-25">
         <NavbarLayout/>
@@ -139,7 +163,7 @@ const Checkout = () => {
                                 </span>
                             ))}
                                 {currentAddress ?
-                                <select onChange={(e) => setCurrentAddress(e.target.value)} className="my-3 w-full px-2 py-4  rounded-md focus:outline focus:outline-gray-200 border border-gray-300">
+                                <select onChange={(e) => handleCheckShipping(e.target.value)} className="my-3 w-full px-2 py-4  rounded-md focus:outline focus:outline-gray-200 border border-gray-300">
                                  {address.map(item => (
                                      <option key={item.id} value={item.id}>
                                          {item.address} ({item.postal_code}), {item.city}, {item.province}
@@ -191,10 +215,6 @@ const Checkout = () => {
                                     <div className="flex justify-between">
                                         <p className="font-semibold md:text-base text-sm">Shipping Cost</p>
                                         <span className="font-semibold md:text-base text-sm">{formatRupiah(ongkir)}</span>
-                                    </div>
-                                   
-                                    <div className="my-4">
-                                        <button className="p-2 text-sm border border-indigo-300 rounded-md font-semibold" onClick={handleCheckShipping}>Check Shipping Cost</button>
                                     </div>
                                     
                                     <div className="flex justify-between py-2 md:text-base text-sm  border-b">
