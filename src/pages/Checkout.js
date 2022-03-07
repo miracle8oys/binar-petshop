@@ -3,6 +3,7 @@ import FooterLayout from "../components/Footer";
 import NavbarLayout from "../components/Navbar";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {AiOutlineClose, AiOutlineExclamationCircle} from 'react-icons/ai';
 
 const Checkout = () => {
     const userToken = useSelector(state => state.loginReducer.user?.accessToken);
@@ -13,6 +14,7 @@ const Checkout = () => {
     const [errMsg, setErrMsg] = useState({});
     const [address, setAddress] = useState([]);
     const [currentAddress, setCurrentAddress] = useState(0);
+    const [modal, setModal] = useState(false)
     // const userData = useSelector(state => state.loginReducer);
 
     const base_url = process.env.REACT_APP_BASE_URL;
@@ -27,6 +29,7 @@ const Checkout = () => {
                 }
             }).then(res => res.json())
             .then(result => {
+                console.log(result.data);
                 setCart(result.data.carts);
                 setTotalPrice(result.data.totalPrice);
                 setWeight(result.data.totalWeight);
@@ -41,7 +44,7 @@ const Checkout = () => {
             }).then(res => res.json())
             .then(result => {
                 setAddress(result.data);
-                setCurrentAddress(result?.data[0]?.id);
+                setCurrentAddress(result?.data[0].id);
             })
         }
     }, [userToken, base_url]);
@@ -49,6 +52,7 @@ const Checkout = () => {
 
     const handleCheckShipping = (currentAddress) => {
         if(currentAddress === undefined){
+            
             setErrMsg({message: 'Please create your shipping address'})
             return false
         }else{
@@ -102,8 +106,13 @@ const Checkout = () => {
     }, [address, weight, base_url, userToken])
 
     const handlePayment = () => {
-        if(ongkir === 0){
-            setErrMsg({message: 'Please Click Check Shipping Cost Button'})
+        if(cart.length === 0){
+            setModal(true)
+            setErrMsg({message: 'You can not payment empty cart. Go to catalog to choose some product!'})
+            return false
+        } else if(currentAddress === 0){
+            setModal(true)
+            setErrMsg({message: 'Your address empty. Do you want to create address?'})
             return false
         }else{
             fetch(`${base_url}/v1/user/order/create`, {
@@ -143,8 +152,7 @@ const Checkout = () => {
         ).format(money);
      }
 
-
-    // console.log(address);
+     console.log(currentAddress)
     return ( 
         <div className="flex flex-col w-full h-screen bg-orange-50 bg-opacity-25">
         <NavbarLayout/>
@@ -156,29 +164,24 @@ const Checkout = () => {
                         <div className="border-b py-5 bg-white border rounded-lg px-4 ">
                             <p className="font-bold">Shipping Address</p>
                             <div className="py-3">
-                            {address.map(item => (
-                                <span key={item.id}>
-                                    <p className="font-semibold">{item.name}</p>
-                                    <p >{item.phone}</p>
-                                </span>
-                            ))}
+                          
                                 {currentAddress ?
                                 <select onChange={(e) => handleCheckShipping(e.target.value)} className="my-3 w-full px-2 py-4  rounded-md focus:outline focus:outline-gray-200 border border-gray-300">
                                  {address.map(item => (
                                      <option key={item.id} value={item.id}>
-                                         {item.address} ({item.postal_code}), {item.city}, {item.province}
+                                         {item.name}, {item.phone}, {item.address} ({item.postal_code}), {item.city}, {item.province}
                                     </option>
-                                            
-                                        ))}
-                                </select>
-                                 : 
-                                    <div className="my-5">
-                                        <Link to="/address" className="p-2 text-sm font-semibold border border-gray-400 rounded-md bg-white">Create Address</Link>
-                                    </div>
+                                    ))}
+                                </select> 
+                                : ''
+                                    
                                 }
-                                
-                         
-                             </div>
+                            
+                           
+                            </div>
+                            <div className="my-5">
+                                <Link to="/address" className="p-2 text-sm font-semibold border border-gray-400 rounded-md bg-white">Create Address</Link>
+                            </div>
                            
                         </div>
                         <div className="bg-white shadow h-fit rounded-lg border">
@@ -190,7 +193,7 @@ const Checkout = () => {
                                     </div>
                                     <div className="md:ml-4 flex-grow">
                                         {item.product && <p className="font-medium text-xs md:text-xl"> {capitalizeEachLetter(item.product?.name)}</p>}
-                                        <p className="text-sky-800 text-xs md:text-sm md:my-2 my-1"> {item.quantity} items ({item.product?.weight * item.quantity} gram)</p>
+                                        <p className="text-sky-800 text-xs md:text-sm md:my-2 my-1"> {item.quantity} items ({item.product?.weight * item.quantity} kg)</p>
                                         <span className="text-center font-medium text-xs md:text-base xl:text-lg">{formatRupiah(item.product?.price)}</span>
                                         
                                     </div>
@@ -227,17 +230,58 @@ const Checkout = () => {
                                     </div>
                                     
                                     <button onClick={handlePayment} className="bg-indigo-500 rounded font-semibold hover:bg-indigo-600 md:py-3 py-2 text-sm text-white w-full md:uppercase ">Payment</button>
-                                    {Object.keys(errMsg).length !== 0 &&
-                                    <div className="flex justify-center">
-                                        <p className="text-yellow-700 text-sm my-2 text-center">{errMsg.message}</p>
-                                    </div>}
+                                    
                                 </div>    
                             </div> 
                         </div>
                     </section>
                         
                 </div>
+                {
+                    modal ?
+               (
+                <div className="w-full lg:min-w-full flex-grow container  ">
+                    <div className="fixed top-0 inset-0 z-50 bg-gray-300 bg-opacity-50 " id="popup-modal">
+                        <div className="relative w-auto mx-auto  px-4 w-full max-w-md h-full md:h-auto">
+                        
+                            <div className="relative bg-white my-24 md:my-32 2xl:my-64  rounded-lg shadow">
+                            
+                                <div className="flex justify-end p-2">
+                                    <button onClick={() => setModal(false)} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="popup-modal">
+                                    <AiOutlineClose/>
+                                    </button>
+                                </div>
+                                
+                                <div className="p-6 pt-0 text-center">
+                                    <AiOutlineExclamationCircle className="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" />
+                                    {Object.keys(errMsg).length !== 0 &&<p className="mb-5 font-normal text-gray-500 dark:text-gray-400">{errMsg.message}</p>}
+                                    {/* {Object.keys(errMsg).length !== 0 &&
+                                    <div className="flex justify-center">
+                                        <p className="text-yellow-700 text-sm my-2 text-center">{errMsg.message}</p>
+                                    </div>} */}
+                                    <div className="flex justify-center">
+                                    {currentAddress === 0 ?(
+                                      
+                                            <Link to="/address" className="text-white bg-sky-600 hover:bg-sky-800 focus:ring-4 focus:ring-sky-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">Yes, create address</Link>
+                                        
+                                    ) :
+                                        
+                                            <Link to="/catalog" className="text-white bg-sky-600 hover:bg-sky-800 focus:ring-4 focus:ring-sky-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">Catalog product</Link>
+                                         
+                                    }
+                 
+                                    <button onClick={() => setModal(false)} data-modal-toggle="popup-modal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">No, cancel</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>) : null
+                }
+
+               
             </div>
+            
             <FooterLayout/>
         </div>
         // <>

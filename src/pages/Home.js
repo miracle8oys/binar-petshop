@@ -123,7 +123,7 @@ const Home = ({user}) => {
             <h3 className="md:text-2xl text-xl text-center mb-6 md:mb-10  lg:px-8 px-4 font-semibold text-gray-700">Easy and Ready To Help You</h3>
             <div className="flex justify-center ">
                 <div className="grid grid-cols-2 md:grid-cols-4 md:gap-8 gap-2">
-                    <div className="bg-orange-200 bg-opacity-25 rounded-lg h-64 md:w-56 w-32 shadow">
+                    <div className="bg-orange-200 bg-opacity-25 rounded-lg h-64 md:w-56 w-36 shadow">
                         <div className="flex justify-center mb-6 mt-4">
                             <img src={Tap} alt="choose" className=" bg-white mt-4 rounded-lg border  p-2 w-16 h-16 block object-fit"/>
                         </div>
@@ -134,7 +134,7 @@ const Home = ({user}) => {
                        
                     </div>
 
-                    <div className="bg-orange-200 bg-opacity-25 rounded-lg h-64 md:w-56 w-32  shadow">
+                    <div className="bg-orange-200 bg-opacity-25 rounded-lg h-64 md:w-56 w-36  shadow">
                         <div className="flex justify-center mb-6 mt-4">
                             <img src={Check} alt="checkout" className=" bg-white mt-4 rounded-lg border  p-2 w-16 h-16 block object-fit"/>
                         </div>
@@ -145,7 +145,7 @@ const Home = ({user}) => {
                        
                     </div>
 
-                    <div className="bg-orange-200 bg-opacity-25 rounded-lg h-64 md:w-56 w-32  shadow">
+                    <div className="bg-orange-200 bg-opacity-25 rounded-lg h-64 md:w-56 w-36  shadow">
                         <div className="flex justify-center mb-6 mt-4">
                             <img src={Pay} alt="payment" className=" bg-white mt-4 rounded-lg border  p-2 w-16 h-16 block object-fit"/>
                         </div>
@@ -156,7 +156,7 @@ const Home = ({user}) => {
                        
                     </div>
                     
-                    <div className="bg-orange-200 bg-opacity-25 rounded-lg h-64 md:w-56 w-32  shadow">
+                    <div className="bg-orange-200 bg-opacity-25 rounded-lg h-64 md:w-56 w-36  shadow">
                         <div className="flex justify-center mb-6 mt-4">
                             <img src={Deliver} alt="shipping" className=" bg-white mt-4 rounded-lg border  p-2 w-16 h-16 block object-fit"/>
                         </div>
@@ -185,7 +185,7 @@ const Home = ({user}) => {
                 <div className='flex justify-center'>
                     <div className= "grid grid-cols-2  md:grid-cols-3 gap-2 lg:gap-12  md:p-4">
                     { bestProduct.length !== 0 && bestProduct.slice(0,3).map((item, i) => (
-                        <div key={i} className="md:w-60 w-auto 2xl:w-72 h-full w-32 shadow-lg border-solid border rounded-xl bg-orange-500 bg-opacity-75">
+                        <div key={i} className="md:w-60 w-auto 2xl:w-72 h-full shadow-lg border-solid border rounded-xl bg-orange-500 bg-opacity-75">
                             <Link to={`/product/${item.product_id?.id}`} >
                                 <TopProducts  tp={item} />
                             </Link>
@@ -202,10 +202,10 @@ const Home = ({user}) => {
                 </div>
                 <div className="md:mx-6 my-auto md:mx-0">
                     <h4 className="font-semibold text-xl md:text-2xl   tracking-wide mb-5">Do You Want To Adopt A Pet?</h4>
-                    <p className="text-gray-700 md:w-96">We're have some homeless pet with any spesies that ready to get a love from their new owner. Please contact our admin and check our adoption catalog if you interested.</p>
+                    <p className="text-gray-700 md:w-96">We're have some homeless pet with any spesies that ready to get a love from their new owner. Check our adoption catalog if you interested.</p>
                     <div className="flex justify-center items-center my-10 gap-4 md:gap-10">
-                        <button className="py-2 px-4 bg-orange-300 hover:bg-orange-200 rounded-md font-medium text-sm md:text-base" onClick={() => navigate('/chat')}>Chat Admin</button>
-                        <button className="py-2 px-4 bg-slate-300 hover:bg-slate-200 rounded-md font-medium text-sm md:text-base" onClick={() => navigate('/adopt')}>Adopt Catalog</button>
+                        {/* <button className="py-2 px-4 bg-orange-300 hover:bg-orange-200 rounded-md font-medium text-sm md:text-base" onClick={() => navigate('/chat')}>Chat Admin</button> */}
+                        <button className="py-2 px-4 bg-orange-300 hover:bg-orange-200  rounded-md font-medium text-sm md:text-base" onClick={() => navigate('/adopt')}>Adopt Catalog</button>
                     </div>
                 </div>
             </div>
@@ -226,7 +226,7 @@ const Home = ({user}) => {
 
         <div className="flex-grow w-full h-full bg-slate-100 bg-opacity-75  rounded-md md:px-6 px-2">
             {product?.length !== 0  && <h3 className= "md:text-2xl text-xl mb-5 mt-8  font-semibold ">Products for you</h3>}
-                <div className="flex flex-wrap">
+                <div className="md:flex flex-wrap">
                     <div className="grid grid-cols-2 md:grid-cols-5  gap-2 md:gap-6">
                      { product?.length !== 0 && product?.slice(0,10).map((item, i) => (
                         <div key={i} className="w-auto 2xl:w-72 shadow-lg border-solid border rounded-xl mb-4 bg-white">
