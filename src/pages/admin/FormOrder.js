@@ -14,8 +14,9 @@ const FormOrder = () => {
     const userData = useSelector(state => state.loginReducer);
     const [errMsg, setErrMsg] = useState({});
     const statusList = [
-        "CONFIRMATION",
         "PROCESS",
+        "DELIVERY",
+        "DELIVERED",
         "CANCEL",
         "FINISH",
     ];
@@ -145,8 +146,8 @@ const FormOrder = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-slate-400">
-                                        {products?.length !== 0 && products?.map((item) => 
-                                        <tr key={item.id} className="">
+                                        {products?.length !== 0 && products?.map((item, index) => 
+                                        <tr key={index} className="">
                                             <td className="text-center">{i++}.</td>
                                             <td className="text-center font-semibold">{item.product.name}</td>
                                             <td className="flex justify-center py-4">
