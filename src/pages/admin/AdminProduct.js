@@ -86,10 +86,14 @@ const AdminProduct = ({user}) =>{
                 'Content-Type': 'Application/JSON',
                 'authorization': userData.user?.accessToken
             }
-        }).then(() =>{
-            deleteObject(imgRef).then(() =>{
-                setChanges(current => current + 1)
-            })
+        }).then((result) =>{
+            if(result.status === 409){
+                alert("The product cannot be deleted because it is still in the process of ordering")
+            } else {
+                deleteObject(imgRef).then(() =>{
+                    setChanges(current => current + 1)
+                })
+            }
         })
 
     }
