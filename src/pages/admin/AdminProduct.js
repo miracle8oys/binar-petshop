@@ -101,11 +101,11 @@ const AdminProduct = ({user}) =>{
     return (
         <div className="h-screen w-full flex flex-col">
             <NavbarLayout/>
-            <div className="flex bg-orange-50">
+            <div className="md:flex bg-orange-50">
                 <SidebarLayout/>
                 <div className="flex-grow my-4 md:mx-20 mx-4 min-h-screen py-5">
                     <p className="font-bold md:text-2xl text-lg text-center pt-2 mb-6 ">Product Data</p>
-                    <div className='mt-6 flex justify-between items-center mb-4'>
+                    <div className='mt-6 hidden md:flex justify-between items-center mb-4'>
                         <section>
                             <button type='button' onClick={()=> setDropDown(!DropdownToggle)}  className='p-2 bg-orange-200 hover:bg-orange-300 active:bg-orange-300  rounded-md md:text-base font-bold text-sm border border-slate-400'>Category <IoIosArrowDropdown className="inline"/></button>
                             <div className={(DropdownToggle ? "absolute translate-y-1 shadow w-auto md:w-max mr-12 md:mt-1 mt-2 rounded-md h-fit border-t-[1px] bg-white overflow-y-auto h-60 overflow-x-hidden" : "hidden")}>
@@ -135,47 +135,83 @@ const AdminProduct = ({user}) =>{
                             <button type="button" onClick={() => navigate('/admin/product/add')} className="bg-orange-200 p-3 hover:bg-orange-300 rounded-lg font-bold text-sm border border-slate-400">New Product</button>
                         </div>
                     </div>
+
+                    <div className='mt-6 md:hidden items-center mb-4'>
+                        <div className=''>
+                            <div className='col-end-12'>
+                                <div className='flex'>
+                                    <input onChange={handleChange} className="min-w-full placeholder:italic placeholder:text-slate-400 bg-white border border-slate-400 rounded-full py-2 pl-3 pr-3 shadow-sm focus:outline-none focus:border-sky-100 focus:ring-sky-500 focus:ring-1 text-sm" placeholder="Search product..." type="search" name="search"/>
+                                    <button className="flex items-center justify-center px-4 border-l -ml-14 hover:bg-gray-100 rounded-full ">
+                                        <svg className="md:w-6 md:h-6 w-4 h-4 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex justify-between mt-4">
+                            <section>
+                                <button type='button' onClick={()=> setDropDown(!DropdownToggle)}  className='p-2 bg-orange-200 hover:bg-orange-300 active:bg-orange-300  rounded-md md:text-base font-bold text-sm border border-slate-400'>Category <IoIosArrowDropdown className="inline"/></button>
+                                <div className={(DropdownToggle ? "absolute translate-y-1 shadow w-auto md:w-max mr-12 md:mt-1 mt-2 rounded-md h-fit border-t-[1px] bg-white overflow-y-auto h-60 overflow-x-hidden" : "hidden")}>
+                                    <ul className="text-gray-800 m-2 md:pb-1">
+                                        <li className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button type='button' className='py-2 px-2 rounded-md' onClick={() => handleClickAll()}>All Product</button></li>
+                                        {tags?.length > 0 && tags.map(item =>(
+                                            <li key={item.id}  className='hover:text-sky-800 hover:bg-gray-100 text-sm md:text-base rounded-md mb-1'><button type='button' className='py-2 px-2 rounded-md' onClick={() => handleTagClick(item.name)}>{item.name}</button></li>
+                                            ))}
+                                    </ul>
+                                </div>
+                            </section>
+                            <div className="">
+                                <button type="button" onClick={() => navigate('/admin/product/add')} className="bg-orange-200 p-3 hover:bg-orange-300 rounded-lg font-bold text-sm border border-slate-400">New Product</button>
+                            </div>
+                        </div>
+                    </div>
+
                     <p className="font-bold mb-4">Total Data : {count}</p>
-                    <table className="table-auto border border-slate-400 divide-y divide-slate-400 min-w-full shadow-md">
-                        <thead className="bg-orange-50">
-                            <tr className="">
-                                <th className="py-4 text-center">No.</th>
-                                <th className="py-4 text-center">Name</th>
-                                <th className="py-4 text-center">Image</th>
-                                <th className="py-4 text-center">Price</th>
-                                <th className="py-4 text-center">Quantity</th>
-                                <th className="py-4 text-center">Weight</th>
-                                <th className="py-4 text-center">Sold</th>
-                                <th className="py-4 text-center">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-400">
-                            {product?.length !== 0 && product?.map((item) => 
-                            <tr key={item.product_id?.id} className="">
-                                <td className="text-center">{i++}.</td>
-                                <td className="text-center font-semibold">{item.product_id?.name}</td>
-                                <td className="flex justify-center py-4">
-                                    <img src={item.product_id?.img} alt={item.product_id?.name} className="w-24 h-28"/>
-                                </td>
-                                <td className="text-center">Rp. {item.product_id?.price}</td>
-                                <td className="text-center">{item.product_id?.qty}</td>
-                                <td className="text-center">{item.product_id?.weight}</td>
-                                <td className="text-center">{item.product_id?.sold}</td>
-                                <td>
-                                    <div className="flex justify-center mb-2">
-                                        <button onClick={() => navigate(`/admin/supplies/add/${item.product_id?.id}`)} type="button" name="update" className="py-2 font-bold w-32 bg-orange-200 hover:bg-orange-400 rounded-lg inline-flex items-center justify-center text-sm border border-slate-300"><BiEdit className="mr-3"/>Supply</button>
-                                    </div>
-                                    <div className="flex justify-center mb-2">
-                                        <button onClick={() => navigate(`/admin/product/update/${item.product_id?.id}`)} type="button" name="update" className="py-2 font-bold w-32 bg-yellow-200 hover:bg-yellow-400 rounded-lg inline-flex items-center justify-center text-sm border border-slate-300"><BiEdit className="mr-3"/>Update</button>
-                                    </div>
-                                    <div className="flex justify-center">
-                                        <button onClick={() => handleDeleteProd(item.product_id?.id, item.product_id?.img)} name="delete" className="py-2 font-bold w-32  bg-red-200 hover:bg-red-400 rounded-lg inline-flex items-center justify-center text-sm border border-slate-300" type="button"><FiTrash2 className="mr-3"/>Delete</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            )}
-                        </tbody>
-                    </table>
+                    <div className="overflow-x-auto">
+                        <table className="table-auto border border-slate-400 divide-y divide-slate-400 min-w-full shadow-md text-sm lg:text-base">
+                            <thead className="bg-orange-50">
+                                <tr className="">
+                                    <th className="py-4 text-center">No.</th>
+                                    <th className="py-4 text-center">Name</th>
+                                    <th className="py-4 text-center">Image</th>
+                                    <th className="py-4 text-center">Price</th>
+                                    <th className="py-4 text-center">Quantity</th>
+                                    <th className="py-4 text-center">Weight</th>
+                                    <th className="py-4 text-center">Sold</th>
+                                    <th className="py-4 text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-400">
+                                {product?.length !== 0 && product?.map((item) => 
+                                <tr key={item.product_id?.id} className="">
+                                    <td className="text-center px-2">{i++}.</td>
+                                    <td className="text-center px-2 font-semibold">{item.product_id?.name}</td>
+                                    <td className="flex justify-center py-4 mx-2 w-24 sm:w-auto">
+                                        <img src={item.product_id?.img} alt={item.product_id?.name} className="w-24 h-28"/>
+                                    </td>
+                                    <td className="text-center px-2">Rp. {item.product_id?.price}</td>
+                                    <td className="text-center px-2">{item.product_id?.qty}</td>
+                                    <td className="text-center px-2">{item.product_id?.weight}</td>
+                                    <td className="text-center px-2">{item.product_id?.sold}</td>
+                                    <td className="px-2">
+                                        <div className="flex justify-center mb-2">
+                                            <button onClick={() => navigate(`/admin/supplies/add/${item.product_id?.id}`)} type="button" name="update" className="py-2 font-bold w-32 bg-orange-200 hover:bg-orange-400 rounded-lg inline-flex items-center justify-center text-sm border border-slate-300"><BiEdit className="mr-3"/>Supply</button>
+                                        </div>
+                                        <div className="flex justify-center mb-2">
+                                            <button onClick={() => navigate(`/admin/product/update/${item.product_id?.id}`)} type="button" name="update" className="py-2 font-bold w-32 bg-yellow-200 hover:bg-yellow-400 rounded-lg inline-flex items-center justify-center text-sm border border-slate-300"><BiEdit className="mr-3"/>Update</button>
+                                        </div>
+                                        <div className="flex justify-center">
+                                            <button onClick={() => handleDeleteProd(item.product_id?.id, item.product_id?.img)} name="delete" className="py-2 font-bold w-32  bg-red-200 hover:bg-red-400 rounded-lg inline-flex items-center justify-center text-sm border border-slate-300" type="button"><FiTrash2 className="mr-3"/>Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <FooterLayout/>

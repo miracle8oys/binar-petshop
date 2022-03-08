@@ -53,10 +53,10 @@ const FormOrderHistories = () => {
     return (
         <div>
             <NavbarLayout/>
-            <div className="flex bg-orange-50">
+            <div className="md:flex bg-orange-50">
                 <SidebarLayout />
-                <div className="grid justify-center h-max min-h-screen w-full py-10">
-                    <div className="h-fit w-[70vw] md:w-[70vw] border border-slate-400 px-5 pt-4 shadow-2xl">
+                <div className="md:grid justify-center h-max min-h-screen w-full py-10">
+                    <div className="h-fit w-full md:w-[70vw] border border-slate-400 px-3 sm:px-5 pt-4 shadow-2xl">
                         <h1 className="text-center text-2xl font-semibold">ORDER DETAILS</h1>
                         <form onSubmit={handleSubmit} encType="multipart/form-data" className="grid my-8 gap-3 md:gap-3">
                             <label className="text-gray-700 ml-2">Name</label>
@@ -79,8 +79,8 @@ const FormOrderHistories = () => {
                             <input value={createdAt} className="border border-slate-400 h-12 rounded-md pl-2" readOnly disabled/>
                             
                             <label className="text-gray-700 ml-2">Product List</label>
-                            <div>
-                                <table className="table-auto border border-slate-400 divide-y divide-slate-400 min-w-full shadow-md">
+                            <div className="overflow-x-auto">
+                                <table className="table-auto border border-slate-400 divide-y divide-slate-400 min-w-full shadow-md text-sm lg:text-base">
                                     <thead className="bg-orange-50">
                                         <tr className="">
                                             <th className="py-4 text-center">No.</th>
@@ -96,16 +96,16 @@ const FormOrderHistories = () => {
                                     <tbody className="divide-y divide-slate-400">
                                         {products?.length !== 0 && products?.map((item) => 
                                         <tr key={item.id} className="">
-                                            <td className="text-center">{i++}.</td>
-                                            <td className="text-center font-semibold">{item.product_name}</td>
-                                            <td className="flex justify-center py-4">
+                                            <td className="text-center px-2">{i++}.</td>
+                                            <td className="text-center px-2 font-semibold">{item.product_name}</td>
+                                            <td className="flex justify-center py-4 w-24 sm:w-auto">
                                                 <img src={item.product_img} alt={item.product_name} className="w-24 h-28"/>
                                             </td>
-                                            <td className="text-center">{item.product_weight}</td>
-                                            <td className="text-center">{new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(item.product_price)}</td>
-                                            <td className="text-center">{item.qty}</td>
-                                            <td className="text-center">{item.sub_weight}</td>
-                                            <td className="text-center">{new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(item.sub_total)}</td>
+                                            <td className="text-center px-2">{item.product_weight}</td>
+                                            <td className="text-center px-2">{new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(item.product_price)}</td>
+                                            <td className="text-center px-2">{item.qty}</td>
+                                            <td className="text-center px-2">{item.sub_weight}</td>
+                                            <td className="text-center px-2">{new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(item.sub_total)}</td>
                                         </tr>
                                         )}
                                     </tbody>

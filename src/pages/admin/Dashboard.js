@@ -35,31 +35,31 @@ const Dashboard = ({user}) => {
     return (
         <div className="flex flex-col w-full h-screen">
             <NavbarLayout user={user}/>
-            <div className="flex bg-orange-50">
+            <div className="lg:flex bg-orange-50">
                 <SidebarLayout/>
-                <div className="flex-grow mx-14 my-6 min-h-screen">
+                <div className="flex-grow mx-2 md:mx-14 my-6 min-h-screen">
                     <p className="text-2xl font-semibold mb-6">Dashboard</p>
                     <div className="grid md:grid-cols-4 grid-cols-2 md:gap-10 gap-8">
-                        <div className="bg-orange-200 p-10 rounded-lg">
+                        <div className="bg-orange-200 py-10 md:p-10 rounded-lg">
                             <p className="text-center font-bold text-2xl">{orderData.countProducts}</p>
-                            <p className="text-center text-md">Total Produk</p>
+                            <p className="text-center text-sm md:text-md">Total Produk</p>
                         </div>
-                        <div className="bg-orange-200 p-10 rounded-lg">
+                        <div className="bg-orange-200 py-10 md:p-10 rounded-lg">
                             <p className="text-center font-bold text-2xl">{orderData.countOrders}</p>
-                            <p className="text-center text-md">Total Order</p>
+                            <p className="text-center text-sm md:text-md">Total Order</p>
                         </div>
-                        <div className="bg-orange-200 p-10 rounded-lg">
+                        <div className="bg-orange-200 py-10 md:p-10 rounded-lg">
                             <p className="text-center font-bold text-2xl">{orderData.countDelivery}</p>
-                            <p className="text-center text-md">Dalam Pengiriman</p>
+                            <p className="text-center text-sm md:text-md">Dalam Pengiriman</p>
                         </div>
-                        <div className="bg-orange-200 p-10 rounded-lg">
+                        <div className="bg-orange-200 py-10 md:p-10 rounded-lg">
                             <p className="text-center font-bold text-2xl">{orderData.countHistory}</p>
-                            <p className="text-center text-md">Order Selesai</p>
+                            <p className="text-center text-sm md:text-md">Order Selesai</p>
                         </div>
                     </div>
 
                     <p className="font-semibold mt-6 text-lg mb-3"><Link to={`/admin/orders`}>New Order ({newOrders?.length})</Link></p>
-                    <div className="grid grid-cols-2 gap-8">
+                    <div className="grid md:grid-cols-2 gap-8">
                         {newOrders?.length > 0 &&
                             newOrders.map(item => (
                                 <div key={item.id} className="bg-orange-200 p-4 border border-slate-400 rounded-lg text-sm md:text-base">
