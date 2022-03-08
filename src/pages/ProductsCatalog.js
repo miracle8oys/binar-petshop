@@ -192,7 +192,7 @@ const ProductsCatalog = ({user}) =>{
                     
                     <div className= {product.length!== 0 ? 'container min-w-full py-3 mb-5 flex-grow md:px-8 px-2 2xl:px-10': 'hidden'}>
                         <h5 className="font-bold md:text-2xl text-lg font-sans mt-4 mb-4">Best Seller Products</h5>
-                        <div className='flex flex-wrap'>
+                        <div className='md:flex flex-wrap'>
                                 <div className="grid grid-cols-2 md:grid-cols-5  gap-2 md:gap-6 2xl:gap-8 ">
                                 { bestProduct.length !== 0 && bestProduct.slice(0,5).map((item, i) => (
                                     <div key={i} className="w-auto 2xl:w-72  shadow-lg border-solid border rounded-xl mb-4 bg-orange-500 bg-opacity-75">
@@ -207,7 +207,7 @@ const ProductsCatalog = ({user}) =>{
 
                     <div className= {product.length!== 0 ? 'container min-w-full py-3 mb-5 flex-grow md:px-8 px-2 2xl:px-10': 'hidden'}>
                         <h5 className="font-bold md:text-2xl text-lg font-sans mt-4 mb-4">Products</h5>
-                        <div className='flex flex-wrap'>
+                        <div className='md:flex flex-wrap'>
                                 <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-6 2xl:gap-8">
                                 { product?.length !== 0 && product?.map((item, i) => (
                                     <div key={i} className="w-auto 2xl:w-72  shadow-lg border-solid border rounded-xl mb-4 bg-white">

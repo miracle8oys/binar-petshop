@@ -1,7 +1,7 @@
 import NavbarLayout from "../components/Navbar";
 import FooterLayout from "../components/Footer";
 import "../assets/style.css"
-import {useParams, useNavigate } from "react-router-dom";
+import {useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {FiShare2} from 'react-icons/fi'
@@ -9,7 +9,8 @@ import {FiShare2} from 'react-icons/fi'
 import {MdNavigateNext} from 'react-icons/md'
 // import {FaShoppingBag, FaShippingFast} from 'react-icons/fa'
 import {BsCart3} from 'react-icons/bs'
-// import {AiOutlineClose} from 'react-icons/ai';
+import {AiOutlineClose, AiOutlineExclamationCircle} from 'react-icons/ai';
+
 const base_url = process.env.REACT_APP_BASE_URL;
 
 const CurrentProduct = ({user}) =>{
@@ -21,7 +22,7 @@ const CurrentProduct = ({user}) =>{
     const [categoryProd, setCategoryProd] = useState([])
     // const [tags, setTags] = useState([]);
     const [copied, setCopied] = useState(false);
-    // const [modal, setModal] = useState(false);
+    const [modal, setModal] = useState(false);
     const navigate = useNavigate()
 
     useEffect(() =>{
@@ -79,6 +80,7 @@ const CurrentProduct = ({user}) =>{
             navigate('/login')
         }else{
             if(currProd.product_id?.qty === 0){
+                setModal(true);
                 setErrMsg({message: 'Out of stock! Please choose another product'})
                 return false
             }else{
@@ -149,7 +151,7 @@ const CurrentProduct = ({user}) =>{
                                  {currProd.product_id && <p className="leading-relaxed">{firstLetter(currProd.product_id?.description)}</p>}
                                  <div className="grid grid-cols-2 my-3 text-base lg:text-lg">
                                     <h6>Weight:</h6>
-                                    <h6 className="font-medium">{currProd.product_id?.weight} gram</h6>
+                                    <h6 className="font-medium">{currProd.product_id?.weight} kg</h6>
                                 </div>
 
                                 <div className="grid grid-cols-2 my-3 text-base lg:text-lg">
@@ -187,16 +189,52 @@ const CurrentProduct = ({user}) =>{
                                         <button type="button" className=" h-10 rounded font-medium border border-gray-300 hover:bg-slate-100 w-36 flex items-center justify-center bg-slate-50 shadow" id="copy-button" onClick={copy}><FiShare2 className="mr-2"/> {!copied ? "Share" : "Succeed!"}</button>
                                         {/* <Link to={`/${base_url}/product/${currProd.product_id?.id}`} className="h-10 mx-4 rounded font-semibold px-8 tracking-wide text-white w- bg-blue-600 hover:bg-blue-500">Bagikan</Link> */}
                                     </div>
-                                    {Object.keys(errMsg).length !== 0 &&
+                                    {/* {Object.keys(errMsg).length !== 0 &&
                                     <div className="flex justify-end">
                                         <p className="text-yellow-700 text-sm my-2 text-center">{errMsg.message}</p>
-                                    </div>}
+                                    </div>} */}
                                 </div>
                             
                             </div>
                         </div>
                         </div>
                     </div>
+                    {
+                    modal ?
+               (
+                <div className="w-full lg:min-w-full flex-grow container  ">
+                    <div className="fixed top-0 inset-0 z-50 bg-gray-300 bg-opacity-50 " id="popup-modal">
+                        <div className="relative w-auto mx-auto  px-4 w-full max-w-md h-full md:h-auto">
+                        
+                            <div className="relative bg-white my-24 md:my-32 2xl:my-64 rounded-lg shadow">
+                            
+                                <div className="flex justify-end p-2">
+                                    <button onClick={() => setModal(false)} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="popup-modal">
+                                    <AiOutlineClose/>
+                                    </button>
+                                </div>
+                                
+                                <div className="p-6 pt-0 text-center">
+                                <AiOutlineExclamationCircle className="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" />
+                                    {Object.keys(errMsg).length !== 0 &&<p className="mb-5 font-normal text-gray-500 dark:text-gray-400">{errMsg.message}</p>}
+                                    {/* {Object.keys(errMsg).length !== 0 &&
+                                    <div className="flex justify-center">
+                                        <p className="text-yellow-700 text-sm my-2 text-center">{errMsg.message}</p>
+                                    </div>} */}
+                                    <div className="flex justify-center">
+                            
+                                        <Link to="/catalog" className="text-white bg-sky-600 hover:bg-sky-800 focus:ring-4 focus:ring-sky-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">Catalog product</Link>
+                                         
+                                    
+                 
+                                    <button onClick={() => setModal(false)} data-modal-toggle="popup-modal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">No, cancel</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>) : null
+                }
                     {/* {modal ? (
                     <div className="w-full lg:min-w-full h-screen flex-grow container flex flex-wrap ">
                         <div className="bg-gray-300 bg-opacity-50  fixed inset-0 z-50 outline-none focus:outline-none">

@@ -116,13 +116,13 @@ const FooterLayout = ()=>{
                   About Us
                 </Link>
               </p>
-              <p className="mb-4">
+              {/* <p className="mb-4">
                 <Link to={'/user/profile'} className="text-slate-900 hover:text-orange-500">
                   User Profile
                 </Link>
-              </p>
+              </p> */}
               <p className="mb-4">
-                <Link to={'/user/orders'} className="text-slate-900 hover:text-orange-500">
+                <Link to={'/order'} className="text-slate-900 hover:text-orange-500">
                   Orders
                 </Link>
               </p>

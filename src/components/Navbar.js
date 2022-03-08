@@ -7,6 +7,7 @@ import {AiOutlineLogout} from "react-icons/ai"
 import { Transition } from '@tailwindui/react';
 import { useSelector } from 'react-redux';
 import {GiHamburgerMenu} from 'react-icons/gi'
+import {BiHomeAlt} from 'react-icons/bi'
 import{MdOutlineBookmarkBorder} from 'react-icons/md'
 import {useDispatch} from "react-redux";
 // import {CgProfile} from 'react-icons/cg'
@@ -79,7 +80,7 @@ const NavbarLayout = () =>{
                                     <NavLink to={'/cart'} className="block p-2 text-orange-800 hover:bg-orange-100 rounded-md" role="menuitem" tabIndex="-1" id="user-menu-item-1"><BsCart3 className='text-xl' /></NavLink>
                                 </div>
                                 <div className='hidden md:block'>
-                                    <NavLink to={'/checkout'} className="block p-2 text-orange-800 hover:bg-orange-100 rounded-md" role="menuitem" tabIndex="-1" id="user-menu-item-1"><MdOutlineBookmarkBorder className='text-xl' /></NavLink>
+                                    <NavLink to={'/order'} className="block p-2 text-orange-800 hover:bg-orange-100 rounded-md" role="menuitem" tabIndex="-1" id="user-menu-item-1"><MdOutlineBookmarkBorder className='text-xl' /></NavLink>
                                 </div>
                                 
                                 {/* <!-- Profile dropdown --> */}
@@ -105,7 +106,8 @@ const NavbarLayout = () =>{
                                             {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
                                             {/* <NavLink to={'/profile'} className="block px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700 " role="menuitem" tabIndex="-1" id="user-menu-item-0"><CgProfile className='mr-2 text-xl'/>My Profile</NavLink> */}
                                             <NavLink to={'/cart'} className="block md:hidden px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700 " role="menuitem" tabIndex="-1" id="user-menu-item-1"><BsCart3 className='mr-2 text-xl' />Cart</NavLink>
-                                            <NavLink to={'/checkout'} className="block md:hidden px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700 border-b-2" role="menuitem" tabIndex="-1" id="user-menu-item-1"><MdOutlineBookmarkBorder className='mr-2 text-xl' />Order</NavLink>
+                                            <NavLink to={'/order'} className="block md:hidden px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700" role="menuitem" tabIndex="-1" id="user-menu-item-1"><MdOutlineBookmarkBorder className='mr-2 text-xl' />Order</NavLink>
+                                            <NavLink to={'/address'} className="block  px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:text-orange-700 border-b-2 md:border-0" role="menuitem" tabIndex="-1" id="user-menu-item-1"><BiHomeAlt className='mr-2 text-xl' />Address</NavLink>
                                             <button onClick={Logout} className="block px-4 py-2 text-sm text-stone-500 flex hover:bg-gray-50 hover:w-full hover:text-orange-700" role="menuitem" tabIndex="-1" id="user-menu-item-2"><AiOutlineLogout className='mr-2 text-xl'/>Logout</button>
                                         </div>
                                     </Transition>
