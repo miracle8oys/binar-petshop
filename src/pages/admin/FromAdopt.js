@@ -89,12 +89,12 @@ const FormAdopt = () => {
     return ( 
         <div>
             <NavbarLayout/>
-            <div className="flex bg-orange-50">
+            <div className="md:flex bg-orange-50">
                 <SidebarLayout />
-                <div className="grid justify-center w-full h-max min-h-screen py-10 bg-orange-50">
-                    <div className="h-fit w-[70vw] md:w-[50vw] border border-slate-400 px-5 pt-4 shadow-2xl">
+                <div className="md:grid justify-center w-full h-max min-h-screen py-10 bg-orange-50">
+                    <div className="h-fit w-full md:w-[50vw] border border-slate-400 px-3 sm:px-5 pt-4 shadow-2xl">
                         <h1 className="text-center text-2xl font-semibold">ADD ADOPTION</h1>
-                        {Object.keys(errMsg).length !== 0 && <h1 className="bg-slate-200 mt-3 -mb-5 py-2 px-2 text-center rounded-md font-medium">{errMsg.message}</h1>}
+                        {Object.keys(errMsg).length !== 0 && <h1 className="bg-slate-200 mt-3 mb-5 py-2 px-2 text-center rounded-md font-medium">{errMsg.message}</h1>}
                         <form onSubmit={handleSubmit} encType="multipart/form-data" className="grid my-8 gap-3 md:gap-3">
                             <label className="text-gray-700 ml-2">Name</label>
                             <input onChange={(e) => setName(e.target.value)} className="border-2 h-12 rounded-md pl-2" type="text" placeholder="Name..." required/>
@@ -120,7 +120,7 @@ const FormAdopt = () => {
                             </label>
                             {previewImage && <img src={`${previewImage}`} alt="add-preview" className="ml-auto mr-auto"/>}
                             <div className="flex justify-center mt-4">
-                                <button type="submit" className="btn bg-orange-200 py-3 self-center w-40 rounded-md font-bold border border-slate-400 hover:bg-orange-400">Submit</button>
+                                <button type="submit" className="btn bg-orange-200 py-3 self-center w-full md:w-40 rounded-md font-bold border border-slate-400 hover:bg-orange-400">Submit</button>
                             </div>
                         </form>
                         <div className="flex justify-center">

@@ -66,9 +66,9 @@ const UserOrder = () => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
                 <Link
@@ -85,14 +85,14 @@ const UserOrder = () => {
         <section className="min-h-[70vh] w-100 py-10 bg-orange-100">
         <div className="grid grid-cols-1 gap-5">
         {order.map((item) => (
-            <div class="flex flex-col md:flex-row rounded-lg bg-white shadow-lg md:mx-auto mx-12  md:w-[70vw]">
+            <div key={item.id} className="flex flex-col md:flex-row rounded-lg bg-white shadow-lg md:mx-auto mx-12  md:w-[70vw]">
               <img
-                class=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg"
+                className=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg"
                 src={item.products[0]?.img}
                 alt="items"
               />
-              <div class="flex-1 p-6 flex flex-col justify-start">
-                <p className="text-sm text-gray-600 flex flex-wrap items-center gap-3">
+              <div className="flex-1 p-6 flex flex-col justify-start">
+                <div className="text-sm text-gray-600 flex flex-wrap items-center gap-3">
                   <FaShoppingBag className="text-green-800"/>
                   <p className="font-bold"> Transaction </p>
                   {new Date(item.createdAt).toLocaleString("en-US", {
@@ -104,7 +104,7 @@ const UserOrder = () => {
                   </span>
 
                   <p className="text-gray-700 break-all">Order ID: {item?.midtrans_order_id}</p>
-                </p>
+                </div>
                 <div className="text-gray-900 font-bold text-xl mt-4">
                   {capitalize(item?.products[0]?.name)}
                 </div>
@@ -116,16 +116,16 @@ const UserOrder = () => {
 
                 {item?.products.length > 1 && (
                   <Link to={"/order/" + item.id}  className="text-gray-700 text-base font-normal hover:text-orange-800">
-                    + {item?.products.length} other product
+                    + {item?.products.length - 1} other product
                   </Link>
                 )}
 
-                <p className="text-orange-800 flex justify-end mt-10 mb-2 font-semibold">
+                <div className="text-orange-800 flex justify-end mt-10 mb-2 font-semibold">
                     <p className="font-light">
                         Grand Total:  
                     </p>
                     &nbsp;Rp.{item.grand_total}
-                </p>
+                </div>
                 <div className="flex flex-col items-end justify-end items-end flex-1">
                     <Link
                       to={"/order/" + item.id}

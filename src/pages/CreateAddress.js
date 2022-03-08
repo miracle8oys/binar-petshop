@@ -81,12 +81,12 @@ const CreateAddress = () => {
     return ( 
         <div>
             <NavbarLayout />
-            <div className="flex justify-center bg-orange-50">
-                <div className="w-[70vw] md:w-[50vw] border border-slate-400 my-12 px-5 pt-4 shadow-2xl">
+            <div className="flex justify-center bg-orange-50 w-full">
+                <div className="w-full sm:w-[70vw] md:w-[50vw] border border-slate-400 my-12 px-3 sm:px-5 pt-4 shadow-2xl">
                     <div className="flex justify-center mt-3">
                         <h1 className="text-2xl font-semibold">ADD ADDRESS</h1>
                     </div>
-                    <form onSubmit={handleSubmit} encType="multipart/form-data" className="grid my-12 gap-3 md:gap-3">
+                    <form onSubmit={handleSubmit} encType="multipart/form-data" className="grid my-12 gap-3 overflow-x-auto">
                     {
                         !!cityCheck ? <p className="text-red-600">Province and city fields are mandatory</p> : ""
                     }
@@ -109,7 +109,7 @@ const CreateAddress = () => {
                         <label className="text-gray-700 ml-2">Address</label>
                         <input onChange={(e) => setAddress(e.target.value)} className="border-2 h-12 rounded-md pl-2" type="text" placeholder="Address..." required/>
                         <div className="flex justify-center mt-4">
-                            <button type="submit" className="btn bg-slate-200 py-3 self-center w-28 rounded-md font-bold border border-slate-400 hover:bg-orange-400">Submit</button>
+                            <button type="submit" className="btn bg-orange-200 py-3 self-center w-full sm:w-28 rounded-md font-bold border border-slate-400 hover:bg-orange-400">Submit</button>
                         </div>
                     </form>
                 </div>

@@ -116,7 +116,7 @@ const TopProducts = ({tp}) => {
             </div>
             <div className='font-sans p-2'>
                 <h4 className='md:text-2xl text-sm text-center font-semibold tracking-wide mt-2 text-white h-8'>{capitalizeEachLetter(tp.product_id?.name)}</h4>
-                <p className="text-white mt-2 md:text-sm text-xs text-center">{formatRupiah(tp.product_id?.price)}</p>
+                <p className="text-white mt-2 md:text-base text-xs text-center">{formatRupiah(tp.product_id?.price)}</p>
                 <div className="flex justify-center mt-4">
                     <button type="submit" onClick={() => navigate(`/product/${tp.product_id?.id}`)} className="bg-white hover:bg-gray-200 font-semibold md:w-48 w-32 py-2 rounded-md text-xs md:text-base flex justify-center"> <BsCart3 className="md:mt-1 mx-2"/> Shop now</button>
                 </div>

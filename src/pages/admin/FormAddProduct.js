@@ -108,13 +108,13 @@ const AddProduct = () =>{
     return(
         <div className="flex flex-col">
             <NavbarLayout/>
-            <div className="flex">
+            <div className="md:flex bg-orange-50">
                 <SidebarLayout />
                 <div className="flex flex-col w-full bg-orange-50">
-                    <div className="flex-grow  my-4 block  w-[70vw] md:w-[50vw] mx-auto rounded-lg shadow-2xl p-2 border border-slate-400 my-10">
+                    <div className="flex-grow block w-full md:w-[70vw] mx-auto rounded-lg shadow-2xl md:p-2 border border-slate-400 my-10">
                         <p className="md:text-2xl text-center font-semibold my-3">ADD PRODUCT</p>
                         <form onSubmit={handleSubmit} encType="multipart/form-data">
-                            <div className="form-group mb-2 px-4">
+                            <div className="form-group mb-2 px-2 md:px-4">
                                 <label className="form-label inline-block my-2">Product Name</label>
                                 <input onChange={(e) => setName(e.target.value)} type="text" className="form-control
                                     block
@@ -133,7 +133,7 @@ const AddProduct = () =>{
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="name"
                                     placeholder="Enter name"/>
                             </div>
-                            <div className="form-group mb-2 px-4">
+                            <div className="form-group mb-2 px-2 md:px-4">
                                 <label className="form-label inline-block my-2">Price</label>
                                 <div className="flex">
                                     <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">Rp</span>
@@ -155,7 +155,7 @@ const AddProduct = () =>{
                                         placeholder="10000"/>
                                 </div>
                             </div>
-                            <div className="form-group mb-2 px-4">
+                            <div className="form-group mb-2 px-2 md:px-4">
                                 <label className="form-label inline-block my-2">Quantity</label>
                                 <input onChange={(e) => setQty(e.target.value)} min={0} type="number" className="form-control
                                     block
@@ -174,7 +174,7 @@ const AddProduct = () =>{
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="qty"
                                     placeholder="Enter quantity"/>
                             </div>
-                            <div className="form-group mb-2 px-4">
+                            <div className="form-group mb-2 px-2 md:px-4">
                                 <label className="form-label inline-block my-2">Weight</label>
                                 <input onChange={(e) => setWeight(e.target.value)} min={0} type="number" step="any" className="form-control
                                     block
@@ -193,7 +193,7 @@ const AddProduct = () =>{
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="weight"
                                     placeholder="Enter weight"/>
                             </div>
-                            <div className="form-group mb-2 px-4">
+                            <div className="form-group mb-2 px-2 md:px-4">
                                 <label  className="form-label inline-block my-2">Sold</label>
                                 <input onChange={(e) => setSold(e.target.value)} min={0} type="number" className="form-control
                                     block
@@ -212,12 +212,12 @@ const AddProduct = () =>{
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="sold"
                                     placeholder="Enter sold"/>
                             </div>
-                            <div className="form-group mb-2 px-4">
+                            <div className="form-group mb-2 px-2 md:px-4">
                                 <label className="form-label inline-block my-2">Tag</label>
                                 <Select isMulti options={optionsTag} value={optionsTag.filter(obj => selectedOption.includes(obj.value))} onChange={handleChange} id="tags"/>
                                 {Object.keys(errMsg).length !== 0 && <p className="text-red-500">{errMsg.message}</p>}
                             </div>
-                            <div className="form-group mb-6 px-4">
+                            <div className="form-group mb-6 px-2 md:px-4">
                                 <label  className="form-label inline-block my-2">Description</label>
                                 <textarea onChange={(e) => setDesc(e.target.value)} className="form-control
                                     block
@@ -253,8 +253,8 @@ const AddProduct = () =>{
                                 {previewImage && <img src={`${previewImage}`} alt="preview-product" className="w-52"/>} 
                             </div>
 
-                            <div className="flex justify-center my-6">
-                                <button type="submit" className="rounded w-40 bg-orange-200 hover:bg-orange-400 p-2 border border-slate-400 rounded-md font-bold">Submit</button>
+                            <div className="flex justify-center my-6 px-2 md:px-0">
+                                <button type="submit" className="rounded w-full md:w-40 bg-orange-200 hover:bg-orange-400 p-2 border border-slate-400 rounded-md font-bold">Submit</button>
                             </div>
                         </form>
                         <div className="flex justify-center">
