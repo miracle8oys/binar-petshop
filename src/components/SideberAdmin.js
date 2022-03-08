@@ -4,6 +4,7 @@ import "../Style/sidebarAdmin.css"
 const SidebarAdmin = () => {
     const menu = [
         {name: "Home", link: "/admin/dashboard"},
+        {name: "Chat", link: "/admin/chat"},
         {name: "Orders", link: "/admin/orders"},
         {name: "Products", link: "/admin/products"},
         {name: "Adoptions", link: "/admin/adopt"},

@@ -78,10 +78,10 @@ const FormCouriers = ({action}) => {
     return (
         <div>
             <NavbarLayout/>
-            <div className="flex bg-orange-50">
+            <div className="md:flex bg-orange-50">
                 <SidebarLayout />
-                <div className="grid justify-center h-max min-h-screen w-full py-10">
-                    <div className="h-fit w-[70vw] md:w-[50vw] border border-slate-400 px-5 pt-4 shadow-2xl">
+                <div className="md:grid justify-center h-max min-h-screen w-full py-10">
+                    <div className="h-fit w-full md:w-[50vw] border border-slate-400 px-3 sm:px-5 pt-4 shadow-2xl">
                         <h1 className="text-center text-2xl font-semibold">{action} COURIER</h1>
                         {Object.keys(errMsg).length !== 0 && <h1 className="bg-slate-200 mt-3 -mb-5 py-2 px-2 text-center rounded-md font-medium">{errMsg.message}</h1>}
                         <form onSubmit={handleSubmit} encType="multipart/form-data" className="grid my-8 gap-3 md:gap-3">
@@ -89,9 +89,8 @@ const FormCouriers = ({action}) => {
                             <input onChange={(e) => setName(e.target.value)} value={name} className="border-2 h-12 rounded-md pl-2" type="text" placeholder="Name..." required/>
                             <label className="text-gray-700 ml-2">Code</label>
                             <input onChange={(e) => setCourier_code(e.target.value)} value={courier_code} className="border-2 h-12 rounded-md pl-2" type="text" placeholder="Code..." required/>
-                            
                             <div className="flex justify-center mt-4">
-                                <button type="submit" className="btn bg-orange-200 py-3 self-center w-40 rounded-md font-bold border border-slate-400 hover:bg-orange-300">Submit</button>
+                                <button type="submit" className="btn bg-orange-200 py-3 self-center w-full md:w-40 rounded-md font-bold border border-slate-400 hover:bg-orange-300">Submit</button>
                             </div>
                         </form>
                     </div>
