@@ -15,6 +15,8 @@ const Checkout = () => {
     const [address, setAddress] = useState([]);
     const [currentAddress, setCurrentAddress] = useState(0);
     const [modal, setModal] = useState(false)
+    const [paymentTriggered, setPaymentTriggered] = useState(false);
+    const [obtainedOrderData, setObtainedOrderData] = useState({});
     // const userData = useSelector(state => state.loginReducer);
 
     const base_url = process.env.REACT_APP_BASE_URL;
@@ -106,35 +108,41 @@ const Checkout = () => {
     }, [address, weight, base_url, userToken])
 
     const handlePayment = () => {
-        if(cart.length === 0){
-            setModal(true)
-            setErrMsg({message: 'You can not payment empty cart. Go to catalog to choose some product!'})
-            return false
-        } else if(currentAddress === 0){
-            setModal(true)
-            setErrMsg({message: 'Your address empty. Do you want to create address?'})
-            return false
-        }else{
-            fetch(`${base_url}/v1/user/order/create`, {
-                method: "POST",
-                headers: {
-                    'Authorization': `${userToken}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    address_id: currentAddress,
-                    shipping_costs: ongkir
-                })
-            })
-            .then(res => res.json())
-            .then(result => {
-                // console.log(result.data.snap_token);
-                const snap_token = result.data.snap_token;
-                window.snap.pay(snap_token);
-            })
-
+        if(paymentTriggered){
+            window.snap.pay(obtainedOrderData.snap_token);
         }
-       
+        else{            
+            if(cart.length === 0){
+                setModal(true)
+                setErrMsg({message: 'You can not payment empty cart. Go to catalog to choose some product!'})
+                return false
+            } else if(currentAddress === 0){
+                setModal(true)
+                setErrMsg({message: 'Your address empty. Do you want to create address?'})
+                return false
+            }else{
+                fetch(`${base_url}/v1/user/order/create`, {
+                    method: "POST",
+                    headers: {
+                        'Authorization': `${userToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        address_id: currentAddress,
+                        shipping_costs: ongkir
+                    })
+                })
+                .then(res => res.json())
+                .then(result => {
+                    // console.log(result.data.snap_token);
+                    const snap_token = result.data.snap_token;
+                    setObtainedOrderData(result.data);
+                    setPaymentTriggered(true);
+                    window.snap.pay(snap_token);
+                })
+
+            }
+        }
     }
 
     
