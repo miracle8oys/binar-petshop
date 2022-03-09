@@ -107,7 +107,7 @@ const Checkout = () => {
 
     }, [address, weight, base_url, userToken])
 
-    const handlePayment = () => {
+    const handlePayment = async () => {
         if(paymentTriggered){
             window.snap.pay(obtainedOrderData.snap_token);
         }
@@ -121,7 +121,7 @@ const Checkout = () => {
                 setErrMsg({message: 'Your address empty. Do you want to create address?'})
                 return false
             }else{
-                fetch(`${base_url}/v1/user/order/create`, {
+                const createOrderResponse = await fetch(`${base_url}/v1/user/order/create`, {
                     method: "POST",
                     headers: {
                         'Authorization': `${userToken}`,
@@ -131,16 +131,20 @@ const Checkout = () => {
                         address_id: currentAddress,
                         shipping_costs: ongkir
                     })
-                })
-                .then(res => res.json())
-                .then(result => {
-                    // console.log(result.data.snap_token);
-                    const snap_token = result.data.snap_token;
-                    setObtainedOrderData(result.data);
-                    setPaymentTriggered(true);
-                    window.snap.pay(snap_token);
-                })
+                });
 
+                const createOrderJSON = await createOrderResponse.json();
+
+                const orderData = createOrderJSON.data;
+
+                setPaymentTriggered(true);
+                setObtainedOrderData(orderData);
+
+                setTimeout(()=>{},2000);
+
+                
+                window.snap.pay(orderData.snap_token);
+                
             }
         }
     }
