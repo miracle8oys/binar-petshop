@@ -114,7 +114,7 @@ const NavbarLayout = () =>{
                                 </div>
                             </div>
                             
-                            <div className={(!!userData?.accessToken ? 'hidden' : "ml-3 2xl:absolute 2xl:-right-64")}>
+                            <div className={(!!userData?.accessToken ? 'hidden' : "ml-3")}>
                                 <NavLink to={'/login'} className="2xl:text-base text-orange-800 hover:bg-orange-100 px-3 py-2 rounded-md text-sm font-bold">Login</NavLink>
                             </div>
                         </div>
