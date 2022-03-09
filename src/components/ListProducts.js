@@ -30,7 +30,7 @@ const formatRupiah = (money) => {
                 <img src={`${prod.product_id?.img}`} alt={prod.product_id?.name} className='w-full md:h-56 h-32 rounded-xl object-cover'/>
             </div>
             <div className='font-sans p-2 2xl:mt-3'>
-                <p className='font-medium text-sm md:text-base 2xl:text-lg h-10  md:h-8 text-slate-700'>{capitalizeEachLetter(prod.product_id?.name)}</p>
+                <p className='font-medium text-sm md:text-base  h-10  md:h-8 text-slate-700'>{capitalizeEachLetter(prod.product_id?.name)}</p>
                 <p className='text-base md:text-lg 2xl:text-xl font-semibold'>{formatRupiah (prod.product_id?.price)}</p>
                 <div className="md:flex text-xs 2xl:text-sm text-slate-500 mb-3 2xl:mb-6">
                     <p className=' md:my-2 my-1'>Stock <span className="text-gray-700"> {prod.product_id?.qty}</span> pcs</p>
@@ -84,11 +84,11 @@ const BestSellerProducts = ({bp}) => {
             </div>
 
             <div className='font-sans p-2  2xl:mt-3'>
-                <div className="flex justify-between h-10 md:h-8">
-                    <p className='font-medium text-sm md:text-base text-white  2xl:text-lg '>{capitalizeEachLetter(bp.product_id?.name)}
+                <div className="flex justify-between h-10 mb-2">
+                    <p className='font-medium text-sm md:text-base text-white '>{capitalizeEachLetter(bp.product_id?.name)}
                        
                     </p>
-                    <span className="inline-block text-sm md:text-base 2xl:text-lg p-1 leading-none text-center whitespace-nowrap  items-center font-bold  text-white rounded ml-2"><AiFillStar/> </span>
+                    <span className="inline-block text-sm md:text-base  p-1 leading-none text-center whitespace-nowrap  items-center font-bold  text-white rounded ml-2"><AiFillStar/> </span>
                 </div>
                 
                 <p className='text-base md:text-lg font-semibold text-white  2xl:text-xl'>{formatRupiah(bp.product_id?.price)}</p>
