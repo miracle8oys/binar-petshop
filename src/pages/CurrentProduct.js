@@ -121,10 +121,11 @@ const CurrentProduct = ({user}) =>{
      }
 
     return (
-        <div className="flex flex-col w-full min-h-screen bg-white">
+        <div className="flex flex-col w-full h-screen bg-white">
             <NavbarLayout user={user}/>
+            <div className="max-w-2xl container mx-auto sm:px-6 lg:max-w-7xl ">
 
-                <div className="container px-6 flex mt-6">
+                <div className="lg:w-4/5 mx-auto flex mt-6">
                     <button type="button" className="font-bold" onClick={() => navigate('/') }>Home</button>
                     <div className="self-center mx-1">
                         <MdNavigateNext /> 
@@ -138,7 +139,7 @@ const CurrentProduct = ({user}) =>{
                 </div>
             
                 <section className="text-gray-700  overflow-hidden my-10 flex-grow">
-                    <div className="container px-5 mx-auto">
+                    {/* <div className="px-5"> */}
                         <div className="lg:w-4/5 mx-auto flex flex-wrap">
                             {/* <button onClick={() => setModal(true)} className="max-h-full lg:w-1/2 w-full z-10 rounded border border-gray-200 opacity-100 hover:bg-gray-100 hover:opacity-50 bg-opacity-90 duration-300 p-2"> 
                                 <img src={`${currProd.product_id?.img}`} alt="Product" className="w-full h-full object-cover object-center "/>
@@ -198,7 +199,7 @@ const CurrentProduct = ({user}) =>{
                             </div>
                         </div>
                         </div>
-                    </div>
+                    {/* </div> */}
                     {
                     modal ?
                (
@@ -262,7 +263,7 @@ const CurrentProduct = ({user}) =>{
                         </div>
                     ) : null }  */}
                 </section>
-                
+            </div>
             <FooterLayout/>
         </div>
     )

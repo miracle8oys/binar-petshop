@@ -37,7 +37,7 @@ const NavbarLayout = () =>{
     return(
         <>
             <nav className="bg-orange-300 bg-opacity-50 shadow-lg">
-                <div className="mx-auto 2xl:mx-2 max-w-7xl 2x:max-w-screen-2xl  px-2 sm:px-6 lg:px-8 ">
+                <div className="mx-auto container  max-w-7xl  px-2 sm:px-6 lg:px-8 ">
                     <div className="relative flex items-center justify-between h-16">
                         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                                 {/* <!-- Mobile menu button--> */}
@@ -68,8 +68,8 @@ const NavbarLayout = () =>{
                                 </div>
                             </div>
                         </div>
-                        <div className="absolute inset-y-0 right-0   flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
-                            <div className={(!!userData?.accessToken ? 'ml-2 flex gap-2 2xl:absolute 2xl:-right-72' : "hidden")}>
+                        <div className="absolute  inset-y-0 right-0 ml-auto flex justify-center items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
+                            <div className={(!!userData?.accessToken ? 'ml-2 flex gap-2 ' : "hidden")}>
                                 <button type="button" className="p-1 rounded-full text-orange-800 hover:text-orange-800 hover:bg-orange-100">
                                     <span className="sr-only">Chat</span>
                                     <NavLink to="/chat" className='text-3xl'><AiFillWechat /></NavLink>
