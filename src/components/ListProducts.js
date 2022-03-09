@@ -1,28 +1,30 @@
-import { useNavigate } from "react-router-dom";
-import {BsCart3} from 'react-icons/bs'
+import { Link, useNavigate } from "react-router-dom";
+import { BsCart3 } from "react-icons/bs";
 // import {FaCrown} from 'react-icons/fa'
-import {AiFillStar} from 'react-icons/ai'
-
+import { AiFillStar } from "react-icons/ai";
+import "../Style/productCard.css";
 
 const capitalizeEachLetter = (string) => {
-    let word = string.toLowerCase().split(' ')
-    for(let i = 0; i < word.length; i++){
-        word[i] = word[i].charAt(0).toUpperCase() + word[i].substring(1)
-    }
-    return word.join(' ')
-}
+  let word = string.toLowerCase().split(" ");
+  for (let i = 0; i < word.length; i++) {
+    word[i] = word[i].charAt(0).toUpperCase() + word[i].substring(1);
+  }
+  return word.join(" ");
+};
 
 // const firstLetter = (string) => {
 //     return  string.charAt(0).toUpperCase() + string.slice(1)
 // }
 
 const formatRupiah = (money) => {
-    return new Intl.NumberFormat('id-ID',
-      { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }
-    ).format(money);
- }
- const ListProducts = ({prod}) => {
-    const navigate = useNavigate();
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+  }).format(money);
+};
+const ListProducts = ({ prod }) => {
+  const navigate = useNavigate();
 
     return ( 
         <>
@@ -41,40 +43,55 @@ const formatRupiah = (money) => {
                     <button type="submit" onClick={() => navigate(`/product/${prod.product_id?.id}`)} className="bg-orange-200 hover:bg-orange-100 font-semibold md:w-48 w-32 py-2 rounded-md text-xs md:text-base flex justify-center"> <BsCart3 className="md:mt-1 mx-2"/> Shop now</button>
                 </div>
             </div>
-           
-
-
         </>
      );
-}
- const HomeListProducts = ({prod}) => {
-    const navigate = useNavigate();
+};
+const HomeListProducts = ({ prod }) => {
+  const navigate = useNavigate();
 
-    return ( 
-        <>
-            <div>
-                <img src={`${prod.product_id?.img}`} alt={prod.product_id?.name} className='w-full md:h-56 h-32 rounded object-cover'/>
-            </div>
-            <div className='font-sans p-2  2xl:mt-3'>
-                <p className='font-medium text-sm text-slate-700  2xl:text-lg h-10'>{capitalizeEachLetter(prod.product_id?.name)}</p>
-                <p className='text-base md:text-lg font-semibold  2xl:text-xl'>{formatRupiah (prod.product_id?.price)}</p>
-                <div className="md:flex text-xs  2xl:text-sm text-slate-500 mb-3 2xl:mb-6">
-                    <p className=' md:my-2 my-1'>Stock <span className="text-gray-600"> {prod.product_id?.qty}</span> pcs</p>
-                    <p className="md:block hidden mx-1 my-2">|</p>
-                    <p className=' md:my-2'>Sells<span className="text-gray-600"> {prod.product_id?.sold}</span> pcs</p>
-                </div>
-                <div className="flex justify-center">
-                    <button type="submit" onClick={() => navigate(`/product/${prod.product_id?.id}`)} className="bg-slate-300 hover:bg-slate-200 font-semibold md:w-48 w-32 py-2 rounded-md text-xs md:text-base flex justify-center"> <BsCart3 className="md:mt-1 mx-2"/> Shop now</button>
-                </div>
-            </div>
-           
-
-
-        </>
-     );
-}
-const BestSellerProducts = ({bp}) => {
-    const navigate = useNavigate();
+  return (
+    <>
+      <div>
+        <img
+          src={`${prod.product_id?.img}`}
+          alt={prod.product_id?.name}
+          className="w-full md:h-56 h-32 rounded object-cover"
+        />
+      </div>
+      <div className="font-sans p-2  2xl:mt-3">
+        <p className="font-medium text-sm text-slate-700  2xl:text-lg h-10">
+          {capitalizeEachLetter(prod.product_id?.name)}
+        </p>
+        <p className="text-base md:text-lg font-semibold  2xl:text-xl">
+          {formatRupiah(prod.product_id?.price)}
+        </p>
+        <div className="md:flex text-xs  2xl:text-sm text-slate-500 mb-3 2xl:mb-6">
+          <p className=" md:my-2 my-1">
+            Stock <span className="text-gray-600"> {prod.product_id?.qty}</span>{" "}
+            pcs
+          </p>
+          <p className="md:block hidden mx-1 my-2">|</p>
+          <p className=" md:my-2">
+            Sells<span className="text-gray-600"> {prod.product_id?.sold}</span>{" "}
+            pcs
+          </p>
+        </div>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            onClick={() => navigate(`/product/${prod.product_id?.id}`)}
+            className="bg-slate-300 hover:bg-slate-200 font-semibold md:w-48 w-32 py-2 rounded-md text-xs md:text-base flex justify-center"
+          >
+            {" "}
+            <BsCart3 className="md:mt-1 mx-2" /> Shop now
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
+const BestSellerProducts = ({ bp }) => {
+  const navigate = useNavigate();
     return ( 
        
             <>          
@@ -122,10 +139,55 @@ const TopProducts = ({tp}) => {
                 </div>
             </div>
             </> 
-         
-
      );
-}
+};
 
- 
-export{ListProducts,HomeListProducts, BestSellerProducts, TopProducts} ;
+const NewHomeListProducts = ({ prod }) => {
+  return (
+    <div className="w-full ">
+      <Link
+        to={"/product/" + prod.product_id.id}
+        className="c-card h-full block bg-orange-50 shadow-md hover:shadow-xl rounded-lg overflow-hidden"
+      >
+        <div className="relative pb-48 overflow-hidden">
+          <img
+            className="absolute inset-0 h-full w-full object-cover"
+            src={`${prod.product_id.img}`}
+            alt="product"
+          />
+        </div>
+        <div className="p-4">
+          <div>
+            {prod.tags_id.map((tag, index) => (
+              <span key={index} className="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">
+                {tag.name}
+              </span>
+            ))}
+          </div>
+
+          <h2 className="mt-2 mb-2  font-bold">
+            {capitalizeEachLetter(prod.product_id.name)}
+          </h2>
+          <p className="text-sm font-gray-600">
+            Stock: {prod.product_id.qty} pcs | Sold: {prod.product_id.sold} pcs
+          </p>
+          <div className="mt-3 flex items-center justify-end border-t pt-2">
+            <span className="text-base font-semibold">Rp.</span>&nbsp;
+            <span className="font-bold text-xl">
+              {formatRupiah(prod.product_id?.price)}
+            </span>
+            &nbsp;
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
+};
+
+export {
+  ListProducts,
+  NewHomeListProducts,
+  HomeListProducts,
+  BestSellerProducts,
+  TopProducts,
+};

@@ -1,0 +1,8 @@
+.c-card img{
+    transition: transform .3s ease-in-out;
+}
+
+.c-card img:hover{
+    transform: scale(1.05);
+}
+  
