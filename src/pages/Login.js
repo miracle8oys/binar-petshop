@@ -35,8 +35,8 @@ const Login = () => {
     return ( 
         <>
         <NavbarLayout />
-        <div className="grid justify-center py-5 bg-orange-50">
-            <div className="h-fit w-[70vw] md:w-[40vw] border border-slate-400 px-5 shadow-2xl my-8">
+        <div className="sm:grid justify-center py-5 bg-orange-50">
+            <div className="h-fit w-full sm:w-[70vw] md:w-[40vw] border border-slate-400 px-3 sm:px-5 shadow-2xl my-8">
             <h1 className="text-center my-12 font-bold text-2xl">LOGIN</h1>
                 {err &&
                     <div className="text-center bg-slate-200 py-2 rounded-md">
@@ -49,7 +49,7 @@ const Login = () => {
                     <label className="text-gray-700 ml-2">Password</label>
                     <input onChange={(e) => setPassword(e.target.value)} className="border-2 h-12 rounded-md pl-2" type="password" placeholder="Password..." required/>
                     <div className="flex justify-center mt-4">
-                        <button type="submit" className="btn bg-slate-200 py-2 font-bold w-32 rounded-md border border-slate-400 hover:bg-orange-400">Submit</button>
+                        <button type="submit" className="btn bg-orange-200 py-2 font-bold w-full sm:w-32 rounded-md border border-slate-400 hover:bg-orange-400">Login</button>
                     </div>
                 </form>
                 <p className="text-center mt-8 text-blue-400 hover:text-blue-900">
