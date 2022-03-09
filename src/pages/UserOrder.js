@@ -106,7 +106,7 @@ const UserOrder = () => {
                   <p className="text-gray-700 break-all">Order ID: {item?.midtrans_order_id}</p>
                 </div>
                 <div className="text-gray-900 font-bold text-xl mt-4">
-                  {capitalize(item?.products[0]?.name)}
+                  {item?.products[0] && capitalize(item?.products[0]?.name)}
                 </div>
 
                 <p className="text-gray-700 text-base font-medium mb-2">

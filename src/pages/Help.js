@@ -46,13 +46,13 @@ const Help = (user) =>{
 
 
     return (
-        <div className="flex flex-col min-h-screen w-full lg:min-w-full">
+        <div className="flex flex-col h-screen w-full">
             <NavbarLayout user={user}/>
             
-            <div className="flex-grow flef flex-wrap mt-8 pb-6">
-                <div className="mx-auto">
-                <div className="grid md:grid-cols-2  md:ml-12">
-                    <div className="text-3xl px-8 md:px-12 mb-10 md:my-16">
+            <div className="flex-grow max-w-2xl container mx-auto px-8 sm:px-6 lg:max-w-7xl  mt-8 pb-6">
+                <div>
+                <div className="grid md:grid-cols-2">
+                    <div className="text-3xl  mb-10 md:my-16">
                         <h4>Hello, Pet Lovers!</h4>
                         <h4>Do you need any help?</h4>
                         <div className='flex w-full mt-6 md:mt-10 '>
@@ -68,20 +68,20 @@ const Help = (user) =>{
                         </div>
                         
                     </div>
-                    <div className="hidden md:flex justify-center items-center">
-                        <img src={CallCenter} alt="call-center" className="md:w-32 lg:w-3/5 rounded-lg" />
+                    <div className="hidden md:flex justify-end items-center ">
+                        <img src={CallCenter} alt="call-center" className="w-4/5 rounded-lg" />
                     </div>
                 </div>
                 
                     <div className="h-full qna-box flex-grow md:ml-14">
-                        <h4 className=" px-6 text-center text-slate-700 mb-4 md:mb-0 text-lg md:text-2xl tracking-wide">Frequently Asked</h4>
+                        <h4 className=" px-6  text-center text-slate-700  md:mb-0 text-lg md:text-2xl tracking-wide">Frequently Asked</h4>
                         
-                        <div className="md:flex justify-center">
-                            <div className="md:visible w-96 md:block invisible hidden my-auto">
-                                <img src={QnA} alt="qna-ilustration" className="object-fit "/>
+                        <div className="grid md:grid-cols-2">
+                             <div className="hidden md:flex justify-center items-center">
+                                <img src={QnA} alt="qna-ilustration" className="object-fit md:w-4/5"/>
                             </div>
                 
-                            <div className="rounded-xl shadow md:w-3/5 w-auto mx-4 md:mx-20 bg-white h-fit my-auto">
+                            <div className="rounded-xl shadow  w-auto  bg-white h-fit my-auto pt-8">
 
                                 {filterData.map((item, i) => (
                                     

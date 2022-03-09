@@ -87,10 +87,10 @@ const AdoptCatalog = ({user}) => {
     
 
     return (
-        <> 
-            <div className="flex flex-col min-h-screen w-full bg-orange-100 bg-opacity-25">
-                <NavbarLayout user={user} />
-                <div className='flex container lg:min-w-full md:px-8 px-5  mb-5 mt-10 gap-4 '>
+        <div className="flex flex-col min-h-screen w-full bg-orange-100 bg-opacity-25">
+            <NavbarLayout user={user} />
+            <div className="max-w-2xl container mx-auto  px-4 sm:px-6 lg:max-w-7xl lg:px-8 flex-grow">
+                <div className='flex w-full  mb-5 mt-10 gap-4 '>
                     <div>
                           <button type='button' onClick={()=> setDropDown(!DropdownToggle)} className='shadow items-center gap-2 py-2 px-4 font-semibold hover:bg-orange-50 active:bg-orange-50 focus:bg-orange-50 rounded-md md:text-base text-sm border flex bg-white'> Category<IoIosArrowDropdown/></button>
                             <Transition
@@ -107,23 +107,23 @@ const AdoptCatalog = ({user}) => {
                             </Transition>
                     </div>
                      
-                    <div className='flex w-full shadow'>
-                        <input onChange={(e) => setKeyword(e.target.value)} className="w-full placeholder:italic placeholder:text-slate-400 bg-white border border-orange-300 rounded-md py-2 pl-7 pr-3 shadow-sm focus:outline-none focus:border-orange-100 focus:ring-orange-500 focus:ring-1 text-sm" placeholder="Search pet..." type="text" name="search"/>
+                    <div className='flex w-full h-fit '>
+                        <input onChange={(e) => setKeyword(e.target.value)} className="w-full placeholder:italic placeholder:text-slate-400 bg-white border border-orange-300 rounded-md py-2 pl-7 pr-3 shadow-sm focus:outline-none focus:border-orange-100 focus:ring-orange-500 focus:ring-1 text-sm" placeholder="Search pet..." type="text" name="search"  value={keyword}/>
                         <button className="flex items-center justify-center md:-ml-12 -ml-8  ">
                             <BsSearch/>
                         </button>
                     </div>
                       
                 </div>
-                <div className='w-full lg:min-w-full mb-5  flex-grow md:px-8 px-5'>
+                <div className='w-full mb-5  flex-grow '>
                     <div className="h-fit">
                         <h3 className={Object.keys(errMsg).length !== 0 ? 'hidden' : "font-bold md:text-xl font-display pt-4 mb-4"}>Pet Adoption</h3>
                     </div>
                     <div className="flex flex-wrap">
                         
-                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 lg:gap-6">
+                        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 lg:gap-6">
                             {adoptData.map((item, i) => (
-                                <div key={i} className="w-auto  shadow-lg border-solid border rounded-xl mb-4 bg-white">
+                                <div key={i} className="w-full shadow-lg border-solid border rounded-xl mb-4 bg-white">
                                     <img className="h-48 w-full object-cover"  src={`${item.img}`} alt="item-preview" />
                                     <div className="px-3 my-3">
                                         <p className="font-medium text-lg flex">{capitalizeLetter(item.name)}
@@ -149,9 +149,10 @@ const AdoptCatalog = ({user}) => {
                             <button onClick={() => setPage(current => current + 1)} type="button" className="bg-orange-200 hover:bg-orange-100 border border-1 rounded-md p-2 shadow font-medium">Next Page</button>
                         }
                 </div>
-                <FooterLayout />
             </div>
-        </>
+                <FooterLayout />
+        </div>
+    
      );
 }
  

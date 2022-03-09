@@ -190,9 +190,10 @@ const AdminOrders = () =>{
                                     <td className="text-center px-2 overflow-x-auto">{item.address.address}</td>
                                     <td className="text-center px-2">{item.resi}</td>
                                     <td className="text-center px-2">
-                                        <select onChange={(e) =>{statusChange(JSON.parse(e.target.value))}} value={JSON.stringify({id: item.id, status: item.status})} className="border border-slate-400 h-8 rounded-md ">
+                                        {/* <select onChange={(e) =>{statusChange(JSON.parse(e.target.value))}} value={JSON.stringify({id: item.id, status: item.status})} className="border border-slate-400 h-8 rounded-md ">
                                             {status.map((stat, index) => (<option key={index} value={JSON.stringify({id: item.id, status: stat})}>{stat}</option>))}
-                                        </select>
+                                        </select> */}
+                                        {item.status}
                                     </td>
                                     <td className="py-2 px-2">
                                         <div className="flex justify-center mb-2">

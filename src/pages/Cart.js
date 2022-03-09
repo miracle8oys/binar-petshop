@@ -115,8 +115,8 @@ const Cart = () => {
         <div className="flex flex-col w-full h-screen bg-orange-50 bg-opacity-25">
         <NavbarLayout/>
             
-            <div className="container  min-w-full  my-5 flex-grow ">
-                <div className="md:flex h-full md:mx-10 mx-2 md:gap-4">
+            <div className="max-w-2xl container mx-auto sm:px-6 lg:max-w-7xl  my-5 flex-grow ">
+                <div className="md:flex h-full md:gap-4">
                     <div className="md:w-2/3 py-6 h-96 md:h-full scrollbar overflow-auto">
                         <h1 className="font-semibold text-2xl mb-5">Shopping Cart</h1>
                         <div className="bg-white shadow-md h-fit rounded-lg ">

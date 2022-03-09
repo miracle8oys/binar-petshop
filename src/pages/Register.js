@@ -56,8 +56,8 @@ const Register = () => {
     return ( 
         <>
         <NavbarLayout />
-        <div className="grid justify-center py-5 bg-orange-50">
-            <div className="h-fit w-[70vw] md:w-[40vw] border border-slate-400 px-5 py-8 shadow-2xl my-8">
+        <div className="sm:grid justify-center py-5 bg-orange-50">
+            <div className="h-fit w-full sm:w-[70vw] md:w-[40vw] border border-slate-400 px-3 sm:px-5 py-8 shadow-2xl my-8">
                 <h1 className="text-center text-2xl font-bold">REGISTER</h1>
                 {errMsg && <h1 className="bg-slate-200 mt-3 -mb-5 py-2 px-2 text-center rounded-md font-medium">{errMsg}</h1>}
                 <form onSubmit={handleSubmit} className="grid my-12 gap-3 md:gap-3">
@@ -68,7 +68,7 @@ const Register = () => {
                     <label className="text-gray-700 ml-2">Confirm Password</label>
                     <input onChange={(e) => setConfirmPassword(e.target.value)} className="border-2 h-12 rounded-md pl-2" type="password" placeholder="Confirm Password..." required/>
                     <div className="flex justify-center mt-7">
-                        <button type="submit" className="btn bg-slate-200 py-2 self-center w-28 rounded-md font-bold border border-slate-400 hover:bg-orange-400">Submit</button>
+                        <button type="submit" className="btn bg-orange-200 py-2 self-center w-full sm:w-28 rounded-md font-bold border border-slate-400 hover:bg-orange-400">Submit</button>
                     </div>
                 </form>
                 <div className="flex mt-9">

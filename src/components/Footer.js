@@ -22,7 +22,7 @@ const FooterLayout = ()=>{
     return (
       <footer className="text-center lg:text-left bg-orange-300 bg-opacity-50 text-gray-600">
         <div className="py-10 text-center md:text-left container mx-auto">
-          <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid  md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="">
               <h6
                 className="
@@ -47,7 +47,7 @@ const FooterLayout = ()=>{
               <p className="my-3 font-thin italic md:ml-3 text-slate-900">
               "Love your pet <br/> Make them healthy"
               </p>
-              <div className="grid grid-cols-1 justify-items-start gap-3 ml-3">
+              <div className="grid grid-cols-1 justify-items-center md:justify-items-start gap-3 ml-3">
             <a href="https://web.facebook.com" target="_blank" rel="noreferrer" className="mr-6 text-slate-900 hover:text-orange-500 flex gap-3">
               <svg
                 aria-hidden="true"
