@@ -1,6 +1,6 @@
 import NavbarLayout from "../components/Navbar";
 import FooterLayout from "../components/Footer";
-import ListPet from "../components/ListPet";
+import {NewListPet} from "../components/ListPet";
 import HomePet from "../assets/home-pet.png"
 import Check from "../assets/checkout.png"
 import Tap from "../assets/smartphone.png"
@@ -11,7 +11,7 @@ import Adoption from "../assets/adopt-home.png"
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {BiLinkExternal} from 'react-icons/bi'
-import {HomeListProducts,TopProducts} from '../components/ListProducts'
+import {TopProducts, NewHomeListProducts} from '../components/ListProducts'
 
 const Home = ({user}) => {
 
@@ -210,33 +210,27 @@ const Home = ({user}) => {
                 </div>
             </div>
         </div>
-        <div className="flex-grow w-full h-full bg-slate-100 bg-opacity-75 rounded-md md:px-6 px-2">
-            <h3 className="md:text-2xl text-xl my-4  font-semibold">Some pet we have</h3>
-            <div className="flex flex-wrap ">
-                <div className="grid grid-cols-2 md:grid-cols-5 md:gap-6 gap-2  ">
-                {petList.slice(0,5).map(item => (
-                    <div key={item.id} className="shadow-lg w-auto  border-solid border rounded bg-blue-50 bg-opacity-50">
-                        <ListPet pet ={item}/>
-                    </div>
+        <div className="flex-grow h-full bg-white bg-opacity-75 rounded-md md:px-6 px-2 py-4">
+            <div className="md:flex md:flex-col flex-wrap sm:container mx-auto lg:px-24">
+                <h3 className="md:text-2xl text-xl my-4 font-semibold">Some pet we have</h3>
+                <div className="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 gap-3">
+                {petList.slice(0,5).map((item, i) => (
+                    <NewListPet key={i} pet ={item}/>
                 ))}
 
                 </div>
             </div>
         </div>    
 
-        <div className="flex-grow w-full h-full bg-slate-100 bg-opacity-75  rounded-md md:px-6 px-2">
-            {product?.length !== 0  && <h3 className= "md:text-2xl text-xl mb-5 mt-8  font-semibold ">Products for you</h3>}
-                <div className="md:flex flex-wrap">
-                    <div className="grid grid-cols-2 md:grid-cols-5  gap-2 md:gap-6">
-                     { product?.length !== 0 && product?.slice(0,10).map((item, i) => (
-                        <div key={i} className="w-auto 2xl:w-72 shadow-lg border-solid border rounded-xl mb-4 bg-white">
-                         <Link to={`/product/${item.product_id?.id}`} >
-                            <HomeListProducts key={i} prod={item}/>
-                          </Link>
-                        </div>
+        <div className="flex-grow h-full bg-white bg-opacity-75 rounded-md md:px-6 px-2 py-4">
+            <div className="md:flex md:flex-col flex-wrap sm:container mx-auto lg:px-24">
+                {product?.length !== 0  && <h3 className= "md:text-2xl text-xl mb-5 mt-8  font-semibold ">Products for you</h3>}
+                <div className="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 gap-3 justify-items-stretch">
+                    { product?.length !==0 && product?.slice(0,10).map((item, i) => (
+                        <NewHomeListProducts key={i} prod={item}/>
                     ))}
-                    </div>
                 </div>
+            </div>
         </div>                
         
 
