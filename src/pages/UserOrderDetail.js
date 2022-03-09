@@ -305,7 +305,7 @@ const UserOrderDetail = () => {
                               </div>
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">
-                                  {capitalize(item.name)}
+                                  {item.name && capitalize(item.name)}
                                 </div>
                                 <div className="text-sm text-gray-500">
                                   Rp.{item.price}
